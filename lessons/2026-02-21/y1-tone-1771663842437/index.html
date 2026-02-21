@@ -1,0 +1,359 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌈 神奇的數學探險：兩步驟乘加魔法！✨</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        h1 {
+            color: #ff6347; /* Tomato red */
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #4682b4; /* Steel blue */
+            font-size: 2.2em;
+            margin-top: 40px;
+            border-bottom: 3px solid #add8e6; /* Light blue border */
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        h3 {
+            color: #3cb371; /* Medium sea green */
+            font-size: 1.8em;
+            margin-top: 30px;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: '👉 ';
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        li {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        .interactive-element {
+            background-color: #e0ffff; /* Light cyan */
+            border: 1px dashed #00bfff; /* Deep sky blue */
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+        }
+        .button {
+            background-color: #ffd700; /* Gold */
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+            box-shadow: 0 4px #ccad00;
+        }
+        .button:hover {
+            background-color: #ffec8b;
+        }
+        .input-field {
+            border: 2px solid #aaddff;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            text-align: center;
+            width: 80px;
+            margin: 0 5px;
+        }
+        .choice-button {
+            background-color: #ffe4e1; /* Misty rose */
+            border: 2px solid #ff6347;
+            color: #333;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            display: block;
+            text-align: left;
+        }
+        .choice-button.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        .choice-button.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        .choice-button:hover {
+            background-color: #ffc0cb; /* Pink */
+        }
+        .answer-reveal {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none; /* Will be shown via JS in a real app */
+            text-align: left;
+        }
+        .drag-item {
+            display: inline-block;
+            background-color: #98fb98; /* Pale green */
+            border: 2px solid #3cb371;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: grab;
+            font-weight: bold;
+            font-size: 1.2em;
+            user-select: none; /* Prevents text selection during drag */
+        }
+        .drop-target {
+            display: inline-block;
+            background-color: #add8e6; /* Light blue */
+            border: 2px dashed #4682b4;
+            padding: 8px 20px;
+            margin: 5px;
+            border-radius: 10px;
+            min-width: 50px;
+            min-height: 20px;
+            vertical-align: middle;
+            color: #000;
+        }
+        .tip {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌈 神奇的數學探險：兩步驟乘加魔法！✨</h1>
+
+        <h2>👋 你好呀，小小數學家！</h2>
+        <p>歡迎來到我們的數學遊樂園！今天我們要一起探索一個超有趣的數學魔法——「兩步驟乘加問題」。別擔心，它一點都不難，就像玩積木一樣，一步一步就能完成！準備好了嗎？讓我們一起開始這趟精彩的探險吧！🚀</p>
+
+        <h2>🎯 今天的學習目標：</h2>
+        <p>完成今天的探險後，你將會：</p>
+        <ul>
+            <li>認識什麼是「兩步驟乘加問題」。</li>
+            <li>學會如何把複雜的問題，拆解成兩個簡單的步驟來解決。</li>
+            <li>開心地解決生活中的乘加問題！</li>
+        </ul>
+
+        <h2>第一站：💡 溫故知新——小幫手，你還記得嗎？</h2>
+        <h3>乘法小複習：</h3>
+        <p>小猴子最喜歡吃香蕉了！🍌 一串香蕉有 3 根，如果有 2 串香蕉，總共有幾根呢？</p>
+        <p>
+            算式：3 × 2 = <span id="multiplication-answer-placeholder">?</span>
+        </p>
+        <div class="interactive-element">
+            <button class="button" onclick="document.getElementById('multiplication-answer-placeholder').innerText = '6'; document.getElementById('multiplication-reveal-answer').style.display='block';">點擊揭示答案</button>
+            <p id="multiplication-reveal-answer" class="answer-reveal">答案：6 根。</p>
+        </div>
+
+        <h3>加法小複習：</h3>
+        <p>你今天吃了 5 顆草莓 🍓，妹妹吃了 4 顆草莓，你們一共吃了幾顆草莓呢？</p>
+        <p>
+            算式：5 + 4 = <input type="number" id="addition-fill-in" class="input-field" placeholder="?" onchange="if(this.value == '9') alert('答對了！'); else alert('再想想看喔！');">
+        </p>
+        <div class="interactive-element">
+            <button class="button" onclick="alert('正確答案是 9！');">點擊揭示答案</button>
+            <!-- In a real app, this would be for checking user input -->
+        </div>
+
+        <h3>小提醒：</h3>
+        <p>乘法是把「一樣多」的東西加起來的快方法；加法是把東西合起來！記得這兩個小幫手，等等我們就能變出大魔法喔！🧙‍♀️</p>
+
+        <h2>第二站：🔍 什麼是兩步驟乘加問題？</h2>
+        <p>想像一下，你和媽媽去超市買東西。🛒</p>
+        <p><strong>問題一：</strong> 媽媽買了 3 盒雞蛋，每盒有 6 顆。她還另外買了 2 顆散裝的雞蛋。請問媽媽一共買了幾顆雞蛋呢？🥚</p>
+        <p>哇！這個問題好像有點長，對不對？🤔 它不是只要算乘法，也不是只要算加法，而是要「先乘再加」！這就是「兩步驟乘加問題」！</p>
+        <ul>
+            <li><strong>第一步：</strong> 先算出「3 盒雞蛋」有多少顆。（乘法）</li>
+            <li><strong>第二步：</strong> 再把「總共的盒裝雞蛋」和「散裝雞蛋」加起來。（加法）</li>
+        </ul>
+        <p>看到了嗎？我們把一個大問題，變成了兩個小問題來解決！是不是很有趣呢？✨</p>
+
+        <h2>第三站：👣 拆解問題！一步一步來變魔法！</h2>
+        <p>我們來跟著剛才的雞蛋問題，一步一步來變魔法吧！</p>
+        <p><strong>問題：</strong> 媽媽買了 3 盒雞蛋，每盒有 6 顆。她還另外買了 2 顆散裝的雞蛋。請問媽媽一共買了幾顆雞蛋呢？🥚</p>
+
+        <h3>魔法第一步：先算乘法！🌟</h3>
+        <p>媽媽買了 3 盒雞蛋，每盒有 6 顆。</p>
+        <p>這是要求出「3個6」是多少？</p>
+        <p>
+            算式：6 × 3 = <span id="step1-answer-placeholder">?</span> (顆)
+        </p>
+        <div class="interactive-element">
+            <button class="button" onclick="document.getElementById('step1-answer-placeholder').innerText = '18'; document.getElementById('step1-reveal-answer').style.display='block';">點擊「6 × 3」揭示答案「18」</button>
+            <p id="step1-reveal-answer" class="answer-reveal">所以，3 盒雞蛋總共有 <strong>18 顆</strong>！</p>
+        </div>
+
+        <h3>魔法第二步：再算加法！➕</h3>
+        <p>我們已經知道盒裝雞蛋有 18 顆了。</p>
+        <p>媽媽另外買了 2 顆散裝雞蛋。</p>
+        <p>現在，要把盒裝的雞蛋和散裝的雞蛋合起來！</p>
+        <p>
+            算式：<span class="drop-target" id="drop-target-step2-1" ondragover="event.preventDefault();" ondrop="this.innerText = event.dataTransfer.getData('text/plain');"></span> + <span class="drop-target" id="drop-target-step2-2" ondragover="event.preventDefault();" ondrop="this.innerText = event.dataTransfer.getData('text/plain');"></span> = <span id="step2-answer-placeholder">?</span> (顆)
+        </p>
+        <div class="interactive-element">
+            <p>請拖曳數字到正確的位置：</p>
+            <span class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text/plain', '18');">18</span>
+            <span class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text/plain', '2');">2</span>
+            <button class="button" onclick="document.getElementById('step2-answer-placeholder').innerText = '20'; document.getElementById('step2-reveal-answer').style.display='block';">點擊揭示答案「20」</button>
+            <p id="step2-reveal-answer" class="answer-reveal">太棒了！所以，媽媽一共買了 <strong>20 顆</strong> 雞蛋！</p>
+            <p style="font-size: 0.9em; color: #777;">（實際拖曳功能需搭配JavaScript，這裡為概念示意。）</p>
+        </div>
+
+        <h3>完整算式會這樣寫：</h3>
+        <p>6 × 3 + 2 = 18 + 2 = 20 (顆)</p>
+
+        <h2>第四站：✏️ 動手練習區——一起來闖關！</h2>
+        <p>準備好了嗎？考驗你魔法能力的時候到了！</p>
+
+        <h3>挑戰一：水果大餐！🍎🍊</h3>
+        <p>小明有 2 籃蘋果，每籃有 5 顆。他又從冰箱裡拿出 3 顆柳丁。請問小明總共有幾顆水果呢？</p>
+        <p>
+            第一步：算出蘋果有幾顆？ (5 × <input type="number" id="challenge1-step1-input1" class="input-field" style="width: 50px;" placeholder="?" onchange="checkFillIn(this, 2)"> = <input type="number" id="challenge1-step1-input2" class="input-field" style="width: 50px;" placeholder="?" onchange="checkFillIn(this, 10)">)
+        </p>
+        <p>
+            第二步：算出水果共有幾顆？ (<input type="number" id="challenge1-step2-input1" class="input-field" style="width: 50px;" placeholder="?" onchange="checkFillIn(this, 10)"> + 3 = <input type="number" id="challenge1-step2-input2" class="input-field" style="width: 50px;" placeholder="?" onchange="checkFillIn(this, 13)">)
+        </p>
+        <div class="interactive-element">
+            <button class="button" onclick="document.getElementById('challenge1-reveal-answer').style.display='block';">點擊揭示答案</button>
+            <p id="challenge1-reveal-answer" class="answer-reveal">答案：13 顆</p>
+        </div>
+
+        <h3>挑戰二：鉛筆排排站！✏️</h3>
+        <p>老師準備了 4 盒鉛筆，每盒有 8 枝。結果發現還少了 5 枝，所以又補了 5 枝。請問老師現在總共有幾枝鉛筆呢？</p>
+        <p>完整算式：[互動：選擇題，選出正確算式]</p>
+        <div class="interactive-element">
+            <button class="choice-button" onclick="selectChoice(this, 'challenge2-reveal', false);">A. 8 + 4 + 5 = ?</button>
+            <button class="choice-button" onclick="selectChoice(this, 'challenge2-reveal', true);">B. 8 × 4 + 5 = ?</button>
+            <button class="choice-button" onclick="selectChoice(this, 'challenge2-reveal', false);">C. 8 × 5 + 4 = ?</button>
+            <p id="challenge2-reveal" class="answer-reveal">正確答案：B. 8 × 4 + 5 = 32 + 5 = 37 枝</p>
+        </div>
+
+        <h3>挑戰三：有趣的貼紙！🌟</h3>
+        <p>小華有 3 張貼紙，每張有 7 個小圖案。小美又送給他 6 個小圖案的貼紙。請問小華現在一共有幾個小圖案呢？</p>
+        <p>
+            <div class="interactive-element" style="text-align: center;">
+                <span class="drop-target" id="challenge3-drop-1" ondragover="event.preventDefault();" ondrop="this.innerText = event.dataTransfer.getData('text/plain');"></span> × <span class="drop-target" id="challenge3-drop-2" ondragover="event.preventDefault();" ondrop="this.innerText = event.dataTransfer.getData('text/plain');"></span> + <span class="drop-target" id="challenge3-drop-3" ondragover="event.preventDefault();" ondrop="this.innerText = event.dataTransfer.getData('text/plain');"></span> = <span id="challenge3-result">?</span>
+                <p>請拖曳數字完成算式：</p>
+                <span class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text/plain', '7');">7</span>
+                <span class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text/plain', '3');">3</span>
+                <span class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text/plain', '6');">6</span>
+                <button class="button" onclick="document.getElementById('challenge3-result').innerText = '27'; document.getElementById('challenge3-reveal-answer').style.display='block';">點擊揭示答案</button>
+                <p id="challenge3-reveal-answer" class="answer-reveal">7 × 3 + 6 = 21 + 6 = 27 個</p>
+                <p style="font-size: 0.9em; color: #777;">（實際拖曳功能需搭配JavaScript，這裡為概念示意。）</p>
+            </div>
+        </p>
+
+        <h2>第五站：🏆 挑戰小高手！</h2>
+        <p>你是不是已經變成乘加魔法大師了呢？來挑戰一個稍微難一點的問題吧！</p>
+        <p><strong>問題：</strong> 麵包店做了 5 盤菠蘿麵包，每盤有 6 個。賣掉了 10 個後，還剩下幾個菠蘿麵包呢？</p>
+        <div class="interactive-element">
+            <button class="button" onclick="document.getElementById('expert-tip').style.display='block';">點擊「提示」可以獲得第一步的引導</button>
+            <p id="expert-tip" class="tip">提示：先算一共做了幾個麵包，再算剩下幾個喔！</p>
+            <p>請在這裡輸入你的兩步驟算式和答案：</p>
+            <input type="text" class="input-field" style="width: 80%;" placeholder="例如：6 × 5 - 10 = ?" onchange="if(this.value.includes('6') && this.value.includes('5') && this.value.includes('10') && this.value.includes('20')) alert('哇！你答對了！'); else alert('再檢查一下算式和答案喔！');">
+            <button class="button" onclick="document.getElementById('expert-answer').style.display='block';">看解答</button>
+            <div id="expert-answer" class="answer-reveal">
+                <p>第一步：6 × 5 = 30 (個)</p>
+                <p>第二步：30 - 10 = 20 (個)</p>
+                <p>完整算式：6 × 5 - 10 = 30 - 10 = 20 (個)</p>
+                <p>這個問題是「乘減問題」，也是兩步驟問題喔！棒棒！👍</p>
+            </div>
+        </div>
+
+        <h2>學習小總結：📖</h2>
+        <p>今天我們學會了「兩步驟乘加問題」！</p>
+        <ul>
+            <li>遇到長長的應用題，不要怕！</li>
+            <li>先想想裡面有沒有「一樣多」的東西？如果有，就先用乘法算出來。</li>
+            <li>算完乘法後，再看看是還要「合起來」 (加法)，還是「拿走一些」 (減法)？</li>
+            <li>一步一步慢慢算，你就是最棒的數學家！💯</li>
+        </ul>
+
+        <h2>老師小提醒：💖</h2>
+        <p>數學就像玩遊戲，多練習就會越來越厲害！平常看到生活中的數字，也可以試著想想看，能不能變成有趣的乘加問題喔！下次見！👋</p>
+        <p style="text-align: right; font-size: 0.9em; color: #777;">網頁設計師 Kevin 於 2026-02-21 製作</p>
+    </div>
+
+    <script>
+        // 為了模擬點擊揭示答案，以下JavaScript將會顯示隱藏的答案區塊
+        // 在真實網頁中，這些會是更複雜的互動邏輯
+
+        function revealAnswer(elementId) {
+            document.getElementById(elementId).style.display = 'block';
+        }
+
+        function checkFillIn(inputElement, correctAnswer) {
+            if (inputElement.value == correctAnswer) {
+                alert('答對了！🎉');
+            } else if (inputElement.value !== '') {
+                alert('再想想看喔！🤔');
+            }
+        }
+
+        function selectChoice(button, revealId, isCorrect) {
+            // Reset styles for all buttons in the same group (assuming they are siblings)
+            Array.from(button.parentNode.children).forEach(child => {
+                if (child.classList.contains('choice-button')) {
+                    child.classList.remove('correct', 'incorrect');
+                }
+            });
+
+            // Apply style to the clicked button
+            if (isCorrect) {
+                button.classList.add('correct');
+                alert('答對了！你真棒！🥳');
+            } else {
+                button.classList.add('incorrect');
+                alert('再想想看喔！😅');
+            }
+
+            // Reveal the answer if it's the correct one or if a general reveal is intended
+            if (isCorrect || revealId) {
+                revealAnswer(revealId);
+            }
+        }
+    </script>
+</body>
+</html>
+```
