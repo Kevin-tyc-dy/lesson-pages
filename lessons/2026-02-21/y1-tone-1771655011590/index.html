@@ -1,0 +1,749 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國小五年級數學：分數加法大挑戰！ - Kevin 設計</title>
+    <!-- 為了讓網頁更美觀，這裡會連結到您的CSS樣式表 -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- 為了讓網頁有互動功能，這裡會連結到您的JavaScript檔案 -->
+    <!-- <script src="script.js" defer></script> -->
+    <style>
+        /* 這裡放一些基本的CSS樣式，讓內容看起來更像一個網頁 */
+        body {
+            font-family: '微軟正黑體', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff; /* 淡藍色背景 */
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #6495ed; /* 康乃馨藍 */
+            margin-bottom: 30px;
+        }
+        header h1 {
+            color: #4169e1; /* 皇家藍 */
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        header h2 {
+            color: #36648b; /* 鋼鐵藍 */
+            font-size: 1.6em;
+            margin-top: 0;
+        }
+        .intro-text {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            text-align: justify;
+            background-color: #e0f7fa; /* 淺青色背景 */
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #00bcd4; /* 青色邊框 */
+        }
+        .learning-goals ul {
+            list-style-type: '🚀 '; /* 自定義項目符號 */
+            padding-left: 25px;
+            font-size: 1.05em;
+            margin-bottom: 30px;
+        }
+        .learning-goals ul li {
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #2e8b57; /* 海洋綠 */
+            font-size: 2.2em;
+            border-bottom: 2px solid #a2cd5a; /* 橄欖綠 */
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+        }
+        h3 {
+            color: #5f9ea0; /* 青銅色 */
+            font-size: 1.6em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .visual-aid img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #add8e6; /* 淺藍色邊框 */
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .example, .interactive-exercise, .challenge-problem, .summary-section {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .example h4, .interactive-exercise h4 {
+            color: #b8860b; /* 金色 */
+            font-size: 1.3em;
+            margin-top: 0;
+        }
+        .step-list ol {
+            padding-left: 25px;
+        }
+        .step-list li {
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .feedback {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .button {
+            display: inline-block;
+            background-color: #6495ed;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #4169e1;
+        }
+        input[type="text"], input[type="number"], select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+        .self-assessment ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .self-assessment ul li {
+            background-color: #e6e6fa; /* 薰衣草色 */
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .self-assessment ul li input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.5); /* 放大核取方塊 */
+        }
+        .challenge-game-desc {
+            background-color: #fffacd; /* 檸檬綢色 */
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #ffd700; /* 金色邊框 */
+            margin-top: 20px;
+        }
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            header h2 {
+                font-size: 1.2em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            h3 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>國小五年級數學：分數加法大挑戰！</h1>
+            <h2>一起輕鬆學會分數加法的奧秘！</h2>
+            <p class="intro-text">
+                哈囉，親愛的小小數學家們！我是Kevin老師，今天我們要一起踏上一場分數的奇妙旅程！你是不是也曾經跟朋友分享披薩，卻不知道怎麼精準地算出你們一共吃了多少呢？或者在幫忙做點心時，搞不清楚兩種食材加起來到底有幾份？別擔心！分數加法就是我們的超級英雄，它能幫助我們解決這些生活中的小難題！準備好了嗎？讓我們一起來探索分數加法的有趣世界吧！
+            </p>
+
+            <div class="learning-goals">
+                <h3>🚀 完成這個單元後，你將能：</h3>
+                <ul>
+                    <li>理解什麼是同分母分數，並學會輕鬆相加。</li>
+                    <li>認識什麼是「通分」和「等值分數」，並知道它們有多重要！</li>
+                    <li>學會計算異分母分數的加法，再複雜也不怕！</li>
+                    <li>將分數加法的結果化成最簡分數，讓答案更漂亮。</li>
+                    <li>遇到假分數時，能把它變成帶分數。</li>
+                    <li>運用分數加法解決生活中的實際問題！</li>
+                </ul>
+            </div>
+        </header>
+
+        <main>
+            <section id="unit1">
+                <h2>單元一：同分母分數加法 (分母一樣，好簡單！)</h2>
+                
+                <h3>概念解釋</h3>
+                <p>
+                    想像一下，你和你的好朋友有兩個一模一樣的披薩，每個都切成8片。你吃了 <span style="font-weight: bold; color: #d62828;">3/8</span> 個披薩，朋友吃了 <span style="font-weight: bold; color: #f77f00;">2/8</span> 個披薩。你們一共吃了多少個披薩呢？這就是同分母分數加法的問題！
+                </p>
+                <p>
+                    當分數的分母一樣時，就像是我們在計算相同大小的「份數」。分母代表總共有幾等份，分子代表你擁有其中的幾份。所以，我們只要把「分子」加起來，分母保持不變，因為總等份數並沒有改變喔！
+                </p>
+                <div class="visual-aid">
+                    <!-- 這裡會顯示圓餅圖或分數條的視覺圖形 -->
+                    <img src="https://via.placeholder.com/600x200/ADD8E6/000000?text=視覺輔助：3/8圓餅圖+%2B+2/8圓餅圖" alt="圖示：展示3/8的圓餅圖與2/8的圓餅圖相加後，得到5/8的圓餅圖，分母都是8。">
+                    <p style="text-align: center; font-style: italic; color: #555;">看！只要把紅色的3份和橘色的2份加起來，總共就是5份，分母還是8份喔！</p>
+                </div>
+
+                <h3>步驟說明</h3>
+                <div class="step-list">
+                    <ol>
+                        <li><strong>確認分母：</strong> 檢查兩個分數的分母是不是一樣的。</li>
+                        <li><strong>分子相加：</strong> 把兩個分數的分子直接相加。</li>
+                        <li><strong>分母不變：</strong> 加完後，分母仍然保持不變。</li>
+                        <li><strong>結果化簡：</strong> 如果答案是假分數，要變成帶分數；如果可以約分，要約成最簡分數喔！</li>
+                    </ol>
+                </div>
+
+                <h3>範例練習</h3>
+                <div class="example">
+                    <h4>範例一：簡單相加</h4>
+                    <p>問題： <strong>1/5 + 2/5 = ?</strong></p>
+                    <div class="visual-aid">
+                        <img src="https://via.placeholder.com/400x150/B0E0E6/000000?text=視覺輔助：1/5長條圖+%2B+2/5長條圖" alt="圖示：展示1/5的分數條和2/5的分數條相加。">
+                    </div>
+                    <p>圖形輔助解釋：想像一條被分成5等份的巧克力棒。你先拿走了1份，再拿走了2份。你總共拿走了幾份呢？</p>
+                    <p>計算過程：</p>
+                    <ul>
+                        <li>分母都是 5，一樣！</li>
+                        <li>分子相加：1 + 2 = 3</li>
+                        <li>分母不變：所以是 3/5</li>
+                    </ul>
+                    <p>最終答案：<strong>1/5 + 2/5 = 3/5</strong></p>
+                </div>
+
+                <div class="example">
+                    <h4>範例二：結果需化簡</h4>
+                    <p>問題： <strong>3/6 + 1/6 = ?</strong></p>
+                    <p>圖形輔助解釋：一個被分成6等份的蛋糕，你吃了3份，又吃了1份。共吃了幾份？</p>
+                    <p>計算過程：</p>
+                    <ul>
+                        <li>分母都是 6，一樣！</li>
+                        <li>分子相加：3 + 1 = 4</li>
+                        <li>分母不變：所以是 4/6</li>
+                        <li>化簡：4/6 可以約分喔！分子分母同除以 2，變成 2/3。</li>
+                    </ul>
+                    <p>最終答案：<strong>3/6 + 1/6 = 4/6 = 2/3</strong></p>
+                </div>
+
+                <div class="example">
+                    <h4>範例三：結果為假分數</h4>
+                    <p>問題： <strong>4/7 + 5/7 = ?</strong></p>
+                    <p>圖形輔助解釋：一共有7個格子，先塗色4格，再塗色5格，總共塗色了多少格？（會超過一條喔！）</p>
+                    <p>計算過程：</p>
+                    <ul>
+                        <li>分母都是 7，一樣！</li>
+                        <li>分子相加：4 + 5 = 9</li>
+                        <li>分母不變：所以是 9/7</li>
+                        <li>化成帶分數：9 除以 7 等於 1 餘 2，所以是 1又2/7。</li>
+                    </ul>
+                    <p>最終答案：<strong>4/7 + 5/7 = 9/7 = 1又2/7</strong></p>
+                </div>
+
+                <h3>互動練習區</h3>
+                <div class="interactive-exercise">
+                    <h4>挑戰你的小腦袋！</h4>
+                    <p>請算出答案並填入正確的數字，答案需為最簡分數或帶分數喔！</p>
+                    <form id="unit1-quiz">
+                        <p>1. <strong>2/9 + 4/9 = ?</strong>
+                            <input type="text" id="q1_num" placeholder="分子" size="5"> /
+                            <input type="text" id="q1_den" placeholder="分母" size="5">
+                            <span class="feedback" id="q1_feedback"></span>
+                        </p>
+                        <p>2. <strong>5/12 + 3/12 = ?</strong>
+                            <input type="text" id="q2_num" placeholder="分子" size="5"> /
+                            <input type="text" id="q2_den" placeholder="分母" size="5">
+                            <span class="feedback" id="q2_feedback"></span>
+                        </p>
+                        <p>3. <strong>7/10 + 6/10 = ?</strong> (請寫出帶分數並化簡喔！例如：1又1/2)
+                            <input type="text" id="q3_whole" placeholder="整數" size="5"> 又
+                            <input type="text" id="q3_num" placeholder="分子" size="5"> /
+                            <input type="text" id="q3_den" placeholder="分母" size="5">
+                            <span class="feedback" id="q3_feedback"></span>
+                        </p>
+                        <button type="button" class="button" onclick="checkUnit1Answers()">檢查答案</button>
+                        <button type="button" class="button" onclick="showUnit1Hints()">提示</button>
+                        <p id="unit1_overall_feedback" class="feedback"></p>
+                    </form>
+                    <script>
+                        // 這裡應該是實際的JavaScript程式碼來處理答案檢查和回饋
+                        function checkUnit1Answers() {
+                            let correctCount = 0;
+                            // Q1
+                            const q1_num = document.getElementById('q1_num').value;
+                            const q1_den = document.getElementById('q1_den').value;
+                            if (q1_num === '2' && q1_den === '3') { // 6/9 = 2/3
+                                document.getElementById('q1_feedback').className = 'feedback correct';
+                                document.getElementById('q1_feedback').textContent = '答對了！太棒了！';
+                                correctCount++;
+                            } else {
+                                document.getElementById('q1_feedback').className = 'feedback incorrect';
+                                document.getElementById('q1_feedback').textContent = '答錯了，再想想看喔！別忘了化簡！';
+                            }
+                            // Q2
+                            const q2_num = document.getElementById('q2_num').value;
+                            const q2_den = document.getElementById('q2_den').value;
+                            if (q2_num === '2' && q2_den === '3') { // 8/12 = 2/3
+                                document.getElementById('q2_feedback').className = 'feedback correct';
+                                document.getElementById('q2_feedback').textContent = '答對了！真厲害！';
+                                correctCount++;
+                            } else {
+                                document.getElementById('q2_feedback').className = 'feedback incorrect';
+                                document.getElementById('q2_feedback').textContent = '答錯了，請再試一次！有沒有忘記化簡呢？';
+                            }
+                            // Q3
+                            const q3_whole = document.getElementById('q3_whole').value;
+                            const q3_num = document.getElementById('q3_num').value;
+                            const q3_den = document.getElementById('q3_den').value;
+                            if (q3_whole === '1' && q3_num === '3' && q3_den === '10') { // 13/10 = 1又3/10
+                                document.getElementById('q3_feedback').className = 'feedback correct';
+                                document.getElementById('q3_feedback').textContent = '完美！挑戰成功！';
+                                correctCount++;
+                            } else {
+                                document.getElementById('q3_feedback').className = 'feedback incorrect';
+                                document.getElementById('q3_feedback').textContent = '答錯了，別灰心！記得先加分子，再變成帶分數喔！';
+                            }
+
+                            if (correctCount === 3) {
+                                document.getElementById('unit1_overall_feedback').className = 'feedback correct';
+                                document.getElementById('unit1_overall_feedback').textContent = '恭喜你！同分母分數加法全部答對了！真是太棒了！';
+                            } else if (correctCount > 0) {
+                                document.getElementById('unit1_overall_feedback').className = 'feedback incorrect';
+                                document.getElementById('unit1_overall_feedback').textContent = `你答對了 ${correctCount} 題，再努力一下，你可以全部答對的！`;
+                            } else {
+                                document.getElementById('unit1_overall_feedback').className = 'feedback incorrect';
+                                document.getElementById('unit1_overall_feedback').textContent = '需要再加強練習喔！再看一次上面的解釋吧！';
+                            }
+                        }
+
+                        function showUnit1Hints() {
+                            alert("提示：\n1. 分子相加，分母不變。\n2. 答案如果是假分數，要變成帶分數。\n3. 如果可以約分，一定要約到最簡喔！");
+                        }
+                    </script>
+                </div>
+            </section>
+
+            <section id="unit2">
+                <h2>單元二：異分母分數加法 (分母不同，怎麼辦？)</h2>
+
+                <h3>引入概念</h3>
+                <p>
+                    哇，同分母分數加法對你來說根本是小意思！但如果現在換成：你喝了 <span style="font-weight: bold; color: #4b0082;">1/2</span> 杯牛奶，你的妹妹喝了 <span style="font-weight: bold; color: #8a2be2;">1/3</span> 杯牛奶。你們一共喝了多少牛奶呢？
+                </p>
+                <p>
+                    等等，這次分母不一樣耶！一個是2，一個是3。就像一塊披薩切兩半，另一塊切三份，每份的大小都不一樣，直接把分子加起來（1+1=2）是沒有意義的！這時候，我們就需要一個神奇的魔法：「<strong>通分</strong>」！
+                </p>
+                <div class="visual-aid">
+                    <img src="https://via.placeholder.com/600x200/FFDAB9/000000?text=視覺輔助：1/2長條圖+與+1/3長條圖比較" alt="圖示：展示1/2分數條和1/3分數條，顯示它們的份數大小不同，無法直接相加。">
+                    <p style="text-align: center; font-style: italic; color: #555;">看，1/2比1/3大，直接加起來會很奇怪對不對？</p>
+                </div>
+
+                <h3>等值分數與通分</h3>
+                <p>
+                    在學習通分之前，我們要先認識「<strong>等值分數</strong>」。等值分數就是分數的數值大小雖然一樣，但是分子和分母看起來卻不同。
+                </p>
+                <p>
+                    <strong>怎麼找到等值分數呢？</strong> 只要把分數的分子和分母同時乘以（或除以）同一個不是0的數，就可以得到它的等值分數了！
+                    例如：1/2 = (1x2)/(2x2) = 2/4；1/2 = (1x3)/(2x3) = 3/6。
+                </p>
+                <div class="visual-aid">
+                    <img src="https://via.placeholder.com/500x150/F0F8FF/000000?text=視覺輔助：等值分數圖示 (1/2=2/4=3/6)" alt="圖示：展示1/2、2/4、3/6的分數條長度一樣，證明它們是等值分數。">
+                </div>
+
+                <p>
+                    現在回到「<strong>通分</strong>」！通分的目的就是要把不同分母的分數，變成相同分母的等值分數，這樣我們就可以像單元一那樣輕鬆加減了！這個共同的分母，通常我們會找兩個分母的「<strong>最小公倍數 (LCM)</strong>」。
+                </p>
+                <p>
+                    <strong>小複習：什麼是最小公倍數 (LCM)？</strong>
+                    就是兩個數共同的倍數中最小的那一個。
+                    例如：2 和 3 的最小公倍數是 6 (2x1=2, 2x2=4, 2x3=6...；3x1=3, 3x2=6...)
+                    例如：4 和 6 的最小公倍數是 12 (4, 8, <span style="font-weight: bold; color: #ff4500;">12</span>, 16...；6, <span style="font-weight: bold; color: #ff4500;">12</span>, 18...)
+                </p>
+
+                <h3>步驟說明</h3>
+                <div class="step-list">
+                    <ol>
+                        <li><strong>找出公分母：</strong> 找出兩個分數分母的最小公倍數 (LCM)，這就是新的公分母。</li>
+                        <li><strong>化為等值分數：</strong> 將每個分數都變成以這個公分母為分母的等值分數。</li>
+                        <li><strong>同分母相加：</strong> 現在它們分母一樣了！將分子相加，分母不變。</li>
+                        <li><strong>結果化簡：</strong> 最後，別忘了把答案化成最簡分數，如果是假分數要變成帶分數喔！</li>
+                    </ol>
+                </div>
+
+                <h3>範例練習</h3>
+                <div class="example">
+                    <h4>範例一：分母互為倍數</h4>
+                    <p>問題： <strong>1/2 + 1/4 = ?</strong></p>
+                    <p>圖形/文字解說：2和4的最小公倍數是4。所以把1/2變成以4為分母的等值分數。</p>
+                    <p>計算過程：</p>
+                    <ul>
+                        <li>分母 2 和 4 的最小公倍數是 4。</li>
+                        <li>將 1/2 通分：1/2 = (1x2)/(2x2) = 2/4。</li>
+                        <li>現在變成 2/4 + 1/4</li>
+                        <li>分子相加：2 + 1 = 3</li>
+                        <li>分母不變：所以是 3/4。</li>
+                    </ul>
+                    <p>最終答案：<strong>1/2 + 1/4 = 3/4</strong></p>
+                </div>
+
+                <div class="example">
+                    <h4>範例二：分母互質</h4>
+                    <p>問題： <strong>1/3 + 2/5 = ?</strong></p>
+                    <p>圖形/文字解說：3和5的最小公倍數是15 (因為它們互質，直接相乘)。</p>
+                    <p>計算過程：</p>
+                    <ul>
+                        <li>分母 3 和 5 的最小公倍數是 15。</li>
+                        <li>將 1/3 通分：1/3 = (1x5)/(3x5) = 5/15。</li>
+                        <li>將 2/5 通分：2/5 = (2x3)/(5x3) = 6/15。</li>
+                        <li>現在變成 5/15 + 6/15</li>
+                        <li>分子相加：5 + 6 = 11</li>
+                        <li>分母不變：所以是 11/15。</li>
+                    </ul>
+                    <p>最終答案：<strong>1/3 + 2/5 = 11/15</strong></p>
+                </div>
+
+                <div class="example">
+                    <h4>範例三：結果為假分數需化為帶分數</h4>
+                    <p>問題： <strong>3/4 + 2/3 = ?</strong></p>
+                    <p>圖形/文字解說：4和3的最小公倍數是12。</p>
+                    <p>計算過程：</p>
+                    <ul>
+                        <li>分母 4 和 3 的最小公倍數是 12。</li>
+                        <li>將 3/4 通分：3/4 = (3x3)/(4x3) = 9/12。</li>
+                        <li>將 2/3 通分：2/3 = (2x4)/(3x4) = 8/12。</li>
+                        <li>現在變成 9/12 + 8/12</li>
+                        <li>分子相加：9 + 8 = 17</li>
+                        <li>分母不變：所以是 17/12。</li>
+                        <li>化成帶分數：17 除以 12 等於 1 餘 5，所以是 1又5/12。</li>
+                    </ul>
+                    <p>最終答案：<strong>3/4 + 2/3 = 17/12 = 1又5/12</strong></p>
+                </div>
+
+                <div class="example">
+                    <h4>範例四：結果需化簡</h4>
+                    <p>問題： <strong>1/6 + 3/8 = ?</strong></p>
+                    <p>圖形/文字解說：6和8的最小公倍數是24。</p>
+                    <p>計算過程：</p>
+                    <ul>
+                        <li>分母 6 和 8 的最小公倍數是 24。</li>
+                        <li>將 1/6 通分：1/6 = (1x4)/(6x4) = 4/24。</li>
+                        <li>將 3/8 通分：3/8 = (3x3)/(8x3) = 9/24。</li>
+                        <li>現在變成 4/24 + 9/24</li>
+                        <li>分子相加：4 + 9 = 13</li>
+                        <li>分母不變：所以是 13/24。</li>
+                        <li>13/24 已經是最簡分數了！</li>
+                    </ul>
+                    <p>最終答案：<strong>1/6 + 3/8 = 13/24</strong></p>
+                </div>
+
+                <h3>互動練習區</h3>
+                <div class="interactive-exercise">
+                    <h4>異分母分數大挑戰！</h4>
+                    <p>請算出答案並填入正確的數字，記得化成最簡分數或帶分數喔！</p>
+                    <form id="unit2-quiz">
+                        <p>1. <strong>1/3 + 1/6 = ?</strong>
+                            <input type="text" id="u2q1_num" placeholder="分子" size="5"> /
+                            <input type="text" id="u2q1_den" placeholder="分母" size="5">
+                            <span class="feedback" id="u2q1_feedback"></span>
+                        </p>
+                        <p>2. <strong>2/5 + 1/4 = ?</strong>
+                            <input type="text" id="u2q2_num" placeholder="分子" size="5"> /
+                            <input type="text" id="u2q2_den" placeholder="分母" size="5">
+                            <span class="feedback" id="u2q2_feedback"></span>
+                        </p>
+                        <p>3. <strong>5/6 + 1/2 = ?</strong> (化為帶分數)
+                            <input type="text" id="u2q3_whole" placeholder="整數" size="5"> 又
+                            <input type="text" id="u2q3_num" placeholder="分子" size="5"> /
+                            <input type="text" id="u2q3_den" placeholder="分母" size="5">
+                            <span class="feedback" id="u2q3_feedback"></span>
+                        </p>
+                        <p>4. <strong>3/10 + 2/15 = ?</strong>
+                            <input type="text" id="u2q4_num" placeholder="分子" size="5"> /
+                            <input type="text" id="u2q4_den" placeholder="分母" size="5">
+                            <span class="feedback" id="u2q4_feedback"></span>
+                        </p>
+                        <button type="button" class="button" onclick="checkUnit2Answers()">檢查答案</button>
+                        <button type="button" class="button" onclick="showUnit2Hints()">提示</button>
+                        <p id="unit2_overall_feedback" class="feedback"></p>
+                    </form>
+                    <script>
+                        function checkUnit2Answers() {
+                            let correctCount = 0;
+                            // Q1: 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2
+                            if (document.getElementById('u2q1_num').value === '1' && document.getElementById('u2q1_den').value === '2') {
+                                document.getElementById('u2q1_feedback').className = 'feedback correct';
+                                document.getElementById('u2q1_feedback').textContent = '答對了！';
+                                correctCount++;
+                            } else {
+                                document.getElementById('u2q1_feedback').className = 'feedback incorrect';
+                                document.getElementById('u2q1_feedback').textContent = '答錯了，檢查一下公分母和化簡！';
+                            }
+                            // Q2: 2/5 + 1/4 = 8/20 + 5/20 = 13/20
+                            if (document.getElementById('u2q2_num').value === '13' && document.getElementById('u2q2_den').value === '20') {
+                                document.getElementById('u2q2_feedback').className = 'feedback correct';
+                                document.getElementById('u2q2_feedback').textContent = '答對了！';
+                                correctCount++;
+                            } else {
+                                document.getElementById('u2q2_feedback').className = 'feedback incorrect';
+                                document.getElementById('u2q2_feedback').textContent = '答錯了，最小公倍數找對了嗎？';
+                            }
+                            // Q3: 5/6 + 1/2 = 5/6 + 3/6 = 8/6 = 1又2/6 = 1又1/3
+                            if (document.getElementById('u2q3_whole').value === '1' && document.getElementById('u2q3_num').value === '1' && document.getElementById('u2q3_den').value === '3') {
+                                document.getElementById('u2q3_feedback').className = 'feedback correct';
+                                document.getElementById('u2q3_feedback').textContent = '答對了！';
+                                correctCount++;
+                            } else {
+                                document.getElementById('u2q3_feedback').className = 'feedback incorrect';
+                                document.getElementById('u2q3_feedback').textContent = '答錯了，變成帶分數時別忘了化簡！';
+                            }
+                            // Q4: 3/10 + 2/15 = 9/30 + 4/30 = 13/30
+                            if (document.getElementById('u2q4_num').value === '13' && document.getElementById('u2q4_den').value === '30') {
+                                document.getElementById('u2q4_feedback').className = 'feedback correct';
+                                document.getElementById('u2q4_feedback').textContent = '答對了！';
+                                correctCount++;
+                            } else {
+                                document.getElementById('u2q4_feedback').className = 'feedback incorrect';
+                                document.getElementById('u2q4_feedback').textContent = '答錯了，公分母找對了嗎？10和15的LCM是30！';
+                            }
+
+                            if (correctCount === 4) {
+                                document.getElementById('unit2_overall_feedback').className = 'feedback correct';
+                                document.getElementById('unit2_overall_feedback').textContent = '哇！你已經是異分母分數加法的高手了！好棒！';
+                            } else if (correctCount > 0) {
+                                document.getElementById('unit2_overall_feedback').className = 'feedback incorrect';
+                                document.getElementById('unit2_overall_feedback').textContent = `你答對了 ${correctCount} 題，再加油練習，你一定可以全部搞定的！`;
+                            } else {
+                                document.getElementById('unit2_overall_feedback').className = 'feedback incorrect';
+                                document.getElementById('unit2_overall_feedback').textContent = '異分母分數加法比較難一點點，多看看前面的範例，你會成功的！';
+                            }
+                        }
+
+                        function showUnit2Hints() {
+                            alert("提示：\n1. 第一步是找出分母的「最小公倍數」。\n2. 把每個分數都變成「等值分數」，讓分母變成最小公倍數。\n3. 然後就跟同分母分數加法一樣了！");
+                        }
+                    </script>
+                </div>
+            </section>
+
+            <section id="unit3">
+                <h2>單元三：綜合應用與挑戰 (變身分數小達人！)</h2>
+
+                <h3>混合練習</h3>
+                <p>現在你已經掌握了同分母和異分母分數加法的所有技巧！來做一些混合練習，驗收你的學習成果吧！</p>
+                <div class="challenge-problem">
+                    <p>1. <strong>2/7 + 3/7 = ?</strong> （答案格式：分子/分母）</p>
+                    <input type="text" id="mix_q1_num" placeholder="分子" size="5"> /
+                    <input type="text" id="mix_q1_den" placeholder="分母" size="5">
+                    <span class="feedback" id="mix_q1_feedback"></span>
+                </div>
+                <div class="challenge-problem">
+                    <p>2. <strong>1/4 + 1/8 = ?</strong> （答案格式：分子/分母）</p>
+                    <input type="text" id="mix_q2_num" placeholder="分子" size="5"> /
+                    <input type="text" id="mix_q2_den" placeholder="分母" size="5">
+                    <span class="feedback" id="mix_q2_feedback"></span>
+                </div>
+                <div class="challenge-problem">
+                    <p>3. <strong>2/3 + 3/5 = ?</strong> （答案格式：整數又分子/分母）</p>
+                    <input type="text" id="mix_q3_whole" placeholder="整數" size="5"> 又
+                    <input type="text" id="mix_q3_num" placeholder="分子" size="5"> /
+                    <input type="text" id="mix_q3_den" placeholder="分母" size="5">
+                    <span class="feedback" id="mix_q3_feedback"></span>
+                </div>
+                <div class="challenge-problem">
+                    <p>4. <strong>5/9 + 2/3 = ?</strong> （答案格式：整數又分子/分母）</p>
+                    <input type="text" id="mix_q4_whole" placeholder="整數" size="5"> 又
+                    <input type="text" id="mix_q4_num" placeholder="分子" size="5"> /
+                    <input type="text" id="mix_q4_den" placeholder="分母" size="5">
+                    <span class="feedback" id="mix_q4_feedback"></span>
+                </div>
+                <button type="button" class="button" onclick="checkMixAnswers()">檢查所有混合練習</button>
+                <p id="mix_overall_feedback" class="feedback"></p>
+
+                <script>
+                    function checkMixAnswers() {
+                        let correctCount = 0;
+                        // Q1: 2/7 + 3/7 = 5/7
+                        if (document.getElementById('mix_q1_num').value === '5' && document.getElementById('mix_q1_den').value === '7') {
+                            document.getElementById('mix_q1_feedback').className = 'feedback correct';
+                            document.getElementById('mix_q1_feedback').textContent = '正確！'; correctCount++;
+                        } else { document.getElementById('mix_q1_feedback').className = 'feedback incorrect'; document.getElementById('mix_q1_feedback').textContent = '再試一次！'; }
+                        // Q2: 1/4 + 1/8 = 2/8 + 1/8 = 3/8
+                        if (document.getElementById('mix_q2_num').value === '3' && document.getElementById('mix_q2_den').value === '8') {
+                            document.getElementById('mix_q2_feedback').className = 'feedback correct';
+                            document.getElementById('mix_q2_feedback').textContent = '正確！'; correctCount++;
+                        } else { document.getElementById('mix_q2_feedback').className = 'feedback incorrect'; document.getElementById('mix_q2_feedback').textContent = '再試一次！'; }
+                        // Q3: 2/3 + 3/5 = 10/15 + 9/15 = 19/15 = 1又4/15
+                        if (document.getElementById('mix_q3_whole').value === '1' && document.getElementById('mix_q3_num').value === '4' && document.getElementById('mix_q3_den').value === '15') {
+                            document.getElementById('mix_q3_feedback').className = 'feedback correct';
+                            document.getElementById('mix_q3_feedback').textContent = '正確！'; correctCount++;
+                        } else { document.getElementById('mix_q3_feedback').className = 'feedback incorrect'; document.getElementById('mix_q3_feedback').textContent = '再試一次！'; }
+                        // Q4: 5/9 + 2/3 = 5/9 + 6/9 = 11/9 = 1又2/9
+                        if (document.getElementById('mix_q4_whole').value === '1' && document.getElementById('mix_q4_num').value === '2' && document.getElementById('mix_q4_den').value === '9') {
+                            document.getElementById('mix_q4_feedback').className = 'feedback correct';
+                            document.getElementById('mix_q4_feedback').textContent = '正確！'; correctCount++;
+                        } else { document.getElementById('mix_q4_feedback').className = 'feedback incorrect'; document.getElementById('mix_q4_feedback').textContent = '再試一次！'; }
+
+                        if (correctCount === 4) {
+                            document.getElementById('mix_overall_feedback').className = 'feedback correct';
+                            document.getElementById('mix_overall_feedback').textContent = '太厲害了！混合練習全部通過！你真的是分數小達人！';
+                        } else {
+                            document.getElementById('mix_overall_feedback').className = 'feedback incorrect';
+                            document.getElementById('mix_overall_feedback').textContent = `你答對了 ${correctCount} 題。沒關係，再檢查一下步驟，你會越做越好的！`;
+                        }
+                    }
+                </script>
+
+                <h3>生活應用題</h3>
+                <p>分數在生活中無處不在！試試看解決這些小問題吧！</p>
+                <div class="challenge-problem">
+                    <h4>問題一：製作蛋糕</h4>
+                    <p>媽媽在做蛋糕時，先用了 <strong>1/2</strong> 杯麵粉，後來發現不夠，又加了 <strong>1/4</strong> 杯麵粉。媽媽一共用了多少杯麵粉？</p>
+                    <p>答案（格式：分子/分母）：
+                        <input type="text" id="app_q1_num" placeholder="分子" size="5"> /
+                        <input type="text" id="app_q1_den" placeholder="分母" size="5">
+                        <span class="feedback" id="app_q1_feedback"></span>
+                    </p>
+                </div>
+                <div class="challenge-problem">
+                    <h4>問題二：閱讀時間</h4>
+                    <p>Kevin 昨天讀了一本書的 <strong>2/5</strong>，今天又讀了 <strong>3/10</strong>。請問 Kevin 兩天一共讀了這本書的幾分之幾？</p>
+                    <p>答案（格式：分子/分母）：
+                        <input type="text" id="app_q2_num" placeholder="分子" size="5"> /
+                        <input type="text" id="app_q2_den" placeholder="分母" size="5">
+                        <span class="feedback" id="app_q2_feedback"></span>
+                    </p>
+                </div>
+                <button type="button" class="button" onclick="checkAppAnswers()">檢查應用題答案</button>
+                <p id="app_overall_feedback" class="feedback"></p>
+
+                <script>
+                    function checkAppAnswers() {
+                        let correctCount = 0;
+                        // Q1: 1/2 + 1/4 = 2/4 + 1/4 = 3/4
+                        if (document.getElementById('app_q1_num').value === '3' && document.getElementById('app_q1_den').value === '4') {
+                            document.getElementById('app_q1_feedback').className = 'feedback correct';
+                            document.getElementById('app_q1_feedback').textContent = '非常棒！生活問題也難不倒你！'; correctCount++;
+                        } else { document.getElementById('app_q1_feedback').className = 'feedback incorrect'; document.getElementById('app_q1_feedback').textContent = '想想看公分母是多少呢？'; }
+                        // Q2: 2/5 + 3/10 = 4/10 + 3/10 = 7/10
+                        if (document.getElementById('app_q2_num').value === '7' && document.getElementById('app_q2_den').value === '10') {
+                            document.getElementById('app_q2_feedback').className = 'feedback correct';
+                            document.getElementById('app_q2_feedback').textContent = '完全正確！你把數學用在生活上了！'; correctCount++;
+                        } else { document.getElementById('app_q2_feedback').className = 'feedback incorrect'; document.getElementById('app_q2_feedback').textContent = '是不是通分時有算錯呢？'; }
+
+                        if (correctCount === 2) {
+                            document.getElementById('app_overall_feedback').className = 'feedback correct';
+                            document.getElementById('app_overall_feedback').textContent = '恭喜你！所有應用題都完美解決了！';
+                        } else {
+                            document.getElementById('app_overall_feedback').className = 'feedback incorrect';
+                            document.getElementById('app_overall_feedback').textContent = `你答對了 ${correctCount} 題，再努力一下，生活中的分數加法對你來說會很簡單的！`;
+                        }
+                    }
+                </script>
+
+                <h3>趣味小挑戰：分數迷宮！</h3>
+                <div class="challenge-game-desc">
+                    <p>
+                        這是一個特別的分數迷宮！你會從起點出發，每個方格上都會有一個分數加法題目。你需要算出題目的答案，並選擇正確的答案方向（上、下、左、右）前進。只有選擇正確答案，你才能走出迷宮喔！
+                    </p>
+                    <p>
+                        例如：如果你在 (1/2 + 1/4) 的格子，答案是 3/4。如果往右的格子寫著 3/4，你就可以往右走！
+                    </p>
+                    <p style="font-weight: bold; color: #ff6347;">（此處為遊戲情境描述，實際遊戲互動需透過JavaScript和CSS實現）</p>
+                    <button class="button" onclick="alert('想像一下，一個充滿分數加法題目的迷宮在你眼前展開！選擇正確的路徑，才能找到出口喔！')">開始挑戰分數迷宮！</button>
+                </div>
+            </section>
+
+            <section id="summary">
+                <h2>學習總結與回顧 (我是分數大師！)</h2>
+
+                <h3>重點整理</h3>
+                <div class="summary-section">
+                    <ul>
+                        <li><strong>同分母分數加法：</strong> 分母一樣時，直接把分子相加，分母不變。記得要化簡！</li>
+                        <li><strong>異分母分數加法：</strong>
+                            <ol>
+                                <li><strong>第一步：通分！</strong> 找出兩個分母的「最小公倍數」當作新的公分母。</li>
+                                <li><strong>第二步：變身！</strong> 把每個分數都變成新的「等值分數」。</li>
+                                <li><strong>第三步：相加！</strong> 變成同分母後，就跟同分母分數加法一樣，分子相加，分母不變。</li>
+                                <li><strong>第四步：化簡！</strong> 最後，將答案化成最簡分數，如果是假分數要變成帶分數。</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3>常見錯誤提醒</h3>
+                <div class="summary-section">
+                    <p style="color: #ff4500; font-weight: bold;">❌ 小心這些錯誤喔！</p>
+                    <ul>
+                        <li><strong>分母直接相加：</strong> ❌ 1/2 + 1/3 不等於 (1+1)/(2+3) = 2/5！ (這是錯的喔！)</li>
+                        <li><strong>未化簡分數：</strong> 忘記把答案約分到最簡，或假分數未變成帶分數。</li>
+                        <li><strong>通分時分子分母沒有同乘：</strong> 變成等值分數時，分子和分母要同時乘以相同的數喔！</li>
+                        <li><strong>找錯公分母：</strong> 最小公倍數很重要！多練習找 LCM 吧！</li>
+                    </ul>
+                </div>
+
+                <h3>「我學會了！」清單</h3>
+                <div class="summary-section self-assessment">
+                    <p>太棒了！你已經完成所有課程了！勾選你已經掌握的技能，看看你多棒！</p>
+                    <ul>
+                        <li><input type="checkbox" id="skill1"> 我能理解同分母分數加法，並正確計算。</li>
+                        <li><input type="checkbox" id="skill2"> 我知道什麼是等值分數和通分。</li>
+                        <li><input type="checkbox" id="skill3"> 我能找到兩個數的最小公倍數。</li>
+                        <li><input type="checkbox" id="skill4"> 我能正確計算異分母分數加法。</li>
+                        <li><input type="checkbox" id="skill5"> 我能將分數加法結果化為最簡分數。</li>
+                        <li><input type="checkbox" id="skill6"> 我能將假分數化為帶分數。</li>
+                        <li><input type="checkbox" id="skill7"> 我能運用分數加法解決生活問題。</li>
+                    </ul>
+                    <p style="text-align: center; margin-top: 20px; font-size: 1.2em; color: #4169e1; font-weight: bold;">
+                        恭喜你！Kevin 老師為你感到驕傲！你現在是分數加法大師了！
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
+```
