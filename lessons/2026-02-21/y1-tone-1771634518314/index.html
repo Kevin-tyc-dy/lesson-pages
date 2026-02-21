@@ -1,0 +1,110 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國小四年級分數加法教學互動網頁</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .input-box {
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>分數加法教學</h1>
+        <p>歡迎來到國小四年級分數加法教學網頁！讓我們來學習如何計算兩個分數的和。</p>
+        
+        <div class="input-box">
+            <label for="fraction1">第一個分數：</label>
+            <input type="text" id="fraction1" placeholder="例如 1/3">
+        </div>
+        
+        <div class="input-box">
+            <label for="fraction2">第二個分數：</label>
+            <input type="text" id="fraction2" placeholder="例如 1/4">
+        </div>
+
+        <button onclick="addFractions()">計算</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function addFractions() {
+            const frac1 = document.getElementById('fraction1').value.split('/');
+            const frac2 = document.getElementById('fraction2').value.split('/');
+
+            if (frac1.length !== 2 || frac2.length !== 2) {
+                document.getElementById('result').innerText = '請輸入正確的分數格式！';
+                return;
+            }
+
+            const numerator1 = parseInt(frac1[0]);
+            const denominator1 = parseInt(frac1[1]);
+            const numerator2 = parseInt(frac2[0]);
+            const denominator2 = parseInt(frac2[1]);
+
+            if (!numerator1 || !denominator1 || !numerator2 || !denominator2) {
+                document.getElementById('result').innerText = '請輸入有效的分數！';
+                return;
+            }
+
+            const commonDenominator = denominator1 * denominator2;
+            const newNumerator1 = numerator1 * denominator2;
+            const newNumerator2 = numerator2 * denominator1;
+
+            const resultNumerator = newNumerator1 + newNumerator2;
+            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+            const resultGCD = gcd(resultNumerator, commonDenominator);
+
+            const simplifiedNumerator = resultNumerator / resultGCD;
+            const simplifiedDenominator = commonDenominator / resultGCD;
+
+            document.getElementById('result').innerText = `結果：${simplifiedNumerator}/${simplifiedDenominator}`;
+        }
+    </script>
+</body>
+
+</html>
+```
