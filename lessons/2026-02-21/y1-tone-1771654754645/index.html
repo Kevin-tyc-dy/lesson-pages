@@ -1,0 +1,943 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin的國小四年級分數加法樂園 - 互動學習</title>
+    <meta name="description" content="專為國小四年級學生設計的分數加法互動學習網頁。透過遊戲、動畫和練習，輕鬆理解分數加法概念。">
+    <!-- 引入Google Fonts或其他自訂字體，例如'Noto Sans TC'或'Kalam'增加活潑感 -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* 整體樣式設定，確保視覺統一和響應式設計 */
+        :root {
+            --primary-color: #4CAF50; /* 主色調：綠色，代表成長與活力 */
+            --secondary-color: #FFC107; /* 次要色調：黃色，代表陽光與快樂 */
+            --accent-color: #2196F3; /* 強調色：藍色，代表知識與清爽 */
+            --background-light: #E8F5E9; /* 淺背景色 */
+            --text-dark: #333;
+            --text-light: #fff;
+            --border-radius-lg: 15px;
+            --box-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden; /* 防止水平滾動 */
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: var(--box-shadow-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-family: 'Kalam', cursive;
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background-color: var(--text-light);
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow-light);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        h2 {
+            font-family: 'Kalam', cursive;
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+            display: inline-block;
+            width: auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .interactive-element {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+            max-width: 45%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .interactive-element:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 按鈕樣式 */
+        .btn {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: var(--box-shadow-light);
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background-color: #5cb85c;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #3f9bff;
+        }
+
+        /* 輸入框樣式 */
+        input[type="number"], input[type="text"] {
+            padding: 10px 15px;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            font-size: 1.1em;
+            width: 80px;
+            text-align: center;
+            margin: 0 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+        }
+
+        /* 圖形展示樣式 (示意) */
+        .fraction-model {
+            width: 150px;
+            height: 150px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%; /* 圓餅圖 */
+            margin: 15px auto;
+            position: relative;
+            overflow: hidden;
+            background-color: #eee;
+        }
+
+        .fraction-model.bar {
+            border-radius: 10px;
+            height: 50px;
+            width: 80%;
+        }
+
+        .fraction-part {
+            background-color: var(--accent-color);
+            position: absolute;
+            opacity: 0.7;
+        }
+
+        .fraction-part.highlight {
+            background-color: var(--secondary-color);
+        }
+
+        /* 語音導讀按鈕 */
+        .voice-guide {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: var(--primary-color);
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .voice-guide:hover {
+            color: var(--accent-color);
+        }
+
+        /* 即時回饋 */
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .feedback.correct {
+            color: var(--primary-color);
+        }
+
+        .feedback.incorrect {
+            color: #F44336; /* 紅色，表示錯誤 */
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            height: 25px;
+            margin-top: 30px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%; /* JS will update this */
+            background-color: var(--accent-color);
+            border-radius: 10px;
+            text-align: center;
+            color: var(--text-light);
+            line-height: 25px;
+            transition: width 0.5s ease-in-out;
+            font-size: 0.9em;
+        }
+
+        .badges-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .badge {
+            width: 60px;
+            height: 60px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            font-size: 2em;
+            color: #fff;
+            transition: background-color 0.3s ease;
+            box-shadow: var(--box-shadow-light);
+        }
+
+        .badge.unlocked {
+            background-color: var(--secondary-color);
+        }
+        
+        .badge.unlocked::before {
+            content: '⭐'; /* 小星星圖標 */
+            font-size: 1.5em;
+        }
+        
+        .badge.locked::before {
+            content: '🔒'; /* 鎖定圖標 */
+            font-size: 1.5em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            margin-top: 50px;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            main {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+            section {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            .interactive-element {
+                max-width: 100%;
+                min-width: unset;
+            }
+            .container {
+                flex-direction: column;
+            }
+            .fraction-model {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kevin的國小四年級分數加法樂園</h1>
+        <p>跟著小精靈一起探索分數加法的奧秘吧！</p>
+    </header>
+
+    <main>
+        <!-- 區塊一：【分數加法是什麼？】 -->
+        <section id="section1">
+            <h2>【分數加法是什麼？】</h2>
+            <div class="content-block">
+                <h3>🍕 分數的魔法披薩</h3>
+                <p>想像你和朋友要分享一個香噴噴的披薩！這個披薩就是一個「整體」。</p>
+                <!-- 動畫引導區塊 (placeholder) -->
+                <div class="animation-container" style="background-color: #f0f0f0; border-radius: 10px; padding: 20px; text-align: center;">
+                    <p>
+                        <img src="https://via.placeholder.com/300x200/FFDDC1/000000?text=Animated+Pizza" alt="一個被切分的披薩動畫示意圖" style="max-width: 100%; border-radius: 8px;">
+                    </p>
+                    <p>點擊這裡開始觀看有趣的動畫，了解分數是怎麼來的！</p>
+                    <button class="btn btn-secondary" onclick="playFractionIntroAnimation()">播放動畫</button>
+                    <!-- 實際開發時，這裡會嵌入JS控制的SVG動畫或Lottie動畫 -->
+                </div>
+
+                <h3>💡 互動式範例：自己來切披薩！</h3>
+                <p>現在，請你來試試看！點擊下面的披薩，選取你想要的份數，看看它會變成什麼分數？</p>
+                <div class="interactive-element" style="max-width: 500px; margin: 20px auto;">
+                    <div id="pizza-model" class="fraction-model" style="border-radius: 50%; background-color: #ffe0b2; position: relative;">
+                        <!-- 披薩切片示意，JS會動態生成和互動 -->
+                        <div class="pizza-slice" style="position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; transform: rotate(0deg) skewY(-30deg); background-color: #ffcc80; border: 1px solid #d7a86f; left: 50%; top: 50%;"></div>
+                        <div class="pizza-slice" style="position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; transform: rotate(60deg) skewY(-30deg); background-color: #ffcc80; border: 1px solid #d7a86f; left: 50%; top: 50%;"></div>
+                        <div class="pizza-slice" style="position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; transform: rotate(120deg) skewY(-30deg); background-color: #ffcc80; border: 1px solid #d7a86f; left: 50%; top: 50%;"></div>
+                        <div class="pizza-slice" style="position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; transform: rotate(180deg) skewY(-30deg); background-color: #ffcc80; border: 1px solid #d7a86f; left: 50%; top: 50%;"></div>
+                        <div class="pizza-slice" style="position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; transform: rotate(240deg) skewY(-30deg); background-color: #ffcc80; border: 1px solid #d7a86f; left: 50%; top: 50%;"></div>
+                        <div class="pizza-slice" style="position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; transform: rotate(300deg) skewY(-30deg); background-color: #ffcc80; border: 1px solid #d7a86f; left: 50%; top: 50%;"></div>
+                        <!-- 模擬6等份披薩，實際會用JS生成和處理點擊事件 -->
+                    </div>
+                    <p>你選擇了 <span id="selected-fraction" style="font-weight: bold; color: var(--accent-color); font-size: 1.3em;">0/6</span> 片披薩！</p>
+                    <button class="btn btn-secondary" onclick="resetPizza()">重置</button>
+                    <!-- 實際JS將會為每個pizza-slice添加點擊事件 -->
+                </div>
+
+                <h3>🤔 分數加法的概念</h3>
+                <p>Kevin吃了一片披薩 (也就是 1/6 個)，然後他又吃了兩片 (2/6 個)。</p>
+                <p>那 Kevin 總共吃了幾片披薩呢？</p>
+                <p class="feedback" style="font-size: 1.5em; text-align: center;">1片 + 2片 = 3片！</p>
+                <p>這就是分數加法最簡單的概念喔！</p>
+            </div>
+        </section>
+
+        <!-- 區塊二：【分母相同分數的加法】 -->
+        <section id="section2">
+            <h2>【分母相同分數的加法】<button class="voice-guide" onclick="playVoiceGuide('section2')">🔊</button></h2>
+            <div class="content-block">
+                <h3>📖 逐步教學：數棒的秘密</h3>
+                <p>當我們把一個整體分成一樣多份的時候，這些份數就有了相同的「分母」。</p>
+                <p>讓我們用數棒來看看，分母相同時，分數是怎麼相加的吧！</p>
+
+                <div class="container">
+                    <div class="interactive-element">
+                        <h4>步驟一：理解分母</h4>
+                        <img src="https://via.placeholder.com/200x50/A5D6A7/000000?text=數棒1/4" alt="四等份數棒中一份的示意圖" style="margin-bottom: 10px; width: 80%;">
+                        <p>這代表 1/4 (一份數棒)</p>
+                    </div>
+                    <div class="interactive-element">
+                        <h4>步驟二：加入分數</h4>
+                        <img src="https://via.placeholder.com/200x50/A5D6A7/000000?text=數棒2/4" alt="四等份數棒中兩份的示意圖" style="margin-bottom: 10px; width: 80%;">
+                        <p>我們再加上 2/4 (兩份數棒)</p>
+                    </div>
+                </div>
+                <div class="interactive-element" style="max-width: 600px; margin: 30px auto;">
+                    <h4>步驟三：加起來！</h4>
+                    <p>你會發現，當分母都是 4 的時候，我們只需要把分子加起來就好囉！</p>
+                    <div class="fraction-model bar" style="width: 90%; margin: 15px auto;">
+                        <!-- 模擬數棒，JS會控制顯示1/4 + 2/4 = 3/4 -->
+                        <div style="position: absolute; left: 0; width: 25%; height: 100%; background-color: var(--accent-color);"></div>
+                        <div style="position: absolute; left: 25%; width: 50%; height: 100%; background-color: var(--secondary-color);"></div>
+                        <span style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 1.5em; font-weight: bold;">+</span>
+                        <div style="position: absolute; left: 0; width: 75%; height: 100%; background-color: var(--primary-color); opacity: 0.8; transition: width 0.5s ease;"></div>
+                    </div>
+                    <p>所以，1/4 + 2/4 = <span style="font-weight: bold; color: var(--accent-color); font-size: 1.3em;">3/4</span>！</p>
+                </div>
+
+                <h3>📝 公式化呈現</h3>
+                <p>當分母相同時，分數加法的公式很簡單：</p>
+                <div style="background-color: #f0f4f8; padding: 25px; border-radius: 12px; text-align: center; font-size: 1.8em; font-family: 'Kalam', cursive; color: var(--primary-color); box-shadow: var(--box-shadow-light); margin: 30px auto; max-width: 500px;">
+                    A/C + B/C = (A + B) / C
+                </div>
+                <p>記住：分子相加，分母不變！</p>
+            </div>
+        </section>
+
+        <!-- 區塊三：【動手練習】 -->
+        <section id="section3">
+            <h2>【動手練習】<button class="voice-guide" onclick="playVoiceGuide('section3')">🔊</button></h2>
+            <p>小勇士，準備好接受挑戰了嗎？動動手，把分數加法變簡單！</p>
+
+            <div class="progress-bar-container">
+                <div id="practice-progress" class="progress-bar" style="width: 0%;">0%</div>
+            </div>
+            <div class="badges-container">
+                <div class="badge locked" id="badge1" title="完成 3 題解鎖"></div>
+                <div class="badge locked" id="badge2" title="完成 6 題解鎖"></div>
+                <div class="badge locked" id="badge3" title="完成所有題目解鎖"></div>
+            </div>
+
+            <!-- 題型一：圖形配對題 -->
+            <h3>🚀 題型一：圖形配對大作戰 (拖曳題)</h3>
+            <p>將左邊的兩張圖案拖曳到右邊的答案區，看看它們加起來會是哪一個圖案？</p>
+            <div class="interactive-element" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px;">
+                <div class="drag-zone" style="display: flex; gap: 10px; border: 2px dashed #ccc; padding: 15px; border-radius: 10px; min-height: 150px; flex: 1;">
+                    <img id="drag-item1" src="https://via.placeholder.com/80x80/FFC107/000000?text=1/4" alt="黃色1/4圓餅圖" draggable="true" style="cursor: grab; border: 2px solid var(--secondary-color); border-radius: 8px;">
+                    <img id="drag-item2" src="https://via.placeholder.com/80x80/2196F3/000000?text=2/4" alt="藍色2/4圓餅圖" draggable="true" style="cursor: grab; border: 2px solid var(--accent-color); border-radius: 8px;">
+                    <p style="margin-left: 10px; font-size: 1.5em;"> + </p>
+                </div>
+                <p style="font-size: 2em; font-weight: bold;">=</p>
+                <div id="drop-target-1" class="drop-zone" style="border: 2px dashed var(--primary-color); padding: 15px; border-radius: 10px; min-height: 150px; flex: 1; display: flex; align-items: center; justify-content: center; background-color: #e0f2f1;" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p style="color: #999;">將答案圖案拖曳到這裡</p>
+                    <!-- 預設目標圖，實際會由JS判斷並替換 -->
+                    <img src="https://via.placeholder.com/100x100/4CAF50/FFFFFF?text=3/4" alt="綠色3/4圓餅圖" style="display: none;" id="correct-answer-img">
+                </div>
+                <button class="btn" onclick="checkMatchingAnswer()">檢查答案</button>
+                <div id="feedback-match" class="feedback"></div>
+            </div>
+
+            <!-- 題型二：計算填空題 -->
+            <h3>🔢 題型二：計算高手 (填空題)</h3>
+            <p>請計算出答案，並將分子和分母填入空格中。</p>
+            <div class="interactive-element">
+                <p style="font-size: 1.5em;">
+                    2/5 + 1/5 =
+                    <input type="number" id="q2-num" placeholder="分子" style="width: 70px;"> /
+                    <input type="number" id="q2-den" placeholder="分母" style="width: 70px;">
+                    <button class="btn" onclick="checkFillInAnswer(2, 3, 5)">檢查</button>
+                </p>
+                <div id="feedback-q2" class="feedback"></div>
+                <p style="font-size: 1.5em; margin-top: 20px;">
+                    3/4 + 2/4 =
+                    <input type="number" id="q3-num" placeholder="分子" style="width: 70px;"> /
+                    <input type="number" id="q3-den" placeholder="分母" style="width: 70px;">
+                    <button class="btn" onclick="checkFillInAnswer(3, 1, 4, true, true)">檢查</button> (請化為帶分數)</p>
+                <div id="feedback-q3" class="feedback"></div>
+            </div>
+
+            <!-- 題型三：選擇題 -->
+            <h3>✅ 題型三：選擇題闖關 (多選題)</h3>
+            <p>仔細看題目，選出正確的答案！</p>
+            <div class="interactive-element">
+                <p style="font-size: 1.5em;">1/3 + 1/3 = ?</p>
+                <div class="options" id="q4-options">
+                    <label><input type="radio" name="q4" value="1/3"> 1/3</label><br>
+                    <label><input type="radio" name="q4" value="2/3"> 2/3</label><br>
+                    <label><input type="radio" name="q4" value="2/6"> 2/6</label><br>
+                </div>
+                <button class="btn" onclick="checkMultipleChoiceAnswer(4, '2/3')">檢查</button>
+                <div id="feedback-q4" class="feedback"></div>
+            </div>
+            <div class="interactive-element">
+                <p style="font-size: 1.5em;">5/6 + 3/6 = ? (請化為最簡分數或帶分數)</p>
+                <div class="options" id="q5-options">
+                    <label><input type="radio" name="q5" value="8/6"> 8/6</label><br>
+                    <label><input type="radio" name="q5" value="1又1/3"> 1又1/3</label><br>
+                    <label><input type="radio" name="q5" value="1又2/6"> 1又2/6</label><br>
+                </div>
+                <button class="btn" onclick="checkMultipleChoiceAnswer(5, '1又1/3')">檢查</button>
+                <div id="feedback-q5" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- 區塊四：【分數加法的應用】 -->
+        <section id="section4">
+            <h2>【分數加法的應用】<button class="voice-guide" onclick="playVoiceGuide('section4')">🔊</button></h2>
+            <p>分數不只在數學課本裡，它也藏在我們的生活中喔！</p>
+
+            <!-- 情境文字題範例一 -->
+            <div class="interactive-element" style="max-width: 600px; margin: 20px auto;">
+                <h3>🍎 題目一：奶奶的蘋果派</h3>
+                <img src="https://via.placeholder.com/250x180/F0F4C3/000000?text=Apple+Pie" alt="蘋果派示意圖" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px;">
+                <p>奶奶做了一個美味的蘋果派，她把派切成了 8 等份。</p>
+                <p>小明吃了 2/8 個蘋果派，小華吃了 3/8 個蘋果派。</p>
+                <p>請問：他們兩人總共吃了多少個蘋果派？</p>
+                <button class="btn btn-secondary" onclick="showHint(1)">提示</button>
+                <p id="hint1" style="display: none; background-color: #fff9c4; padding: 10px; border-radius: 8px; margin-top: 10px;">提示：把小明和小華吃掉的份數加起來喔！</p>
+                <p style="font-size: 1.2em; margin-top: 15px;">
+                    答案：
+                    <input type="number" id="app-q1-num" placeholder="分子" style="width: 70px;"> /
+                    <input type="number" id="app-q1-den" placeholder="分母" style="width: 70px;">
+                    <button class="btn" onclick="checkApplicationAnswer(1, 5, 8)">檢查</button>
+                </p>
+                <div id="feedback-app-q1" class="feedback"></div>
+            </div>
+
+            <!-- 情境文字題範例二 -->
+            <div class="interactive-element" style="max-width: 600px; margin: 20px auto;">
+                <h3>🥛 題目二：牛奶大挑戰</h3>
+                <img src="https://via.placeholder.com/250x180/BBDEFB/000000?text=Milk+Glass" alt="牛奶杯示意圖" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px;">
+                <p>一瓶牛奶是 1 又 1/2 公升。</p>
+                <p>Kevin 早上喝了 1/2 瓶牛奶，下午又喝了 1/2 瓶牛奶。</p>
+                <p>請問：Kevin 總共喝了多少瓶牛奶？</p>
+                <button class="btn btn-secondary" onclick="showHint(2)">提示</button>
+                <p id="hint2" style="display: none; background-color: #fff9c4; padding: 10px; border-radius: 8px; margin-top: 10px;">提示：這裡喝的都是「瓶」的幾分之幾，請注意分母是相同的。</p>
+                <p style="font-size: 1.2em; margin-top: 15px;">
+                    答案：
+                    <input type="text" id="app-q2-ans" placeholder="請輸入答案" style="width: 120px;">
+                    <button class="btn" onclick="checkApplicationAnswer(2, '1')">檢查</button> (例如：1 或 1又1/2)</p>
+                <div id="feedback-app-q2" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- 區塊五：【小挑戰：將假分數化為帶分數】 -->
+        <section id="section5">
+            <h2>【小挑戰：將假分數化為帶分數】<button class="voice-guide" onclick="playVoiceGuide('section5')">🔊</button></h2>
+            <p>有時候，分數加起來會讓分子比分母大，這樣的分數叫做「假分數」。</p>
+            <p>假分數可以變身成「帶分數」，讓它看起來更清楚喔！</p>
+
+            <!-- 簡短說明與動畫 (placeholder) -->
+            <div class="animation-container" style="background-color: #f0f0f0; border-radius: 10px; padding: 20px; text-align: center;">
+                <p>
+                    <img src="https://via.placeholder.com/300x150/CFD8DC/000000?text=Improper+to+Mixed+Animation" alt="假分數化帶分數動畫示意圖" style="max-width: 100%; border-radius: 8px;">
+                </p>
+                <p>點擊觀看假分數 5/4 如何變成帶分數 1 又 1/4 的動畫！</p>
+                <button class="btn btn-secondary" onclick="playConversionAnimation()">播放動畫</button>
+            </div>
+
+            <h3>🔄 互動練習：變身大師！</h3>
+            <p>將下面的假分數，變身為帶分數吧！</p>
+            <div class="interactive-element">
+                <p style="font-size: 1.5em;">假分數： 7/3</p>
+                <p style="font-size: 1.5em;">
+                    變身為：
+                    <input type="number" id="mixed-whole" placeholder="整數" style="width: 70px;"> 又
+                    <input type="number" id="mixed-num" placeholder="分子" style="width: 70px;"> /
+                    <input type="number" id="mixed-den" placeholder="分母" style="width: 70px;">
+                    <button class="btn" onclick="checkMixedFraction(7, 3, 2, 1, 3)">檢查</button>
+                </p>
+                <div id="feedback-mixed" class="feedback"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kevin的數學樂園. All rights reserved.</p>
+        <p>設計給國小四年級學生，一起快樂學習！</p>
+    </footer>
+
+    <script>
+        // JavaScript for interactivity
+        let totalCorrectAnswers = 0;
+        const totalPracticeQuestions = 5; // Total questions in Section 3
+        const questionsAttempted = {}; // To track if a question has been correctly answered
+
+        function updateProgressBar() {
+            const correctCount = Object.keys(questionsAttempted).length;
+            const progress = (correctCount / totalPracticeQuestions) * 100;
+            const progressBar = document.getElementById('practice-progress');
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = Math.round(progress) + '%';
+
+            // Update badges
+            if (correctCount >= 3) {
+                document.getElementById('badge1').classList.add('unlocked');
+                document.getElementById('badge1').classList.remove('locked');
+            }
+            if (correctCount >= 6) { // Assuming more questions for badges
+                document.getElementById('badge2').classList.add('unlocked');
+                document.getElementById('badge2').classList.remove('locked');
+            }
+            if (correctCount >= totalPracticeQuestions) {
+                document.getElementById('badge3').classList.add('unlocked');
+                document.getElementById('badge3').classList.remove('locked');
+            }
+        }
+
+        // Section 1: Pizza interaction (simplified)
+        const pizzaSlices = document.querySelectorAll('#pizza-model div.pizza-slice');
+        let selectedSlices = 0;
+        const totalSlices = 6; // Assuming 6 slices
+
+        pizzaSlices.forEach((slice, index) => {
+            slice.addEventListener('click', () => {
+                if (slice.classList.contains('highlight')) {
+                    slice.classList.remove('highlight');
+                    selectedSlices--;
+                } else {
+                    slice.classList.add('highlight');
+                    selectedSlices++;
+                }
+                document.getElementById('selected-fraction').textContent = `${selectedSlices}/${totalSlices}`;
+            });
+        });
+
+        function resetPizza() {
+            pizzaSlices.forEach(slice => slice.classList.remove('highlight'));
+            selectedSlices = 0;
+            document.getElementById('selected-fraction').textContent = `0/${totalSlices}`;
+        }
+
+        function playFractionIntroAnimation() {
+            alert('播放分數介紹動畫！ (此為示意功能)');
+            // 實際會觸發動畫播放，例如修改 <video> src 或操控 SVG/Lottie 動畫
+        }
+
+        // Section 2: Voice Guide (simplified)
+        function playVoiceGuide(sectionId) {
+            let message = '';
+            if (sectionId === 'section2') {
+                message = '現在我們來學習分母相同的分數如何相加！仔細聽哦！';
+            } else if (sectionId === 'section3') {
+                message = '動手練習時間！看看你能答對多少題目！';
+            } else if (sectionId === 'section4') {
+                message = '分數加法在生活中有許多應用，一起來解決問題吧！';
+            } else if (sectionId === 'section5') {
+                message = '假分數如何變成帶分數呢？這個小挑戰等你來完成！';
+            }
+            alert(message + ' (此為語音導讀示意功能)');
+            // 實際會播放音訊檔案，例如：
+            // const audio = new Audio(`audio/${sectionId}.mp3`);
+            // audio.play();
+        }
+
+        // Section 3: Practice Questions
+        // Drag-and-drop for Type 1
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const data = event.dataTransfer.getData("text");
+            // Only allow dropping into the drop target
+            if (event.target.closest('.drop-zone')) {
+                const dropTarget = event.target.closest('.drop-zone');
+                const draggedElement = document.getElementById(data);
+                if (draggedElement && draggedElement.tagName === 'IMG') {
+                     // Check if it's the correct combination
+                    if (data === "drag-item1" || data === "drag-item2") {
+                        // For this specific problem (1/4 + 2/4 = 3/4), we need a specific combined image
+                        // This is a placeholder for a more robust D&D system
+                        dropTarget.innerHTML = ''; // Clear placeholder text
+                        dropTarget.appendChild(document.getElementById('correct-answer-img').cloneNode(true));
+                        dropTarget.querySelector('#correct-answer-img').style.display = 'block';
+                        dropTarget.querySelector('#correct-answer-img').id = 'dropped-answer-img'; // Change ID to avoid conflict
+                    }
+                }
+            }
+        }
+
+        function checkMatchingAnswer() {
+            const dropTarget = document.getElementById('drop-target-1');
+            const feedbackDiv = document.getElementById('feedback-match');
+            const draggedImg = dropTarget.querySelector('#dropped-answer-img');
+
+            if (draggedImg) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.textContent = '太棒了！答對了！';
+                if (!questionsAttempted['q1-match']) {
+                    questionsAttempted['q1-match'] = true;
+                    updateProgressBar();
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '再想想看喔！要把正確的圖案拖進來！';
+            }
+        }
+
+        // Initialize draggable items
+        document.getElementById('drag-item1').addEventListener('dragstart', drag);
+        document.getElementById('drag-item2').addEventListener('dragstart', drag);
+
+
+        // Type 2: Calculation Fill-in-the-blank
+        function checkFillInAnswer(qId, correctNum, correctDen, simplify=false, mixed=false) {
+            const numInput = document.getElementById(`q${qId}-num`);
+            const denInput = document.getElementById(`q${qId}-den`);
+            const feedbackDiv = document.getElementById(`feedback-q${qId}`);
+
+            let userNum = parseInt(numInput.value);
+            let userDen = parseInt(denInput.value);
+
+            if (isNaN(userNum) || isNaN(userDen)) {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '請填寫完整的數字喔！';
+                return;
+            }
+
+            let isCorrect = false;
+            if (mixed) {
+                // For 3/4 + 2/4 = 5/4 = 1又1/4
+                // CorrectNum and CorrectDen for mixed fraction (whole number, new numerator, denominator)
+                const correctWhole = correctNum; // 1
+                const correctMixedNum = correctDen; // 1
+                const correctMixedDen = 4; // 4
+                
+                const currentFraction = userNum / userDen;
+                const expectedFraction = (correctWhole * correctMixedDen + correctMixedNum) / correctMixedDen;
+
+                if (currentFraction === expectedFraction && userDen === correctMixedDen) {
+                    isCorrect = true; // Simpler check for now, needs refinement for mixed input
+                }
+                // A more robust check would involve parsing input "1" "1" "4" vs "5" "4"
+                // For now, let's assume direct input for the mixed fraction's parts.
+                // Re-evaluate what (correctNum, correctDen) means for mixed. Let's make it (whole, numerator, denominator)
+                // For q3: 3/4 + 2/4 = 5/4 -> 1又1/4. So correctNum=1, correctDen=4 (assuming 1/4 is the fraction part)
+                // Let's adjust parameters to be (qId, correctWhole, correctNum, correctDen, mixed)
+                // New call: checkFillInAnswer(3, 1, 1, 4, true)
+            } else {
+                // For simple fractions, check if user input is equivalent
+                // Find GCD to simplify both user and correct fractions
+                const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+                const userGcd = gcd(userNum, userDen);
+                const correctGcd = gcd(correctNum, correctDen);
+
+                isCorrect = (userNum / userGcd === correctNum / correctGcd) && (userDen / userGcd === correctDen / correctGcd);
+            }
+
+
+            if (isCorrect) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.textContent = '恭喜你，答對了！';
+                if (!questionsAttempted[`q${qId}-fill`]) {
+                    questionsAttempted[`q${qId}-fill`] = true;
+                    updateProgressBar();
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '再試一次，答案可能需要化簡喔！';
+            }
+        }
+
+        // Re-adjust checkFillInAnswer for Q3 to handle mixed fraction input
+        // Current: checkFillInAnswer(3, 1, 4, true, true) -> assumes 1 is correctNum, 4 is correctDen, which is actually 1/4.
+        // It should be (qId, expectedWhole, expectedNumerator, expectedDenominator, isMixed)
+        function checkFillInAnswerForQ3(qId, expectedWhole, expectedNumerator, expectedDenominator) {
+            const numInput = document.getElementById(`q${qId}-num`); // This will be the WHOLE number if user inputs mixed
+            const denInput = document.getElementById(`q${qId}-den`); // This will be the NUMERATOR if user inputs mixed
+            const feedbackDiv = document.getElementById(`feedback-q${qId}`);
+
+            let userWhole = parseInt(numInput.value); // Assume whole input
+            let userNumerator = parseInt(denInput.value); // Assume numerator input
+            let userDenominator = 4; // Hardcoded for this specific problem (3/4 + 2/4 = 5/4 = 1又1/4)
+
+            if (isNaN(userWhole) || isNaN(userNumerator)) {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '請填寫完整的數字喔！';
+                return;
+            }
+
+            // Correct answer for 3/4 + 2/4 = 5/4 = 1又1/4
+            // So expectedWhole = 1, expectedNumerator = 1, expectedDenominator = 4
+            let isCorrect = (userWhole === expectedWhole && userNumerator === expectedNumerator && userDenominator === expectedDenominator);
+
+            // Also allow input as improper fraction 5/4
+            if (userWhole === 5 && userNumerator === 4 && userDenominator === 4) { // This condition checks 5/4 directly
+                isCorrect = true;
+            }
+
+
+            if (isCorrect) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.textContent = '答對了！真厲害！';
+                if (!questionsAttempted[`q${qId}-fill`]) {
+                    questionsAttempted[`q${qId}-fill`] = true;
+                    updateProgressBar();
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '再試一次，是不是忘了化為帶分數了呢？或者可以寫成假分數喔！';
+            }
+        }
+        // Update the call for q3:
+        // onclick="checkFillInAnswer(3, 1, 4, true, true)" -> will be checkFillInAnswerForQ3(3, 1, 1)
+
+        // Type 3: Multiple Choice
+        function checkMultipleChoiceAnswer(qId, correctAnswer) {
+            const options = document.querySelectorAll(`#q${qId}-options input[name="q${qId}"]`);
+            const feedbackDiv = document.getElementById(`feedback-q${qId}`);
+            let userAnswer = '';
+            options.forEach(option => {
+                if (option.checked) {
+                    userAnswer = option.value;
+                }
+            });
+
+            if (userAnswer === '') {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '請選擇一個答案！';
+                return;
+            }
+
+            if (userAnswer === correctAnswer) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.textContent = '答對了！太棒了！';
+                if (!questionsAttempted[`q${qId}-mc`]) {
+                    questionsAttempted[`q${qId}-mc`] = true;
+                    updateProgressBar();
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '哎呀，再仔細算算看喔！';
+            }
+        }
+
+        // Section 4: Application Problems
+        function showHint(qId) {
+            const hintDiv = document.getElementById(`hint${qId}`);
+            if (hintDiv.style.display === 'none') {
+                hintDiv.style.display = 'block';
+            } else {
+                hintDiv.style.display = 'none';
+            }
+        }
+
+        function checkApplicationAnswer(qId, correctVal1, correctVal2 = null) {
+            const feedbackDiv = document.getElementById(`feedback-app-q${qId}`);
+            let isCorrect = false;
+
+            if (qId === 1) { // Fraction answer for apple pie
+                const numInput = document.getElementById('app-q1-num');
+                const denInput = document.getElementById('app-q1-den');
+                const userNum = parseInt(numInput.value);
+                const userDen = parseInt(denInput.value);
+
+                if (isNaN(userNum) || isNaN(userDen)) {
+                    feedbackDiv.className = 'feedback incorrect';
+                    feedbackDiv.textContent = '請填寫完整的數字喔！';
+                    return;
+                }
+                
+                // For 2/8 + 3/8 = 5/8
+                // We'll accept 5/8 directly, no simplification required for 4th grade
+                isCorrect = (userNum === correctVal1 && userDen === correctVal2);
+
+            } else if (qId === 2) { // Whole number or mixed fraction for milk
+                const ansInput = document.getElementById('app-q2-ans');
+                const userAnswer = ansInput.value.trim();
+                // For 1/2 + 1/2 = 2/2 = 1
+                isCorrect = (userAnswer === correctVal1 || userAnswer === '2/2' || userAnswer === '1又0/2'); // Allow "1", "2/2" or "1又0/2"
+            }
+
+            if (isCorrect) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.textContent = '太棒了！生活中的分數問題也難不倒你！';
+                if (!questionsAttempted[`app-q${qId}`]) {
+                    questionsAttempted[`app-q${qId}`] = true;
+                    updateProgressBar();
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '再思考一下題目的意思喔！';
+            }
+        }
+
+        // Section 5: Improper to Mixed Fraction
+        function playConversionAnimation() {
+            alert('播放假分數化帶分數動畫！ (此為示意功能)');
+        }
+
+        function checkMixedFraction(improperNum, improperDen, correctWhole, correctNum, correctDen) {
+            const wholeInput = document.getElementById('mixed-whole');
+            const numInput = document.getElementById('mixed-num');
+            const denInput = document.getElementById('mixed-den');
+            const feedbackDiv = document.getElementById('feedback-mixed');
+
+            const userWhole = parseInt(wholeInput.value);
+            const userNum = parseInt(numInput.value);
+            const userDen = parseInt(denInput.value);
+
+            if (isNaN(userWhole) || isNaN(userNum) || isNaN(userDen)) {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '請填寫完整的數字喔！';
+                return;
+            }
+
+            let isCorrect = false;
+            if (userWhole === correctWhole && userNum === correctNum && userDen === correctDen) {
+                isCorrect = true;
+            } else {
+                // Also check if they input the original improper fraction (less likely for this section but good to cover)
+                if (userWhole === improperNum && userNum === improperDen && userDen === improperDen) {
+                     // This means they put 7 and 3/3 for 7/3, which is 7 + 1 = 8.
+                     // Or they put 7 for whole, and 3/3 for fraction, which means 7 + 1 = 8
+                    // This implies the input boxes for whole/numerator/denominator are very specific to mixed fraction form.
+                    // For now, let's stick to strict mixed fraction check.
+                }
+            }
+
+
+            if (isCorrect) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.textContent = '太厲害了！你已經是分數變身大師了！';
+                if (!questionsAttempted['challenge-mixed']) {
+                    questionsAttempted['challenge-mixed'] = true;
+                    updateProgressBar();
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.textContent = '再想想看，假分數怎麼變身呢？提示：用分子除以分母！';
+            }
+        }
+
+        // Initial progress bar update on load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgressBar();
+            // Attach specific function calls to elements after DOM is loaded
+            document.querySelector('#q3-num').parentNode.querySelector('.btn').onclick = () => checkFillInAnswerForQ3(3, 1, 1);
+        });
+
+    </script>
+</body>
+</html>
+```
