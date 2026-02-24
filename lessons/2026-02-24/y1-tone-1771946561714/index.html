@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吉伊卡哇的多位小數冒險 - 國小五年級數學</title>
+    <!-- 使用 Google Fonts Hachi Maru Pop 模擬可愛圓潤字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Hachi Maru Pop', cursive, sans-serif; /* Cute Chiikawa-like font */
+            background-color: #fce4ec; /* Soft pink background, like Chiikawa */
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Container for content */
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            background-color: #ffffff; /* White content area */
+            border-radius: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border: 5px solid #ffccdd; /* Cute border */
+        }
+
+        /* Headings */
+        h1, h2, h3 {
+            color: #ff6f9c; /* Chiikawa pink */
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+        }
+        h1 {
+            font-size: 2.8em;
+            margin-top: 10px;
+        }
+        h2 {
+            font-size: 2.2em;
+            border-bottom: 3px dashed #ffb3c1;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        h3 {
+            font-size: 1.8em;
+            color: #ff91a4;
+            margin-top: 30px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #fff0f5; /* Lighter pink for sections */
+            border-radius: 15px;
+            border: 2px solid #ffb3c1;
+        }
+
+        /* Character Images - Using placeholder for visual demonstration */
+        .character-img {
+            width: 120px;
+            height: auto;
+            margin: 10px 15px;
+            vertical-align: middle;
+            border-radius: 50%; /* Rounded character avatars */
+            border: 3px solid #ffe0e9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Paragraphs */
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        /* Interactive Elements - General Styling */
+        input[type="text"], input[type="number"], select {
+            padding: 10px 15px;
+            border: 2px solid #ffb3c1;
+            border-radius: 10px;
+            font-family: 'Hachi Maru Pop', cursive, sans-serif;
+            font-size: 1.1em;
+            margin: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+            background-color: #fff;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            border-color: #ff6f9c;
+            box-shadow: 0 0 5px rgba(255, 111, 156, 0.5);
+        }
+
+        button {
+            background-color: #ff6f9c;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Hachi Maru Pop', cursive, sans-serif;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #e05e8a;
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Specific Layouts for Concepts */
+        .decimal-place-grid {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Align at bottom for decimal point */
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .place-value-box {
+            background-color: #ffe0e9;
+            border: 2px solid #ffb3c1;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 5px;
+            min-width: 60px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #d84315; /* Orange/red for numbers */
+            font-weight: bold;
+            position: relative;
+        }
+        .place-value-label {
+            font-size: 0.8em;
+            color: #888;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+        .decimal-point {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff6f9c;
+            margin: 0 5px;
+            align-self: flex-end; /* Align with the bottom of the boxes */
+        }
+
+        /* Dialogue box style */
+        .dialogue-box {
+            background-color: #fff;
+            border: 3px solid #ffb3c1;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .dialogue-text {
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 15px;
+            font-size: 1.1em;
+            color: #444;
+        }
+
+        /* Quiz and Feedback */
+        .quiz-question {
+            background-color: #fff;
+            border: 2px solid #ffb3c1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .quiz-question label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 1.05em;
+            color: #555;
+        }
+        .quiz-question input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2); /* Make radio buttons a bit bigger */
+        }
+        .feedback-area {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f5e9; /* Light green for success */
+            border: 2px solid #a5d6a7;
+            border-radius: 15px;
+            color: #388e3c; /* Dark green text */
+            font-size: 1.2em;
+            font-weight: bold;
+            display: none; /* Will be shown by JS */
+        }
+        .feedback-error {
+            background-color: #ffebee; /* Light red for error */
+            border: 2px solid #ef9a9a;
+            color: #d32f2f; /* Dark red text */
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #ffccd4; /* Soft pink footer */
+            border-radius: 15px;
+            color: #777;
+            font-size: 0.9em;
+            border-top: 2px dashed #ffb3c1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 10px auto;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            h3 {
+                font-size: 1.5em;
+            }
+            .character-img {
+                width: 80px;
+            }
+            .dialogue-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            .dialogue-text {
+                margin: 10px 0 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><img src="https://via.placeholder.com/80/FFB3C1/FFFFFF?text=🌸" alt="可愛花朵" class="character-img" style="width: 60px;"> 吉伊卡哇的多位小數冒險 <img src="https://via.placeholder.com/80/FFB3C1/FFFFFF?text=🌸" alt="可愛花朵" class="character-img" style="width: 60px;"></h1>
+            <p>和吉伊卡哇、哈奇姆、烏薩奇一起，探索多位小數的奇妙世界！</p>
+        </header>
+
+        <main>
+            <!-- 主題式導入 -->
+            <section id="introduction">
+                <h2>📚 冒險開始！小數問題在哪裡？</h2>
+                <div class="dialogue-box">
+                    <img src="https://via.placeholder.com/100/FFDDC1/888888?text=Chiikawa" alt="吉伊卡哇的圖像" class="character-img">
+                    <div class="dialogue-text">
+                        <p>吉伊卡哇：「啊！今天的藍莓派，哈奇姆說要分我 <strong style="color: #d84315;">0.35</strong> 塊，烏薩奇要分 <strong style="color: #d84315;">0.4</strong> 塊，到底誰分得多呀？」</p>
+                    </div>
+                </div>
+                <div class="dialogue-box">
+                    <img src="https://via.placeholder.com/100/C1DFFD/888888?text=Hachiware" alt="哈奇姆的圖像" class="character-img">
+                    <div class="dialogue-text">
+                        <p>哈奇姆：「嘿！我剛才在商店看到超可愛的糖果！一包是 <strong style="color: #d84315;">12.75</strong> 元，另一包是 <strong style="color: #d84315;">12.8</strong> 元。哪一包比較便宜呢？」</p>
+                    </div>
+                </div>
+                <div class="dialogue-box">
+                    <img src="https://via.placeholder.com/100/D4F3C4/888888?text=Usagi" alt="烏薩奇的圖像" class="character-img">
+                    <div class="dialogue-text">
+                        <p>烏薩奇：「嗚哇！我們離美味的果凍山還有 <strong style="color: #d84315;">2.645</strong> 公里！要是我們每天走 <strong style="color: #d84315;">0.5</strong> 公里，幾天才能到呀？」</p>
+                    </div>
+                </div>
+                <p>吉伊卡哇小隊在日常生活中總是會遇到像這樣的小數問題！別擔心，讓我們一起學習多位小數，幫助他們解決難題吧！</p>
+            </section>
+
+            <!-- 概念講解 -->
+            <section id="concepts">
+                <h2>💡 小數點的秘密：概念講解</h2>
+
+                <!-- 位值 -->
+                <h3>🌟 尋找小數寶藏！位值的意義</h3>
+                <p>小數點後的每一個位置，都藏著一個不同的「寶藏」喔！</p>
+                <div class="decimal-place-grid">
+                    <div class="place-value-box">
+                        <span class="place-value-label">個位</span>
+                        <span style="color: #333;">0</span>
+                    </div>
+                    <span class="decimal-point">.</span>
+                    <div class="place-value-box">
+                        <span class="place-value-label">十分位</span>
+                        <span style="color: #d84315;">1</span>
+                    </div>
+                    <div class="place-value-box">
+                        <span class="place-value-label">百分位</span>
+                        <span style="color: #d84315;">2</span>
+                    </div>
+                    <div class="place-value-box">
+                        <span class="place-value-label">千分位</span>
+                        <span style="color: #d84315;">3</span>
+                    </div>
+                    <div class="place-value-box">
+                        <span class="place-value-label">萬分位</span>
+                        <span style="color: #d84315;">4</span>
+                    </div>
+                </div>
+                <p>記住！小數點後第一位是「十分位」，第二位是「百分位」，第三位是「千分位」... 每一位都代表著數字不同的價值喔！</p>
+
+                <!-- 讀法與寫法 -->
+                <h3>💬 跟著吉伊卡哇說小數！讀法與寫法</h3>
+                <p>正確讀出和寫出小數是很重要的喔！讓吉伊卡哇們來教你！</p>
+                <div class="dialogue-box">
+                    <img src="https://via.placeholder.com/80/FFDDC1/888888?text=Chiikawa" alt="吉伊卡哇的圖像" class="character-img">
+                    <div class="dialogue-text">
+                        <p>吉伊卡哇：「這個數字 <strong style="color: #d84315;">0.75</strong> 要怎麼唸呀？」</p>
+                    </div>
+                </div>
+                <div class="dialogue-box" style="margin-top: 10px;">
+                    <img src="https://via.placeholder.com/80/C1DFFD/888888?text=Hachiware" alt="哈奇姆的圖像" class="character-img">
+                    <div class="dialogue-text">
+                        <p>哈奇姆：「這個唸作『零點七五』！小數點後直接唸出數字就好囉！」</p>
+                    </div>
+                </div>
+                <p>試試看，你怎麼讀這些數字呢？</p>
+                <form onsubmit="return false;">
+                    <p>1. <strong style="color: #d84315;">5.18</strong>：請唸作 <input type="text" placeholder="例如：五點一八"></p>
+                    <p>2. <strong style="color: #d84315;">0.006</strong>：請唸作 <input type="text" placeholder="例如：零點零零六"></p>
+                    <button type="button" onclick="alert('棒棒！小數點後的數字一個一個唸出來就對了！')">檢查答案</button>
+                </form>
+
+                <!-- 比較大小 -->
+                <h3>🏃 誰跑得比較快？小數賽跑！</h3>
+                <p>吉伊卡哇和朋友們要比賽誰的數字比較大！你能幫他們分出勝負嗎？</p>
+                <p>比較這兩個小數的大小：</p>
+                <form onsubmit="return false;">
+                    <input type="number" step="0.001" value="0.75" readonly style="width: 120px; text-align: right;">
+                    <select style="font-size: 1.5em; color: #ff6f9c; font-weight: bold;">
+                        <option value="">請選擇</option>
+                        <option value="greater">&gt;</option>
+                        <option value="less">&lt;</option>
+                        <option value="equal">=</option>
+                    </select>
+                    <input type="number" step="0.001" value="0.750" readonly style="width: 120px;">
+                    <button type="button" onclick="alert('小數點後面的0，如果後面沒有其他數字，通常不影響大小喔！它們是相等的！')">檢查</button>
+                    <br>
+                    <input type="number" step="0.001" value="2.15" readonly style="width: 120px; text-align: right;">
+                    <select style="font-size: 1.5em; color: #ff6f9c; font-weight: bold;">
+                        <option value="">請選擇</option>
+                        <option value="greater">&gt;</option>
+                        <option value="less">&lt;</option>
+                        <option value="equal">=</option>
+                    </select>
+                    <input type="number" step="0.001" value="2.095" readonly style="width: 120px;">
+                    <button type="button" onclick="alert('要從左邊第一個不同的位數開始比較喔！2.15 的十分位是1，2.095 的十分位是0，所以2.15比較大！')">檢查</button>
+                </form>
+
+                <!-- 進位與退位 -->
+                <h3>🍰 分蛋糕囉！吉伊卡哇的分數魔法</h3>
+                <p>吉伊卡哇們要分享一個大蛋糕！當小數加起來超過1，或者減法不夠時，就需要進位或退位喔！</p>
+                <div class="dialogue-box">
+                    <img src="https://via.placeholder.com/80/FFDDC1/888888?text=Chiikawa" alt="吉伊卡哇的圖像" class="character-img">
+                    <div class="dialogue-text">
+                        <p>吉伊卡哇：「我吃了 <strong style="color: #d84315;">0.7</strong> 塊，哈奇姆吃了 <strong style="color: #d84315;">0.5</strong> 塊，我們總共吃了多少呢？」</p>
+                        <p style="text-align: right;">0.7 + 0.5 = <strong style="color: #d84315;">1.2</strong> (十個十分位等於一個個位，所以十分位會進位到個位！)</p>
+                    </div>
+                </div>
+                <div class="dialogue-box" style="margin-top: 10px;">
+                    <img src="https://via.placeholder.com/80/C1DFFD/888888?text=Hachiware" alt="哈奇姆的圖像" class="character-img">
+                    <div class="dialogue-text">
+                        <p>哈奇姆：「原本有 <strong style="color: #d84315;">2.3</strong> 塊蛋糕，烏薩奇吃掉了 <strong style="color: #d84315;">0.8</strong> 塊，還剩下多少呢？」</p>
+                        <p style="text-align: right;">2.3 - 0.8 = <strong style="color: #d84315;">1.5</strong> (個位要退位到十分位，幫十分位補足數字才能減喔！)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 互動練習 -->
+            <section id="practice">
+                <h2>🎮 小數大挑戰！互動練習</h2>
+                <form onsubmit="return false;">
+                    <h3>✨ 填空題：幫助吉伊卡哇完成任務！</h3>
+                    <p>1. 吉伊卡哇買了一包餅乾 <strong style="color: #d84315;">8.45</strong> 元，其中的「4」在<input type="text" placeholder="位值" size="8">位上。</p>
+                    <p>2. 哈奇姆測量了一條絲帶的長度是 <strong style="color: #d84315;">1.236</strong> 公尺，最右邊的「6」在<input type="text" placeholder="位值" size="8">位上。</p>
+                    <p>3. 烏薩奇想知道 <strong style="color: #d84315;">0.9</strong> 和 <strong style="color: #d84315;">0.90</strong> 兩個數字是<select><option value="">請選擇</option><option value="equal">相等</option><option value="not_equal">不相等</option></select>的。</p>
+                    <button type="button" onclick="alert('提示：第一個是十分位，第二個是千分位，第三個是相等！你答對了嗎？')">檢查填空</button>
+
+                    <h3>🔗 連連看：小數位值配對 (HTML模擬)</h3>
+                    <p>請將數字與其正確的位值連結起來 (請在下方選擇正確的配對)</p>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
+                        <div style="margin: 10px;">
+                            <strong>數字中的 8：</strong><br>
+                            <span style="color: #d84315; font-weight: bold; font-size: 1.2em;">3.815</span>
+                            <select style="margin-left: 10px;">
+                                <option value="">請選擇</option>
+                                <option value="hundredth">百分位</option>
+                                <option value="tenth">十分位</option>
+                                <option value="thousandth">千分位</option>
+                            </select>
+                        </div>
+                        <div style="margin: 10px;">
+                            <strong>數字中的 5：</strong><br>
+                            <span style="color: #d84315; font-weight: bold; font-size: 1.2em;">0.052</span>
+                            <select style="margin-left: 10px;">
+                                <option value="">請選擇</option>
+                                <option value="hundredth">百分位</option>
+                                <option value="tenth">十分位</option>
+                                <option value="thousandth">千分位</option>
+                            </select>
+                        </div>
+                        <div style="margin: 10px;">
+                            <strong>數字中的 7：</strong><br>
+                            <span style="color: #d84315; font-weight: bold; font-size: 1.2em;">1.237</span>
+                            <select style="margin-left: 10px;">
+                                <option value="">請選擇</option>
+                                <option value="hundredth">百分位</option>
+                                <option value="tenth">十分位</option>
+                                <option value="thousandth">千分位</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" onclick="alert('提示：3.815中的8在十分位；0.052中的5在百分位；1.237中的7在千分位！你答對了嗎？')">檢查配對</button>
+
+                    <h3>➡️ 拖曳題：組合小數 (HTML模擬)</h3>
+                    <p>請將下面的數字拖曳到正確的位置，組成「零點四二七」這個數字。(請在下方填入正確順序)</p>
+                    <div style="background-color: #ffe0e9; border: 2px dashed #ffb3c1; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <span style="display: inline-block; background-color: #fff; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; margin: 5px;">4</span>
+                        <span style="display: inline-block; background-color: #fff; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; margin: 5px;">2</span>
+                        <span style="display: inline-block; background-color: #fff; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; margin: 5px;">7</span>
+                        <span style="display: inline-block; background-color: #fff; padding: 8px 15px; border: 1px solid #ccc; border-radius: 5px; margin: 5px;">0</span>
+                    </div>
+                    <p style="margin-top: 20px;">
+                        請輸入組合後的數字： <input type="text" placeholder="例如：0.123">
+                    </p>
+                    <button type="button" onclick="alert('答案是：0.427。你成功了嗎？')">檢查組合</button>
+
+                    <h3>❓ 選擇題：小數問答</h3>
+                    <div class="quiz-question">
+                        <p>1. 下列哪個小數比 <strong style="color: #d84315;">3.5</strong> 大？</p>
+                        <label><input type="radio" name="q1" value="a"> 3.05</label>
+                        <label><input type="radio" name="q1" value="b"> 3.49</label>
+                        <label><input type="radio" name="q1" value="c"> 3.51</label>
+                        <label><input type="radio" name="q1" value="d"> 3.50</label>
+                    </div>
+                    <div class="quiz-question">
+                        <p>2. <strong style="color: #d84315;">0.125</strong> 唸作什麼？</p>
+                        <label><input type="radio" name="q2" value="a"> 零點一百二十五</label>
+                        <label><input type="radio" name="q2" value="b"> 零點一二五</label>
+                        <label><input type="radio" name="q2" value="c"> 零點一二五零</label>
+                        <label><input type="radio" name="q2" value="d"> 點一二五</label>
+                    </div>
+                    <button type="button" onclick="alert('提示：第一題答案是C (3.51)，第二題答案是B (零點一二五)。你很棒喔！')">提交選擇題</button>
+                </form>
+            </section>
+
+            <!-- 小測驗與回饋 -->
+            <section id="quiz-feedback">
+                <h2>🏆 小數達人測驗！</h2>
+                <p>完成小測驗，看看你是不是小數達人！</p>
+                <form onsubmit="event.preventDefault(); showQuizFeedback();">
+                    <div class="quiz-question">
+                        <p>1. 吉伊卡哇有 <strong style="color: #d84315;">1.5</strong> 顆星星糖，哈奇姆給他 <strong style="color: #d84315;">0.75</strong> 顆，吉伊卡哇現在總共有幾顆星星糖？</p>
+                        <label><input type="radio" name="final_q1" value="a"> 2.00</label>
+                        <label><input type="radio" name="final_q1" value="b"> 2.25</label>
+                        <label><input type="radio" name="final_q1" value="c"> 2.15</label>
+                        <label><input type="radio" name="final_q1" value="d"> 2.5</label>
+                    </div>
+                    <div class="quiz-question">
+                        <p>2. 下列哪個數字的「9」在百分位上？</p>
+                        <label><input type="radio" name="final_q2" value="a"> 0.93</label>
+                        <label><input type="radio" name="final_q2" value="b"> 2.591</label>
+                        <label><input type="radio" name="final_q2" value="c"> 1.009</label>
+                        <label><input type="radio" name="final_q2" value="d"> 9.12</label>
+                    </div>
+                    <div class="quiz-question">
+                        <p>3. 將 <strong style="color: #d84315;">0.48</strong> 四捨五入到十分位，結果是多少？</p>
+                        <label><input type="radio" name="final_q3" value="a"> 0.4</label>
+                        <label><input type="radio" name="final_q3" value="b"> 0.5</label>
+                        <label><input type="radio" name="final_q3" value="c"> 1.0</label>
+                        <label><input type="radio" name="final_q3" value="d"> 0.48</label>
+                    </div>
+                    <button type="submit">完成測驗，看看結果！</button>
+                </form>
+
+                <div id="quizFeedback" class="feedback-area" style="display: none;">
+                    <p id="feedbackMessage"></p>
+                    <div id="feedbackDetails"></div>
+                    <p>吉伊卡哇會一直為你加油的！再試一次，你一定會更棒！💖</p>
+                </div>
+            </section>
+
+            <!-- 參考學習資源 -->
+            <section id="resources">
+                <h2>🔗 參考學習資源</h2>
+                <p>想了解更多關於小數的知識嗎？這裡有一些可以幫助你的網站喔！</p>
+                <ul>
+                    <li><a href="https://www.study.gov.tw/p/topic_view.php?t_id=314" target="_blank" style="color: #ff6f9c; text-decoration: none; font-weight: bold;">均一教育平台：小數</a> - 豐富的教學影片與練習，讓你更深入理解小數。</li>
+                    <li><a href="https://www.khanacademy.org/math/arithmetic/decimals" target="_blank" style="color: #ff6f9c; text-decoration: none; font-weight: bold;">可汗學院：小數 (英文網站)</a> - 國際知名的免費學習資源，提供多元的練習題。</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 吉伊卡哇小數冒險. 設計者: Kevin.</p>
+            <p>本網頁僅為學習示範用途，角色版權屬原作者所有。</p>
+        </footer>
+    </div>
+
+    <!-- 為了實現小測驗的回饋，這裡加入了少量的 JavaScript。這是單頁網頁內必要的互動功能。 -->
+    <script>
+        function showQuizFeedback() {
+            let score = 0;
+            let totalQuestions = 3;
+            let correctAnswers = {
+                final_q1: "b", // 1.5 + 0.75 = 2.25
+                final_q2: "b", // 2.591 (9 is in the hundredths place, 百分位)
+                final_q3: "b"  // 0.48 四捨五入到十分位是 0.5
+            };
+            let feedbackDetails = [];
+
+            // Question 1
+            const q1Answer = document.querySelector('input[name="final_q1"]:checked');
+            if (q1Answer && q1Answer.value === correctAnswers.final_q1) {
+                score++;
+                feedbackDetails.push("第一題：正確！1.5 + 0.75 = 2.25");
+            } else {
+                feedbackDetails.push("第一題：錯誤，答案是 2.25。");
+            }
+
+            // Question 2
+            const q2Answer = document.querySelector('input[name="final_q2"]:checked');
+            if (q2Answer && q2Answer.value === correctAnswers.final_q2) {
+                score++;
+                feedbackDetails.push("第二題：正確！2.591 的 9 在百分位。");
+            } else {
+                feedbackDetails.push("第二題：錯誤，答案是 2.591。");
+            }
+
+            // Question 3
+            const q3Answer = document.querySelector('input[name="final_q3"]:checked');
+            if (q3Answer && q3Answer.value === correctAnswers.final_q3) {
+                score++;
+                feedbackDetails.push("第三題：正確！0.48 四捨五入到十分位是 0.5。");
+            } else {
+                feedbackDetails.push("第三題：錯誤，答案是 0.5。");
+            }
+
+            const feedbackArea = document.getElementById('quizFeedback');
+            const feedbackMessage = document.getElementById('feedbackMessage');
+            const feedbackDetailText = document.getElementById('feedbackDetails');
+
+            feedbackDetailText.innerHTML = feedbackDetails.map(detail => `<p>${detail}</p>`).join('');
+
+            if (score === totalQuestions) {
+                feedbackArea.classList.remove('feedback-error');
+                feedbackArea.style.backgroundColor = '#e8f5e9';
+                feedbackArea.style.borderColor = '#a5d6a7';
+                feedbackMessage.style.color = '#388e3c';
+                feedbackMessage.textContent = `太棒了！你答對了所有 ${score} 題！你是真正的吉伊卡哇小數達人！🎉`;
+            } else {
+                feedbackArea.classList.add('feedback-error');
+                feedbackArea.style.backgroundColor = '#ffebee';
+                feedbackArea.style.borderColor = '#ef9a9a';
+                feedbackMessage.style.color = '#d32f2f';
+                feedbackMessage.textContent = `哎呀，你答對了 ${score} 題。沒關係，吉伊卡哇會為你加油！再努力一次！💖`;
+            }
+
+            feedbackArea.style.display = 'block';
+            feedbackArea.scrollIntoView({ behavior: 'smooth' }); // 將頁面捲動到回饋區
+        }
+
+        // 為其他「檢查答案」按鈕添加基本的彈出提示，以模擬互動
+        document.querySelectorAll('button[type="button"]').forEach(button => {
+            if (!button.onclick) { // 避免覆蓋 showQuizFeedback 的提交按鈕
+                button.onclick = function() {
+                    alert('這是一個模擬的檢查按鈕，實際的互動功能需要 JavaScript 喔！');
+                };
+            }
+        });
+    </script>
+</body>
+</html>
+```
