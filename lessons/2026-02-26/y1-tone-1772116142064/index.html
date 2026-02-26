@@ -1,0 +1,1093 @@
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的家鄉，農業的樂園 - K</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        /* 全局設定 */
+        :root {
+            --primary-color: #6CD782; /* 鮮綠色 */
+            --secondary-color: #FFD452; /* 活潑黃 */
+            --accent-color: #FF8C52; /* 活力橘 */
+            --text-color: #333;
+            --light-text-color: #FFF;
+            --bg-light: #F0F8EC; /* 淡綠色背景 */
+            --bg-dark: #A5D6A7; /* 稍深綠色 */
+            --panel-bg: rgba(255, 255, 255, 0.9); /* 半透明白面板 */
+            --button-hover: #FFC0CB; /* 粉紅色 */
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, var(--bg-light), var(--bg-dark)); /* 漸層背景 */
+            color: var(--text-color);
+            overflow: hidden; /* 防止內容溢出導致滾動條 */
+            position: relative;
+            background-image: url('https://via.placeholder.com/1920x1080/6CD782/FFFFFF?text=Agricultural+Paradise+Background'); /* 台灣農業意象背景 */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 遊戲主容器 */
+        .game-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 90vh;
+            max-height: 800px;
+            background-color: var(--panel-bg);
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 8px solid var(--accent-color);
+        }
+
+        /* 標題區域 */
+        .game-header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 20px;
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            z-index: 10;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+            font-family: 'Permanent Marker', cursive; /* 手寫風格字體 */
+        }
+
+        /* 主內容區域 */
+        .game-content {
+            flex-grow: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 導覽列 */
+        .game-nav {
+            width: 200px;
+            background-color: var(--secondary-color);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            border-right: 5px solid var(--accent-color);
+            box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 5;
+        }
+
+        .nav-button {
+            width: 80%;
+            padding: 15px 10px;
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 0 0 rgba(199, 79, 0, 0.7); /* 按鈕立體感 */
+            transition: all 0.2s ease;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+        }
+
+        .nav-button:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 0 rgba(199, 79, 0, 0.7);
+        }
+
+        .nav-button.active {
+            background-color: var(--primary-color);
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+            transform: translateY(2px);
+            color: yellow; /* 醒目亮色 */
+        }
+
+        /* 各區塊內容 */
+        .content-section {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: none;
+            position: relative;
+            background-image: url('https://via.placeholder.com/800x600/F0F8EC/333333?text=Content+Area+Texture'); /* 內容區背景紋理 */
+            background-size: cover;
+            background-position: center;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        /* 開始遊戲區塊 */
+        #home-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: url('https://via.placeholder.com/800x600/CDF7D1/333333?text=Welcome+Scene+Farm'); /* 農場歡迎場景 */
+            background-size: cover;
+            background-position: center;
+        }
+        #home-section h2 {
+            font-size: 3em;
+            color: var(--accent-color);
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        #home-section p {
+            font-size: 1.3em;
+            color: var(--text-color);
+            max-width: 600px;
+            margin-bottom: 40px;
+            background-color: rgba(255,255,255,0.7);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .start-game-button {
+            padding: 20px 40px;
+            font-size: 1.8em;
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 0 rgba(60, 160, 75, 0.7);
+            transition: all 0.2s ease;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+            font-weight: 700;
+        }
+        .start-game-button:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 0 0 rgba(60, 160, 75, 0.7);
+        }
+
+        /* 農業知識區塊 */
+        .knowledge-categories {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .knowledge-tab {
+            padding: 12px 25px;
+            background-color: var(--secondary-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 0 rgba(220, 170, 0, 0.7);
+        }
+        .knowledge-tab:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+        }
+        .knowledge-tab.active {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: translateY(2px);
+        }
+        .knowledge-content {
+            display: none;
+            background-color: var(--panel-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            line-height: 1.8;
+            text-align: justify;
+            min-height: 300px;
+            display: flex; /* 使用 flex 佈局 */
+            flex-wrap: wrap; /* 允許換行 */
+            gap: 20px;
+            justify-content: center;
+            align-items: center; /* 垂直置中 */
+        }
+        .knowledge-content.active {
+            display: flex;
+        }
+        .knowledge-item {
+            width: calc(50% - 10px); /* 兩欄佈局，考慮間距 */
+            min-width: 300px;
+            background-color: #fcfcfc;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 15px;
+        }
+        .knowledge-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 5px solid var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .knowledge-item h3 {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .knowledge-item p {
+            font-size: 1.1em;
+            padding: 0 15px;
+        }
+        .mini-game-prompt {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .mini-game-button {
+            padding: 10px 20px;
+            margin-top: 15px;
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            box-shadow: 0 3px 0 rgba(199, 79, 0, 0.7);
+            transition: all 0.2s ease;
+        }
+        .mini-game-button:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-1px);
+        }
+        /* 迷你遊戲彈窗 */
+        .modal {
+            display: none; /* 預設隱藏 */
+            position: fixed; /* 固定定位 */
+            z-index: 100; /* 置於頂層 */
+            left: 0;
+            top: 0;
+            width: 100%; /* 全寬 */
+            height: 100%; /* 全高 */
+            overflow: auto; /* 若內容超出則滾動 */
+            background-color: rgba(0,0,0,0.6); /* 半透明黑背景 */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--panel-bg);
+            margin: auto;
+            padding: 30px;
+            border: 5px solid var(--primary-color);
+            width: 80%;
+            max-width: 700px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .fruit-card {
+            width: 100px;
+            height: 100px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            box-shadow: 0 3px 0 rgba(220, 170, 0, 0.7);
+            transition: all 0.2s ease;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        .fruit-card.flipped {
+            transform: rotateY(180deg);
+        }
+        .fruit-card.matched {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .fruit-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 rgba(220, 170, 0, 0.7);
+        }
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .card-front {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: 3px solid var(--accent-color);
+        }
+        .card-back {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            transform: rotateY(180deg);
+            border: 3px solid var(--primary-color);
+        }
+        .fruit-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+
+        /* 練習挑戰區塊 */
+        #quiz-section {
+            background-image: url('https://via.placeholder.com/800x600/E8F5E9/333333?text=Quiz+Scene+Farm'); /* 測驗區背景 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .quiz-panel {
+            background-color: var(--panel-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            position: relative;
+            border: 5px solid var(--primary-color);
+        }
+        .quiz-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .quiz-question {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .option-button {
+            width: 100%;
+            padding: 15px 20px;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+            box-shadow: 0 4px 0 rgba(220, 170, 0, 0.7);
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+        .option-button:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 rgba(220, 170, 0, 0.7);
+        }
+        .option-button.correct {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            box-shadow: 0 4px 0 rgba(60, 160, 75, 0.7);
+        }
+        .option-button.incorrect {
+            background-color: #FF6B6B; /* 錯誤紅色 */
+            color: var(--light-text-color);
+            box-shadow: 0 4px 0 rgba(200, 50, 50, 0.7);
+        }
+        .feedback {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+        .next-button {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            border: none;
+            border-radius: 15px;
+            font-size: 1.4em;
+            cursor: pointer;
+            box-shadow: 0 6px 0 rgba(199, 79, 0, 0.7);
+            transition: all 0.2s ease;
+        }
+        .next-button:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 rgba(199, 79, 0, 0.7);
+        }
+        .quiz-result {
+            margin-top: 30px;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* 我的成就區塊 */
+        #achievements-section {
+            background-image: url('https://via.placeholder.com/800x600/D0F0C0/333333?text=Achievement+Hall'); /* 成就廳背景 */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        .achievement-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .achievement-card {
+            background-color: var(--panel-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 3px solid var(--secondary-color);
+        }
+        .achievement-card.unlocked {
+            border-color: var(--primary-color);
+            background-color: #E8F5E9;
+        }
+        .achievement-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            filter: grayscale(100%); /* 預設灰階未解鎖 */
+            opacity: 0.6;
+        }
+        .achievement-card.unlocked img {
+            filter: grayscale(0%); /* 解鎖後彩色 */
+            opacity: 1;
+        }
+        .achievement-card h3 {
+            color: var(--accent-color);
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        .achievement-card p {
+            font-size: 0.95em;
+            color: var(--text-color);
+        }
+        .achievement-score {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            我的家鄉，農業的樂園
+        </div>
+        <div class="game-content">
+            <div class="game-nav">
+                <button class="nav-button active" data-target="home-section">開始遊戲</button>
+                <button class="nav-button" data-target="knowledge-section">農業知識</button>
+                <button class="nav-button" data-target="quiz-section">練習挑戰</button>
+                <button class="nav-button" data-target="achievements-section">我的成就</button>
+            </div>
+            <div id="home-section" class="content-section active">
+                <h2>歡迎來到台灣農業探險！</h2>
+                <p>親愛的農場小幫手K，你準備好探索台灣豐富的農業世界了嗎？在這裡，你將學習各種農產品知識，挑戰有趣的練習題，並成為一位優秀的農業小狀元！</p>
+                <button class="start-game-button" onclick="showSection('knowledge-section')">開始探索</button>
+            </div>
+
+            <div id="knowledge-section" class="content-section">
+                <h2>農業知識大百科</h2>
+                <div class="knowledge-categories">
+                    <span class="knowledge-tab active" data-category="rice">稻米區</span>
+                    <span class="knowledge-tab" data-category="fruit">水果區</span>
+                    <span class="knowledge-tab" data-category="tea">茶園區</span>
+                </div>
+
+                <div id="knowledge-rice" class="knowledge-content active">
+                    <div class="knowledge-item">
+                        <img src="https://via.placeholder.com/400x250/A0D782/FFFFFF?text=Rice+Paddy" alt="稻米區">
+                        <h3>台灣的糧食之本：稻米</h3>
+                        <p>稻米是台灣最主要的糧食作物，在廣闊的平原地區都可以看到翠綠的稻田。台灣米粒飽滿、口感香甜，是我們餐桌上不可或缺的主食！農夫們辛勤灌溉，才能收穫金黃稻穗。</p>
+                    </div>
+                    <div class="knowledge-item">
+                        <img src="https://via.placeholder.com/400x250/C8E6C9/333333?text=Rice+Harvest" alt="稻米收割">
+                        <h3>從田地到餐桌</h3>
+                        <p>稻米從育苗、插秧、成長、開花到結實，需要大約四個月的時間。收割後還要經過脫穀、碾米等步驟，才能變成白米。每一粒米都凝聚著農夫們的汗水與智慧。</p>
+                    </div>
+                    <div class="mini-game-prompt">想了解更多稻米知識嗎？試試看「農田小百科」小遊戲！</div>
+                    <button class="mini-game-button" onclick="showMiniGame('farm-encyclopedia')">農田小百科</button>
+                </div>
+
+                <div id="knowledge-fruit" class="knowledge-content">
+                    <div class="knowledge-item">
+                        <img src="https://via.placeholder.com/400x250/FFECB3/333333?text=Mango+Farm" alt="芒果園">
+                        <h3>水果王國：熱帶水果</h3>
+                        <p>台灣有「水果王國」的美稱，尤其是夏季的芒果、鳳梨、香蕉等熱帶水果，香甜多汁，深受大家喜愛。這些水果不僅美味，也富含維生素，對身體很有益處。</p>
+                    </div>
+                    <div class="knowledge-item">
+                        <img src="https://via.placeholder.com/400x250/FFE0B2/333333?text=Guava+Orchard" alt="芭樂園">
+                        <h3>四季鮮果不間斷</h3>
+                        <p>除了夏季水果，台灣一年四季都有不同的水果盛產，例如：春天的草莓、冬天的柑橘、秋天的柿子和芭樂。這些豐富的水果讓我們的生活充滿色彩和甜味。</p>
+                    </div>
+                    <div class="mini-game-prompt">來玩「水果配對」遊戲，看看你認識多少台灣水果！</div>
+                    <button class="mini-game-button" onclick="showMiniGame('fruit-matching')">水果配對</button>
+                </div>
+
+                <div id="knowledge-tea" class="knowledge-content">
+                    <div class="knowledge-item">
+                        <img src="https://via.placeholder.com/400x250/B2DFDB/333333?text=Tea+Plantation" alt="茶園">
+                        <h3>高山上的翠綠寶藏：台灣茶</h3>
+                        <p>台灣高山地形獨特，氣候涼爽、雲霧繚繞，非常適合種植茶葉。阿里山、梨山、杉林溪等地區生產的高山茶，口感甘醇、香氣芬芳，是台灣的驕傲。</p>
+                    </div>
+                    <div class="knowledge-item">
+                        <img src="https://via.placeholder.com/400x250/80CBC4/333333?text=Tea+Harvest" alt="採茶">
+                        <h3>一杯好茶的秘密</h3>
+                        <p>茶葉的製作過程非常講究，從採摘、萎凋、揉捻、發酵到烘焙，每個環節都影響著茶葉的風味。農夫們細心呵護，才能製作出獨特的台灣好茶。</p>
+                    </div>
+                    <div class="mini-game-prompt">想知道更多關於台灣茶的知識嗎？</div>
+                </div>
+            </div>
+
+            <div id="quiz-section" class="content-section">
+                <h2>農業挑戰賽</h2>
+                <div class="quiz-panel">
+                    <div class="quiz-status">
+                        <span id="quiz-timer">時間：60s</span>
+                        <span id="quiz-score">分數：0</span>
+                    </div>
+                    <div id="quiz-question" class="quiz-question"></div>
+                    <div id="quiz-options" class="quiz-options">
+                        <!-- 選項會透過JavaScript生成 -->
+                    </div>
+                    <div id="quiz-feedback" class="feedback"></div>
+                    <button id="next-question-button" class="next-button" style="display: none;">下一題</button>
+                    <div id="quiz-result" class="quiz-result" style="display: none;"></div>
+                    <button id="restart-quiz-button" class="next-button" style="display: none;">重新挑戰</button>
+                </div>
+            </div>
+
+            <div id="achievements-section" class="content-section">
+                <h2>我的成就</h2>
+                <p class="achievement-score">總分：<span id="total-score-display">0</span></p>
+                <div class="achievement-card-grid">
+                    <div class="achievement-card" id="achievement-farmer-apprentice">
+                        <img src="https://via.placeholder.com/80x80/6CD782/FFFFFF?text=F" alt="農業學徒">
+                        <h3>農業學徒</h3>
+                        <p>完成首次挑戰</p>
+                    </div>
+                    <div class="achievement-card" id="achievement-fruit-master">
+                        <img src="https://via.placeholder.com/80x80/FFD452/FFFFFF?text=F" alt="水果達人">
+                        <h3>水果達人</h3>
+                        <p>在「水果配對」中獲得高分</p>
+                    </div>
+                    <div class="achievement-card" id="achievement-rice-expert">
+                        <img src="https://via.placeholder.com/80x80/A5D6A7/FFFFFF?text=R" alt="稻米專家">
+                        <h3>稻米專家</h3>
+                        <p>答對所有稻米相關問題</p>
+                    </div>
+                    <div class="achievement-card" id="achievement-agri-prodigy">
+                        <img src="https://via.placeholder.com/80x80/FF8C52/FFFFFF?text=P" alt="農業小狀元">
+                        <h3>農業小狀元</h3>
+                        <p>挑戰賽獲得滿分</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 迷你遊戲彈窗 - 水果配對 -->
+    <div id="fruitMatchingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('fruitMatchingModal')">&times;</span>
+            <h2>水果配對</h2>
+            <p>點擊兩張相同的卡片來消除它們！</p>
+            <div id="fruit-matching-grid" class="fruit-grid">
+                <!-- 水果卡片會透過JavaScript生成 -->
+            </div>
+            <p id="fruit-matching-feedback"></p>
+            <button class="mini-game-button" onclick="startFruitMatchingGame()">重新開始</button>
+        </div>
+    </div>
+
+    <!-- 迷你遊戲彈窗 - 農田小百科 (簡化為互動式問答) -->
+    <div id="farmEncyclopediaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('farmEncyclopediaModal')">&times;</span>
+            <h2>農田小百科</h2>
+            <p>點擊圖片，了解台灣不同農產品的小知識！</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px;">
+                <div style="width: 150px; cursor: pointer; border: 3px solid var(--primary-color); border-radius: 10px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1);" onclick="showFarmInfo('rice')">
+                    <img src="https://via.placeholder.com/150x100/A0D782/FFFFFF?text=Rice" alt="稻米" style="width: 100%; height: 100px; object-fit: cover;">
+                    <p style="margin: 10px 0; font-weight: bold; color: var(--text-color);">稻米</p>
+                </div>
+                <div style="width: 150px; cursor: pointer; border: 3px solid var(--primary-color); border-radius: 10px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1);" onclick="showFarmInfo('tea')">
+                    <img src="https://via.placeholder.com/150x100/B2DFDB/333333?text=Tea" alt="茶葉" style="width: 100%; height: 100px; object-fit: cover;">
+                    <p style="margin: 10px 0; font-weight: bold; color: var(--text-color);">茶葉</p>
+                </div>
+                <div style="width: 150px; cursor: pointer; border: 3px solid var(--primary-color); border-radius: 10px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1);" onclick="showFarmInfo('pineapple')">
+                    <img src="https://via.placeholder.com/150x100/FFECB3/333333?text=Pineapple" alt="鳳梨" style="width: 100%; height: 100px; object-fit: cover;">
+                    <p style="margin: 10px 0; font-weight: bold; color: var(--text-color);">鳳梨</p>
+                </div>
+            </div>
+            <p id="farm-info-display" style="margin-top: 20px; font-size: 1.1em; background-color: rgba(255,255,255,0.8); padding: 15px; border-radius: 10px; text-align: left;">點擊上面的圖片，了解更多關於台灣農產品的有趣知識！</p>
+        </div>
+    </div>
+
+    <script>
+        // 全局變數
+        let currentSection = 'home-section';
+        let totalScore = 0;
+        const achievements = {
+            'farmer-apprentice': { unlocked: false, threshold: 1, type: 'quiz' }, // 完成首次挑戰
+            'fruit-master': { unlocked: false, threshold: 5, type: 'minigame-fruit' }, // 水果配對高分
+            'rice-expert': { unlocked: false, threshold: 2, type: 'quiz-rice' }, // 答對所有稻米相關問題 (第3題)
+            'agri-prodigy': { unlocked: false, threshold: 50, type: 'quiz-full' } // 挑戰賽滿分
+        };
+
+        // --- 導覽列與區塊切換 ---
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.nav-button[data-target="${sectionId}"]`).classList.add('active');
+
+            currentSection = sectionId;
+
+            if (sectionId === 'achievements-section') {
+                updateAchievementsDisplay();
+            }
+            if (sectionId === 'quiz-section' && !quizStarted) {
+                startQuiz(); // 如果切換到測驗頁且尚未開始，則自動開始
+            }
+        }
+
+        // 導覽按鈕事件監聽
+        document.querySelectorAll('.nav-button').forEach(button => {
+            button.addEventListener('click', (event) => {
+                showSection(event.target.dataset.target);
+            });
+        });
+
+        // --- 農業知識區塊邏輯 ---
+        document.querySelectorAll('.knowledge-tab').forEach(tab => {
+            tab.addEventListener('click', (event) => {
+                document.querySelectorAll('.knowledge-tab').forEach(t => t.classList.remove('active'));
+                event.target.classList.add('active');
+
+                document.querySelectorAll('.knowledge-content').forEach(content => content.classList.remove('active'));
+                document.getElementById(`knowledge-${event.target.dataset.category}`).classList.add('active');
+            });
+        });
+
+        // --- 迷你遊戲彈窗邏輯 ---
+        function showMiniGame(gameType) {
+            if (gameType === 'fruit-matching') {
+                document.getElementById('fruitMatchingModal').style.display = 'flex';
+                startFruitMatchingGame();
+            } else if (gameType === 'farm-encyclopedia') {
+                document.getElementById('farmEncyclopediaModal').style.display = 'flex';
+                document.getElementById('farm-info-display').textContent = '點擊上面的圖片，了解更多關於台灣農產品的有趣知識！';
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // 農田小百科互動
+        function showFarmInfo(product) {
+            let info = '';
+            switch (product) {
+                case 'rice':
+                    info = '稻米是台灣人的主食，一年可以收穫兩到三次。插秧後，稻田就像一片綠色地毯，收成時則變成金黃色海浪！';
+                    break;
+                case 'tea':
+                    info = '台灣高山茶因高山氣候與雲霧，茶葉品質特別好，香氣清雅、回甘，是台灣的特色農產品之一。';
+                    break;
+                case 'pineapple':
+                    info = '鳳梨是台灣熱帶水果的代表，酸甜可口，富含維生素C。除了直接吃，還可以做成果醬、鳳梨酥等。';
+                    break;
+            }
+            document.getElementById('farm-info-display').textContent = info;
+        }
+
+        // --- 水果配對遊戲邏輯 ---
+        const fruits = ['🥭', '🍍', '🍊', '🍎', '🍌', '🥭', '🍍', '🍊', '🍎', '🍌'];
+        let shuffledFruits = [];
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+        let matchesFound = 0;
+        let fruitGameScore = 0;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function createFruitCards() {
+            const grid = document.getElementById('fruit-matching-grid');
+            grid.innerHTML = '';
+            shuffledFruits = shuffle([...fruits]); // 複製一份，避免修改原陣列
+            matchesFound = 0;
+            fruitGameScore = 0;
+
+            shuffledFruits.forEach((fruit, index) => {
+                const card = document.createElement('div');
+                card.classList.add('fruit-card');
+                card.dataset.fruit = fruit;
+                card.dataset.index = index;
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">?</div>
+                        <div class="card-back">${fruit}</div>
+                    </div>
+                `;
+                card.addEventListener('click', flipCard);
+                grid.appendChild(card);
+            });
+            document.getElementById('fruit-matching-feedback').textContent = '';
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flipped');
+            if (!firstCard) {
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            lockBoard = true;
+
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            const isMatch = firstCard.dataset.fruit === secondCard.dataset.fruit;
+            isMatch ? disableCards() : unflipCards();
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            matchesFound++;
+            fruitGameScore += 10;
+            resetBoard();
+            if (matchesFound === fruits.length / 2) {
+                document.getElementById('fruit-matching-feedback').textContent = `恭喜你！你完成了配對！獲得 ${fruitGameScore} 分！`;
+                if (fruitGameScore >= achievements['fruit-master'].threshold * 10) { // 假設每對10分，5對50分
+                    unlockAchievement('fruit-master');
+                }
+            }
+        }
+
+        function unflipCards() {
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                resetBoard();
+            }, 1000);
+        }
+
+        function resetBoard() {
+            [firstCard, secondCard, lockBoard] = [null, null, false];
+        }
+
+        function startFruitMatchingGame() {
+            createFruitCards();
+        }
+
+        // --- 練習挑戰區塊邏輯 ---
+        const quizQuestions = [
+            {
+                question: "台灣哪個地區以盛產「高山茶」聞名？",
+                options: ["宜蘭", "嘉義阿里山", "台東", "屏東"],
+                answer: "嘉義阿里山",
+                points: 10,
+                tags: ["tea"]
+            },
+            {
+                question: "以下哪項是台灣夏季常見的「水果」？",
+                options: ["蘋果", "柑橘", "芒果", "葡萄"],
+                answer: "芒果",
+                points: 10,
+                tags: ["fruit"]
+            },
+            {
+                question: "台灣主要的糧食作物是「稻米」，請問稻米在成長過程中，需要充足的「水」來灌溉，這與我們常說的「春耕、夏耘、秋收、冬藏」中的哪個時節最直接相關？",
+                options: ["春耕", "夏耘", "秋收", "冬藏"],
+                answer: "春耕",
+                points: 10,
+                tags: ["rice"]
+            },
+            {
+                question: "為了讓農作物能有更好的收成，農夫會使用「肥料」來提供養分，以下哪種是天然的有機肥料？",
+                options: ["化學肥料", "堆肥", "除草劑", "農藥"],
+                answer: "堆肥",
+                points: 10,
+                tags: []
+            },
+            {
+                question: "台灣的「農業博覽會」通常會在哪個季節舉辦，來推廣各地優質的農產品？",
+                options: ["春季", "夏季", "秋季", "冬季"],
+                answer: "秋季",
+                points: 10,
+                tags: []
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let quizScore = 0;
+        let timer;
+        let timeLeft = 60; // 每題60秒
+        let quizStarted = false;
+        let riceQuestionsCorrect = 0; // 追蹤稻米問題答對數
+
+        function startQuiz() {
+            quizStarted = true;
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            riceQuestionsCorrect = 0;
+            totalScore = 0; // 每次重玩清空總分
+            document.getElementById('quiz-result').style.display = 'none';
+            document.getElementById('restart-quiz-button').style.display = 'none';
+            document.getElementById('next-question-button').style.display = 'none';
+            document.getElementById('quiz-feedback').textContent = '';
+            updateScoreDisplay();
+            loadQuestion();
+            unlockAchievement('farmer-apprentice'); // 開始遊戲即解鎖學徒成就
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuestionIndex];
+                document.getElementById('quiz-question').textContent = `Q${currentQuestionIndex + 1}. ${q.question}`;
+                const optionsDiv = document.getElementById('quiz-options');
+                optionsDiv.innerHTML = '';
+                q.options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.classList.add('option-button');
+                    button.textContent = `(${String.fromCharCode(65 + index)}) ${option}`;
+                    button.dataset.answer = option;
+                    button.onclick = () => checkAnswer(button, q.answer, q.points, q.tags);
+                    optionsDiv.appendChild(button);
+                });
+                document.getElementById('quiz-feedback').textContent = '';
+                document.getElementById('next-question-button').style.display = 'none';
+                resetTimer();
+                startTimer();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function checkAnswer(selectedButton, correctAnswer, points, tags) {
+            clearTimeout(timer); // 停止計時
+            document.querySelectorAll('.option-button').forEach(button => {
+                button.disabled = true; // 禁止再次選擇
+                if (button.dataset.answer === correctAnswer) {
+                    button.classList.add('correct');
+                } else if (button === selectedButton) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            if (selectedButton.dataset.answer === correctAnswer) {
+                quizScore += points;
+                document.getElementById('quiz-feedback').textContent = '答對了！真是棒！';
+                if (tags.includes('rice')) {
+                    riceQuestionsCorrect++;
+                    if (riceQuestionsCorrect >= achievements['rice-expert'].threshold) {
+                        unlockAchievement('rice-expert');
+                    }
+                }
+            } else {
+                document.getElementById('quiz-feedback').textContent = '答錯了，再努力看看！正確答案是：' + correctAnswer;
+            }
+            updateScoreDisplay();
+            document.getElementById('next-question-button').style.display = 'block';
+            document.getElementById('next-question-button').onclick = nextQuestion;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function startTimer() {
+            timeLeft = 60;
+            document.getElementById('quiz-timer').textContent = `時間：${timeLeft}s`;
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('quiz-timer').textContent = `時間：${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearTimeout(timer);
+                    document.getElementById('quiz-feedback').textContent = '時間到！這題你沒有回答喔！';
+                    document.querySelectorAll('.option-button').forEach(button => button.disabled = true);
+                    document.getElementById('next-question-button').style.display = 'block';
+                    document.getElementById('next-question-button').onclick = nextQuestion;
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearTimeout(timer);
+            timeLeft = 60;
+            document.getElementById('quiz-timer').textContent = `時間：${timeLeft}s`;
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('quiz-score').textContent = `分數：${quizScore}`;
+            totalScore = quizScore; // 更新總分
+            document.getElementById('total-score-display').textContent = totalScore;
+        }
+
+        function endQuiz() {
+            document.getElementById('quiz-question').textContent = '';
+            document.getElementById('quiz-options').innerHTML = '';
+            document.getElementById('quiz-feedback').textContent = '';
+            document.getElementById('next-question-button').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+            document.getElementById('quiz-result').textContent = `挑戰結束！你的總分是：${quizScore} 分！`;
+            document.getElementById('restart-quiz-button').style.display = 'block';
+            document.getElementById('restart-quiz-button').onclick = startQuiz;
+            clearTimeout(timer);
+
+            if (quizScore === quizQuestions.length * 10) {
+                unlockAchievement('agri-prodigy');
+            }
+        }
+
+        // --- 成就系統邏輯 ---
+        function unlockAchievement(achievementId) {
+            if (!achievements[achievementId].unlocked) {
+                achievements[achievementId].unlocked = true;
+                const achievementCard = document.getElementById(`achievement-${achievementId}`);
+                if (achievementCard) {
+                    achievementCard.classList.add('unlocked');
+                    alert(`恭喜你！解鎖成就：${achievementCard.querySelector('h3').textContent}`);
+                }
+                updateAchievementsDisplay(); // 即時更新成就顯示
+            }
+        }
+
+        function updateAchievementsDisplay() {
+            document.getElementById('total-score-display').textContent = totalScore;
+            for (const id in achievements) {
+                const card = document.getElementById(`achievement-${id}`);
+                if (card) {
+                    if (achievements[id].unlocked) {
+                        card.classList.add('unlocked');
+                    } else {
+                        card.classList.remove('unlocked');
+                    }
+                }
+            }
+        }
+
+        // 頁面載入時初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('home-section'); // 預設顯示首頁
+            updateAchievementsDisplay(); // 初始化成就顯示
+        });
+
+    </script>
+</body>
+</html>
