@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin的棒球運動科學之旅！</title>
+    <style>
+        body {
+            font-family: '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* 輕柔的淺藍色背景 */
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #ff6347; /* 鮮豔的橘紅色，像棒球的活力 */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+        nav {
+            background-color: #4682b4; /* 沉穩的鋼鐵藍 */
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky; /* 讓導覽列在捲動時固定 */
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #6aabdc; /* 較淺的鋼鐵藍 */
+        }
+        main {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #e9f5ff; /* 每個區塊的淺藍色背景 */
+            border-radius: 8px;
+            border-left: 5px solid #ff6347; /* 橘紅色側邊條，增加活力 */
+        }
+        section h2 {
+            color: #ff6347;
+            font-size: 2em;
+            border-bottom: 3px solid #ffd700; /* 金色底線，突顯標題 */
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        section h3 {
+            color: #4682b4;
+            font-size: 1.6em;
+            margin-top: 30px;
+            border-bottom: 2px dashed #4682b4;
+            padding-bottom: 5px;
+        }
+        .concept-box {
+            background-color: #f7f7f7;
+            border-left: 3px solid #ffd700;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .interactive-placeholder {
+            background-color: #fffacd; /* 檸檬雪紡色，提醒是互動區 */
+            border: 2px dashed #ffa500; /* 橘色虛線邊框 */
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            color: #d2691e; /* 巧克力色文字 */
+            border-radius: 8px;
+        }
+        .image-placeholder {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-placeholder img {
+            max-width: 90%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .video-placeholder {
+            text-align: center;
+            margin: 20px 0;
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .video-placeholder iframe {
+            max-width: 100%;
+        }
+        .external-link {
+            color: #007bff; /* 藍色連結 */
+            text-decoration: none;
+        }
+        .external-link:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* 互動與遊戲化元素區塊的特殊樣式 */
+        .qa-section {
+            background-color: #f0f9f0; /* 淺綠色 */
+            border-left-color: #28a745; /* 綠色 */
+        }
+        .qa-question {
+            font-weight: bold;
+            margin-top: 15px;
+            color: #28a745;
+        }
+        .qa-question button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .qa-question button:hover {
+            background-color: #218838;
+        }
+        .experiment-unit {
+            background-color: #fff5e6; /* 淺橘色 */
+            border-left-color: #ffc107; /* 橘色 */
+        }
+        .experiment-unit ul, .experiment-unit ol {
+            padding-left: 25px;
+        }
+        .game-section {
+            background-color: #e6f7ff; /* 較淺的藍色 */
+            border-left-color: #007bff; /* 藍色 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>⚾ 棒球的運動科學大解密 ⚾</h1>
+        <p>歡迎來到Kevin的科學教室！一起探索棒球背後的物理魔法吧！</p>
+    </header>
+
+    <nav>
+        <a href="#athlete-actions">運動員的動作分析</a>
+        <a href="#equipment-science">棒球器材的科學</a>
+        <a href="#field-science">場地與設備的科學</a>
+        <a href="#interactive-fun">互動與遊戲化</a>
+    </nav>
+
+    <main>
+        <section id="athlete-actions">
+            <h2>✨ 運動員的動作分析：力量的奧秘 ✨</h2>
+            <p>棒球選手的每一個動作，都藏著有趣的科學原理喔！</p>
+
+            <h3>1. 投球：把球投出去的超級力量！</h3>
+            <p>投手為什麼能把球投得又快又遠呢？這可是槓桿、慣性和動量的綜合應用！</p>
+            <div class="concept-box">
+                <h4>💡 科學小知識：槓桿原理、慣性、動量</h4>
+                <ul>
+                    <li><strong>槓桿原理：</strong> 想像你的手臂就是一根槓桿，肩膀是支點。投手利用身體的轉動和手臂的甩動，讓球棒（或手臂）像槓桿一樣，把力量集中在球上，把球甩出去。</li>
+                    <li><strong>慣性：</strong> 物體會保持原來的運動狀態。投手身體的快速轉動和停頓，可以把身體的動能傳遞給球，讓球因為慣性持續向前飛。</li>
+                    <li><strong>動量：</strong> 動量就是「質量」乘以「速度」。投手用全身的力量讓球加速，球的速度越快，動量就越大，越難被阻擋。</li>
+                </ul>
+            </div>
+            <p>投手會先身體轉向、舉腳、然後身體往前傾，最後手臂像鞭子一樣甩出去。這些動作都是為了讓身體各部位的力量能一步步傳遞到指尖，再傳給棒球，讓球帶著最大的速度飛出去！</p>
+            <div class="interactive-placeholder">
+                <h4>🎯 互動小遊戲：我是小小投手！</h4>
+                <p>點擊或拖曳螢幕上的角色，模擬投球動作。看看身體如何一步步發力，讓球的速度越來越快！</p>
+                <p>[此處將設計一個可拖曳或點擊的角色模型，顯示力量傳遞的動畫，並即時顯示球速變化。]</p>
+            </div>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=投手投球時槓桿原理示意圖" alt="投手投球時槓桿原理示意圖">
+                <p>圖：投手投球時，身體各部位像槓桿一樣協調作用。</p>
+            </div>
+
+            <h3>2. 揮棒：擊出全壘打的秘密！</h3>
+            <p>揮棒不只是用蠻力，更是巧妙運用力矩和迴轉加速的藝術！</p>
+            <div class="concept-box">
+                <h4>💡 科學小知識：力矩、迴轉加速</h4>
+                <ul>
+                    <li><strong>力矩：</strong> 想像轉門把手，施力點離轉軸越遠越省力。揮棒時，球棒就像一根槓桿，打者利用身體旋轉產生力矩，讓球棒快速轉動。</li>
+                    <li><strong>迴轉加速：</strong> 打者揮棒時會讓身體快速旋轉，產生迴轉動能。這個動能會傳遞給球棒，讓球棒的末端（擊球點）產生驚人的速度！就像花式溜冰選手收緊手臂後轉速會變快一樣。</li>
+                </ul>
+            </div>
+            <p>打者會先彎曲膝蓋、重心後移，然後再利用腰部、臀部的力量快速旋轉，把力量傳遞到手臂和球棒，讓球棒在擊中球的那一瞬間達到最快的速度！</p>
+            <div class="interactive-placeholder">
+                <h4>🚀 揮棒軌跡動畫！</h4>
+                <p>播放動畫，觀察球棒揮動時的軌跡和速度變化。看看球棒頭是如何瞬間加速的！</p>
+                <p>[此處將設計一個揮棒動畫，標示揮棒軌跡和不同時間點的速度箭頭變化。]</p>
+            </div>
+            <div class="video-placeholder">
+                <p>觀看影片：專業打者慢動作揮棒分析 (示意)</p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=SomeFakeParam" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="棒球揮棒物理學"></iframe>
+                <p>（註：影片為示意，可替換為實際棒球揮棒分析影片）</p>
+            </div>
+
+
+            <h3>3. 跑壘：加速與減速的技巧！</h3>
+            <p>跑壘員如何快速加速、急停或轉彎呢？這都是在跟慣性玩遊戲！</p>
+            <div class="concept-box">
+                <h4>💡 科學小知識：慣性、摩擦力</h4>
+                <ul>
+                    <li><strong>慣性：</strong> 物體會保持原來的運動狀態（靜止或等速直線運動）。跑壘員加速時要用力往前推地來克服慣性；要減速或轉彎時，則要用力改變方向來克服慣性。</li>
+                    <li><strong>摩擦力：</strong> 跑壘員的釘鞋和地面的摩擦力，提供了向前推進和改變方向的力量。沒有摩擦力就無法加速、減速或轉彎！</li>
+                </ul>
+            </div>
+            <p>當跑壘員加速衝刺時，身體會稍微前傾，這樣可以讓地心引力幫助他們往前。要過彎時，則會稍微傾斜身體，利用向心力來快速轉向，並準備好下一段的加速！</p>
+            <div class="interactive-placeholder">
+                <h4>🏃 跑壘模擬器！</h4>
+                <p>點擊「加速」、「減速」、「左轉」、「右轉」按鈕，看看模擬跑壘員如何改變方向和速度。觀察他的動作如何克服慣性！</p>
+                <p>[此處將設計一個簡易的跑壘模擬動畫，讓學生控制跑壘員的動作，並觀察速度和方向的變化。]</p>
+            </div>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=跑壘員改變方向示意圖" alt="跑壘員改變方向示意圖">
+                <p>圖：跑壘員轉彎時，身體傾斜以抵抗慣性。</p>
+            </div>
+        </section>
+
+        <section id="equipment-science">
+            <h2>🔬 棒球器材的科學：裝備裡的秘密 🔬</h2>
+            <p>棒球的裝備可不只是裝飾品，它們的設計都藏著滿滿的科學智慧！</p>
+
+            <h3>1. 球棒：打得更遠的秘密武器！</h3>
+            <p>球棒的材質和形狀，大大影響了擊球的效率喔！</p>
+            <div class="concept-box">
+                <h4>💡 科學小知識：重心、質量分佈、材質影響</h4>
+                <ul>
+                    <li><strong>重心與質量分佈：</strong> 球棒的重心位置和質量分佈會影響揮棒的感覺和擊球的力量。重心越往擊球端靠近的球棒，在揮擊時產生動能越大，但揮起來可能更費力。</li>
+                    <li><strong>材質：</strong>
+                        <ul>
+                            <li><strong>木棒：</strong> 擊球時會有震動，力量傳遞直接，擊球點要非常精準。</li>
+                            <li><strong>鋁棒：</strong> 通常比木棒輕，且擊球面積（甜蜜點）較大，容易擊中球。因為金屬的彈性，擊中球時會有「彈簧效應」，能讓球飛得更快更遠。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <p>選擇適合自己的球棒非常重要，不同的球棒會帶來不同的擊球體驗和效果！</p>
+            <div class="interactive-placeholder">
+                <h4>🧪 虛擬實驗：哪種球棒打得遠？</h4>
+                <p>選擇不同的球棒（木棒、鋁棒），模擬擊球。觀察球的飛行距離和速度有什麼不同！</p>
+                <p>[此處將設計一個簡單的虛擬實驗界面，讓學生選擇球棒種類，模擬擊球，並顯示結果（如飛行距離、球速）。]</p>
+            </div>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=棒球棒材質比較圖" alt="木棒與鋁棒示意圖">
+                <p>圖：不同材質的棒球棒。</p>
+            </div>
+
+            <h3>2. 手套：保護你的手！</h3>
+            <p>手套的設計，是為了在接球時減輕衝擊力，保護選手的手！</p>
+            <div class="concept-box">
+                <h4>💡 科學小知識：緩衝原理、衝擊力</h4>
+                <ul>
+                    <li><strong>緩衝原理：</strong> 當快速飛來的球撞上手套時，手套的厚度、材質和編織網會讓球減速的時間變長。根據物理原理，<strong>「衝擊力 = (動量變化) / (作用時間)」</strong>，作用時間變長，衝擊力就會變小！就像汽車的安全氣囊一樣。</li>
+                    <li><strong>衝擊力：</strong> 球速越快、質量越大，動量就越大，撞擊產生的衝擊力也越大。手套就是要把這個巨大的衝擊力分散和減小。</li>
+                </ul>
+            </div>
+            <p>手套的凹槽和柔軟的材質，都是為了讓球在接觸的瞬間，能被「抱住」而不是直接「撞擊」。</p>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=棒球手套受力分析圖" alt="棒球手套受力分析圖">
+                <p>圖：手套不同部位的受力分析，展示如何分散衝擊力。</p>
+            </div>
+
+            <h3>3. 棒球：會跳舞的球！</h3>
+            <p>棒球的縫線可不是只有裝飾用喔，它大大影響了球的飛行軌跡！</p>
+            <div class="concept-box">
+                <h4>💡 科學小知識：馬格努斯效應、動量</h4>
+                <ul>
+                    <li><strong>縫線與馬格努斯效應：</strong> 棒球表面的縫線和球本身的旋轉，會讓空氣在球的兩側產生不同的流速和壓力差，造成球會往旋轉方向彎曲，這就是「馬格努斯效應」。所以投手可以投出各種會彎曲的球，像是變化球、滑球、曲球！</li>
+                    <li><strong>動量：</strong> 球的質量和速度決定了它的動量。質量越重、速度越快的球，動量越大，越難被改變方向。</li>
+                </ul>
+            </div>
+            <p>下次看棒球比賽時，可以觀察投手投出的球，為什麼有時候會彎彎地飛喔！</p>
+            <div class="interactive-placeholder">
+                <h4>🌀 模擬不同球種飛行！</h4>
+                <p>選擇直球、曲球、滑球，看看它們在空中是如何飛行的。注意縫線和旋轉對軌跡的影響！</p>
+                <p>[此處將設計一個動畫，展示不同球種（直球、曲球、滑球）的飛行軌跡，並可選顯示球的旋轉方向和縫線作用。]</p>
+            </div>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=曲球馬格努斯效應示意圖" alt="曲球馬格努斯效應示意圖">
+                <p>圖：棒球縫線與旋轉造成的馬格努斯效應，讓球產生彎曲軌跡。</p>
+            </div>
+        </section>
+
+        <section id="field-science">
+            <h2>🏟️ 場地與設備的科學：環境的力量 🏟️</h2>
+            <p>棒球場地的每一個細節，也都有它的科學道理！</p>
+
+            <h3>1. 球場：大小和材質的學問！</h3>
+            <p>球場的尺寸和地面材質，都影響著球員的表現和球的動態！</p>
+            <div class="concept-box">
+                <h4>💡 科學小知識：飛行距離、摩擦力</h4>
+                <ul>
+                    <li><strong>全壘打牆距離：</strong> 全壘打牆的距離會影響球的飛行距離。如果牆很近，就更容易打出全壘打！這與球的初始速度、發射角度和空氣阻力有關。</li>
+                    <li><strong>草皮與泥土的摩擦力：</strong>
+                        <ul>
+                            <li><strong>草皮：</strong> 摩擦力較大，球在草皮上滾動時會比較慢，也比較容易停下來。</li>
+                            <li><strong>泥土：</strong> 摩擦力較小，球在泥土上滾動時會比較快，滾得更遠。內野滾地球通常比外野滾地球滾得快。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <p>所以，球場的設計也是一門科學，它會影響比賽的策略和結果呢！</p>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=棒球場地與摩擦力示意圖" alt="棒球場地與摩擦力示意圖">
+                <p>圖：球場全壘打牆距離與草地/泥土的摩擦力示意。</p>
+            </div>
+
+            <h3>2. 壘包：穩定與安全的基礎！</h3>
+            <p>壘包看似簡單，其實也有它的重要性喔！</p>
+            <div class="concept-box">
+                <h4>💡 科學小知識：固定、衝擊吸收</h4>
+                <ul>
+                    <li><strong>材質與固定：</strong> 壘包通常是柔軟的材質（如帆布包覆泡棉），可以吸收跑壘員滑壘時的衝擊力，減少受傷。它必須固定在地面上，確保比賽公平和安全。</li>
+                    <li><strong>規則上的重要性：</strong> 壘包不僅是物理存在，更是棒球規則的核心。它的位置定義了球員的進攻路線，也影響著出局與安全的判斷。</li>
+                </ul>
+            </div>
+            <p>下次在球場上看到壘包，就知道它不只是一個標誌，更是安全和規則的守護者！</p>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=棒球壘包安全示意圖" alt="棒球壘包安全示意圖">
+                <p>圖：壘包的材質和固定方式，確保跑壘員的安全。</p>
+            </div>
+        </section>
+
+        <section id="interactive-fun">
+            <h2>🎉 互動與遊戲化元素：小小科學家來挑戰！ 🎉</h2>
+            <p>學了這麼多，快來動手玩玩看，成為棒球運動科學的小小專家吧！</p>
+
+            <h3 class="qa-section">1. 小小科學家問答區：考驗你的智慧！</h3>
+            <p>回答這些問題，看看你對棒球運動科學理解了多少！</p>
+            <div class="qa-question">
+                <p><strong>Q1: 投手投球時，身體像什麼原理在傳遞力量？</strong></p>
+                <button onclick="alert('答案：槓桿原理！身體各部位協同作用，將力量傳遞給球。')">看答案</button>
+            </div>
+            <div class="qa-question">
+                <p><strong>Q2: 為什麼手套可以減輕接球的衝擊力？</strong></p>
+                <button onclick="alert('答案：緩衝原理！手套增加球減速的時間，把衝擊力分散開來。')">看答案</button>
+            </div>
+            <div class="qa-question">
+                <p><strong>Q3: 棒球的縫線為什麼能讓球飛出「彎曲球」？</strong></p>
+                <button onclick="alert('答案：馬格努斯效應！縫線和旋轉讓空氣產生壓力差，使球彎曲。')">看答案</button>
+            </div>
+            <!-- 可以增加更多Q&A，使用相同的 qa-question 結構 -->
+
+            <h3 class="experiment-unit">2. 我的運動科學實驗室：在家也能玩科學！</h3>
+            <p>簡單的小實驗，讓你親手體驗物理原理！</p>
+            <h4>🏠 小實驗1：捲筒紙筒拋擲大賽！</h4>
+            <ul>
+                <li><strong>目的：</strong> 感受槓桿原理和慣性。</li>
+                <li><strong>怎麼做：</strong>
+                    <ol>
+                        <li>找一個空的衛生紙筒或紙筒。</li>
+                        <li>試著用「投擲」棒球的方式去「投擲」它，感受手臂和身體的協調。</li>
+                        <li>試著想像你的身體像槓桿一樣，如何把力量傳給紙筒，讓它飛得更遠。</li>
+                    </ol>
+                </li>
+                <li><strong>科學連結：</strong> 你會發現，光用手腕是丟不遠的，需要全身的協調和轉動，就像投手一樣！</li>
+            </ul>
+            <h4>🏠 小實驗2：橡皮筋的緩衝藝術！</h4>
+            <ul>
+                <li><strong>目的：</strong> 理解緩衝原理。</li>
+                <li><strong>怎麼做：</strong>
+                    <ol>
+                        <li>準備一顆小球（例如：彈力球、乒乓球）。</li>
+                        <li>把球從一樣的高度丟到堅硬的桌面上，觀察它彈起來的高度。</li>
+                        <li>在桌面上鋪一條厚厚的毛巾，再從一樣的高度丟球，觀察它彈起來的高度。</li>
+                    </ol>
+                </li>
+                <li><strong>科學連結：</strong> 毛巾讓球停下來的時間變長了，所以球的反彈高度變低了，這就是緩衝作用！手套也是這個道理，它讓球停下來的時間變長，減少對手的衝擊力。</li>
+            </ul>
+            <p>嘿！別忘了把你的實驗結果和心得跟同學分享喔！</p>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=小孩在家做科學實驗圖" alt="小孩在家做科學實驗圖">
+                <p>圖：在家也能成為小小科學家！</p>
+            </div>
+
+            <h3 class="game-section">3. 棒球小遊戲：科學力量大比拚！</h3>
+            <p>想像一個棒球遊戲，你的擊球成功率會根據你對「力矩」和「動量」的理解來決定喔！</p>
+            <div class="interactive-placeholder">
+                <h4>🎮 遊戲概念：物理擊球大師！</h4>
+                <p>在遊戲中，你會看到一個計量條，顯示你揮棒的「力量累積」和「擊球角度」。</p>
+                <ul>
+                    <li><strong>力量累積：</strong> 模擬你身體轉動和球棒加速的過程（關聯力矩和迴轉加速）。</li>
+                    <li><strong>擊球角度：</strong> 模擬你擊球瞬間的角度（關聯動量和飛行軌跡）。</li>
+                </ul>
+                <p>根據你控制的這些參數，遊戲會計算出擊球的飛行距離和結果（例如：安打、全壘打、或出局）。這會讓你更直觀地理解物理原理對擊球的影響！</p>
+                <p>[此處為遊戲概念描述，實際遊戲需JavaScript等程式碼實現。]</p>
+            </div>
+            <div class="image-placeholder">
+                <img src="https://via.placeholder.com/600x350?text=棒球物理遊戲概念圖" alt="棒球物理遊戲概念圖">
+                <p>圖：透過遊戲體驗物理原理。</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>設計者：Kevin | 2026年2月</p>
+        <p>參考學習資源：
+            <a href="https://www.exploratorium.edu/baseball/index.html" target="_blank" class="external-link">探索館：棒球科學</a> | 
+            <a href="https://www.khanacademy.org/science/physics/forces-and-newtons-laws/momentum-impulse/a/what-is-momentum" target="_blank" class="external-link">可汗學院：什麼是動量</a>
+        </p>
+        <p>所有圖片皆為示意圖或虛擬內容，實際網頁會替換為精美插圖與動畫。</p>
+    </footer>
+
+    <script>
+        // 未來可在這裡加入更豐富的JavaScript互動功能
+        // 例如：更複雜的問答題型、動畫控制等。
+    </script>
+</body>
+</html>
