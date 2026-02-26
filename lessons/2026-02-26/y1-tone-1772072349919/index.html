@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的家鄉，農情滿滿 - 互動遊戲</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #6CC4A1;
+            --light-green: #A3D9B5;
+            --accent-yellow: #FFD400;
+            --dark-brown: #8B4513;
+            --text-color: #333;
+            --white-bg: #FFFFFF;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-heavy: rgba(0, 0, 0, 0.2);
+            --border-radius-soft: 15px;
+            --button-padding: 12px 25px;
+            --header-font: 'Mochiy Pop P One', cursive;
+            --body-font: 'Noto Sans TC', sans-serif;
+        }
+
+        body {
+            font-family: var(--body-font);
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--primary-green) 100%);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .game-container {
+            background-color: var(--white-bg);
+            border-radius: var(--border-radius-soft);
+            box-shadow: 0 10px 30px var(--shadow-heavy);
+            width: 95%;
+            max-width: 900px;
+            padding: 25px;
+            margin: 20px 0;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInScale 1s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        header h1 {
+            font-family: var(--header-font);
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--dark-brown);
+            text-shadow: 2px 2px var(--accent-yellow);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        header p {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: var(--primary-green);
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .section {
+            background-color: #F8FFF0; /* Lighter background for sections */
+            border-radius: var(--border-radius-soft);
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            border: 1px solid var(--light-green);
+        }
+
+        .section h2 {
+            font-family: var(--header-font);
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: var(--dark-brown);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px dashed var(--accent-yellow);
+        }
+
+        .section p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .game-button {
+            display: inline-block;
+            background-color: var(--accent-yellow);
+            color: var(--dark-brown);
+            padding: var(--button-padding);
+            border-radius: var(--border-radius-soft);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            border: 3px solid var(--dark-brown);
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 5px 0 var(--dark-brown);
+            margin-top: 15px;
+        }
+
+        .game-button:hover {
+            transform: translateY(-2px);
+            background-color: #FFEA61;
+            box-shadow: 0 7px 0 var(--dark-brown);
+        }
+
+        .game-button:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 var(--dark-brown);
+        }
+
+        /* Specific styles for challenges */
+
+        /* 1. 農產品配對挑戰 */
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .match-item, .match-target {
+            background-color: var(--white-bg);
+            border: 2px solid var(--primary-green);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: grab;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 3px 5px var(--shadow-light);
+            transition: transform 0.1s ease;
+        }
+
+        .match-item img {
+            max-width: 80px;
+            max-height: 70px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .match-item span, .match-target span {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .match-target {
+            background-color: #E6F3E6;
+            border-style: dashed;
+            cursor: default;
+        }
+        .match-target.filled {
+            background-color: var(--light-green);
+            border-style: solid;
+        }
+
+        /* 2. 農夫的一天模擬 */
+        .simulation-scenario {
+            background-color: var(--white-bg);
+            border: 2px solid var(--accent-yellow);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--dark-brown);
+        }
+
+        .simulation-actions button {
+            background-color: var(--primary-green);
+            color: var(--white-bg);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 5px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        .simulation-actions button:hover {
+            background-color: #5BAA89;
+            transform: translateY(-2px);
+        }
+        .simulation-actions button:active {
+            transform: translateY(1px);
+        }
+
+        /* 3. 農村地圖尋寶 */
+        .map-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            border: 2px solid var(--primary-green);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .map-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .map-overlay-point {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: var(--accent-yellow);
+            border: 2px solid var(--dark-brown);
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dark-brown);
+            box-shadow: 0 2px 5px var(--shadow-light);
+        }
+        .map-overlay-point:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        /* Example positions (adjust based on actual map image) */
+        .point-north { top: 15%; left: 55%; } /* 茶葉 */
+        .point-central { top: 40%; left: 35%; } /* 稻米 */
+        .point-south { top: 70%; left: 45%; } /* 水果王國 */
+        .map-hint {
+            background-color: #E6F3E6;
+            border: 1px dashed var(--primary-green);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* 4. 農業小百科問答 */
+        .quiz-question {
+            background-color: var(--white-bg);
+            border: 2px solid var(--light-green);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--dark-brown);
+        }
+        .quiz-options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 8px 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+        .quiz-options label:hover {
+            background-color: #f0f0f0;
+        }
+        .quiz-options input[type="radio"] {
+            margin-right: 8px;
+        }
+        .quiz-fill-in input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid var(--primary-green);
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        /* 5. 家鄉農產品創意設計 */
+        .design-form select, .design-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--primary-green);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: var(--body-font);
+        }
+        .design-canvas {
+            background-color: #E6F3E6;
+            border: 2px dashed var(--primary-green);
+            border-radius: 10px;
+            min-height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-green);
+            font-style: italic;
+            margin-top: 15px;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .submit-all-button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--light-green);
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 15px;
+                margin: 10px 0;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .section h2 {
+                font-size: 1.6rem;
+            }
+            .match-grid {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            }
+            .match-item img {
+                max-width: 60px;
+            }
+        }
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .section h2 {
+                font-size: 1.4rem;
+            }
+            .game-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            .match-grid {
+                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            }
+            .simulation-actions button {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>我的家鄉，農情滿滿！</h1>
+            <p>歡迎來到K老師的農場冒險，一起探索台灣的農業寶藏吧！</p>
+        </header>
+
+        <section class="section intro">
+            <p>哈囉，四年級的小農夫們！你知道我們吃的米飯、香甜的水果、還有每天喝的茶，都是從哪裡來的嗎？它們都來自我們美麗的台灣家鄉，是辛勤的農夫們用心栽種出來的喔！</p>
+            <p>今天，我們要一起展開一場特別的農情之旅，透過手機遊戲的方式，認識台灣豐富的農業特色，學習農夫的智慧，還能發揮創意，為家鄉的農產品設計新樣貌！準備好了嗎？點擊下面的按鈕，開始我們的冒險！</p>
+            <div style="text-align: center;">
+                <button class="game-button" onclick="alert('遊戲開始！準備好探索台灣的農情了嗎？');">GO！農場探險去！</button>
+            </div>
+        </section>
+
+        <!-- 1. 農產品配對挑戰 -->
+        <section class="section" id="challenge1">
+            <h2>🌻 挑戰一：農產品配對挑戰</h2>
+            <p>小農夫，請你將台灣常見的農產品圖片，拖曳到正確的名稱或產地標籤上！</p>
+            <div class="match-grid">
+                <!-- 可拖曳的農產品圖片 (draggable items) -->
+                <div class="match-item" draggable="true" data-product="rice">
+                    <img src="https://via.placeholder.com/80x70/B3E5FC/000000?text=稻米" alt="稻米">
+                    <span>稻米</span>
+                </div>
+                <div class="match-item" draggable="true" data-product="pineapple">
+                    <img src="https://via.placeholder.com/80x70/FFECB3/000000?text=鳳梨" alt="鳳梨">
+                    <span>鳳梨</span>
+                </div>
+                <div class="match-item" draggable="true" data-product="banana">
+                    <img src="https://via.placeholder.com/80x70/FFFDE7/000000?text=香蕉" alt="香蕉">
+                    <span>香蕉</span>
+                </div>
+                <div class="match-item" draggable="true" data-product="tea">
+                    <img src="https://via.placeholder.com/80x70/C8E6C9/000000?text=茶葉" alt="茶葉">
+                    <span>茶葉</span>
+                </div>
+                <div class="match-item" draggable="true" data-product="cabbage">
+                    <img src="https://via.placeholder.com/80x70/DCEDC8/000000?text=高麗菜" alt="高麗菜">
+                    <span>高麗菜</span>
+                </div>
+
+                <!-- 放置區 (drop targets) -->
+                <div class="match-target" data-target="rice">
+                    <span>濁水溪平原</span>
+                </div>
+                <div class="match-target" data-target="pineapple">
+                    <span>台南關廟</span>
+                </div>
+                <div class="match-target" data-target="banana">
+                    <span>高雄旗山</span>
+                </div>
+                <div class="match-target" data-target="tea">
+                    <span>南投高山</span>
+                </div>
+                <div class="match-target" data-target="cabbage">
+                    <span>梨山</span>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button class="game-button" onclick="alert('請拖曳配對完成後再提交喔！(此為HTML範例，無實際配對功能)');">完成配對！</button>
+            </div>
+        </section>
+
+        <!-- 2. 農夫的一天模擬 -->
+        <section class="section" id="challenge2">
+            <h2>👨‍🌾 挑戰二：農夫的一天模擬</h2>
+            <p>扮演一日小農夫！請根據「農場情境」，選擇正確的農事活動，讓你的作物頭好壯壯，豐收滿滿！</p>
+            <div class="simulation-scenario">
+                <p><strong>情境：</strong> 現在是溫暖的春天，你的田地準備要種植美味的稻米！</p>
+                <p>目前作物狀態：等待播種</p>
+                <p>你的目標：播種成功，準備灌溉。</p>
+            </div>
+            <div class="simulation-actions" style="text-align: center;">
+                <button onclick="alert('你選擇了播種！恭喜你，稻米寶寶準備發芽！');">播種</button>
+                <button onclick="alert('現在不是施肥的最佳時機喔！');">施肥</button>
+                <button onclick="alert('現在不是收成的季節喔！');">收成</button>
+                <button onclick="alert('現在不是灌溉的最佳時機喔！');">灌溉</button>
+            </div>
+            <div style="text-align: center;">
+                <button class="game-button" onclick="alert('繼續進行下一階段的農事吧！(此為HTML範例，無實際模擬功能)');">確認我的選擇</button>
+            </div>
+        </section>
+
+        <!-- 3. 農村地圖尋寶 -->
+        <section class="section" id="challenge3">
+            <h2>🗺️ 挑戰三：農村地圖尋寶</h2>
+            <p>觀察下面的台灣農村地圖，根據提示找出對應的農產品主要產地，點擊地圖上的「✨」標記，看看你是不是台灣農業小博士！</p>
+            <div class="map-hint">
+                <p><strong>提示一：</strong> 尋找台灣的「水果王國」，這裡盛產香甜的鳳梨和芒果！</p>
+            </div>
+            <div class="map-container">
+                <img src="https://via.placeholder.com/600x400/D4E157/FFFFFF?text=台灣農村地圖" alt="台灣農村地圖">
+                <!-- 這些點位需要根據實際地圖調整，這裡只是示意 -->
+                <div class="map-overlay-point point-north" style="top: 18%; left: 55%;" onclick="alert('你點擊了北部山區！這裡是台灣高山茶葉的故鄉喔！');">✨</div>
+                <div class="map-overlay-point point-central" style="top: 45%; left: 30%;" onclick="alert('你點擊了中部平原！這裡是台灣稻米的重要產地之一，濁水溪平原就在附近！');">✨</div>
+                <div class="map-overlay-point point-south" style="top: 70%; left: 45%;" onclick="alert('恭喜你！點對了！南部正是台灣的「水果王國」，鳳梨、芒果、香蕉這裡都有！');">✨</div>
+            </div>
+            <div class="map-hint">
+                <p><strong>提示二：</strong> 金黃的稻浪在這裡搖曳，它是台灣最重要的糧食作物產地。</p>
+            </div>
+            <div style="text-align: center;">
+                <button class="game-button" onclick="alert('地圖尋寶完成！你找到了幾個寶藏呢？(此為HTML範例，無實際互動功能)');">尋寶完成！</button>
+            </div>
+        </section>
+
+        <!-- 4. 農業小百科問答 -->
+        <section class="section" id="challenge4">
+            <h2>📚 挑戰四：農業小百科問答</h2>
+            <p>是時候驗收你的農業知識了！看看這些問題你能不能答對！</p>
+
+            <div class="quiz-question">
+                <p>1. 台灣哪種水果以其「黃金果肉」和獨特的香氣聞名，也是外國遊客最愛的水果之一？</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q1" value="a"> A. 芭樂</label>
+                    <label><input type="radio" name="q1" value="b"> B. 芒果</label>
+                    <label><input type="radio" name="q1" value="c"> C. 鳳梨</label>
+                    <label><input type="radio" name="q1" value="d"> D. 蓮霧</label>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. 稻米收成後，農夫會將稻穀進行什麼加工過程，才能變成我們餐桌上香噴噴的白米飯？</p>
+                <div class="quiz-fill-in">
+                    <input type="text" placeholder="請輸入答案 (例如：碾米、脫殼)" onchange="alert('你的答案是: ' + this.value + '。 (此為HTML範例，無實際批改功能)');">
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. 台灣的「黑金」指的是哪種農產品？它有助於排水，也可用來製作肥皂等產品。</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q3" value="a"> A. 咖啡豆</label>
+                    <label><input type="radio" name="q3" value="b"> B. 醬油</label>
+                    <label><input type="radio" name="q3" value="c"> C. 竹炭</label>
+                    <label><input type="radio" name="q3" value="d"> D. 烏魚子</label>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="game-button" onclick="alert('提交答案！看看你得了幾分？(此為HTML範例，無實際評分功能)');">提交問答</button>
+            </div>
+        </section>
+
+        <!-- 5. 家鄉農產品創意設計 -->
+        <section class="section" id="challenge5">
+            <h2>🎨 挑戰五：家鄉農產品創意設計</h2>
+            <p>發揮你的小宇宙！選擇一種家鄉農產品，為它設計一個獨特的包裝、響亮的廣告標語，或有趣的周邊商品。告訴K老師你的設計理念！</p>
+
+            <div class="design-form">
+                <label for="product-select" style="font-weight: bold; margin-bottom: 8px; display: block;">選擇一種農產品：</label>
+                <select id="product-select" onchange="alert('你選擇了 ' + this.options[this.selectedIndex].text + '！');">
+                    <option value="">-- 請選擇 --</option>
+                    <option value="rice">台灣米</option>
+                    <option value="pineapple">金鑽鳳梨</option>
+                    <option value="tea">高山烏龍茶</option>
+                    <option value="pomelo">麻豆文旦</option>
+                    <option value="custardapple">台東釋迦</option>
+                </select>
+
+                <label for="design-idea" style="font-weight: bold; margin-bottom: 8px; display: block; margin-top: 15px;">你的創意設計理念 (包裝/標語/周邊商品)：</label>
+                <textarea id="design-idea" rows="6" placeholder="例如：我想設計一個鳳梨造型的包裝，標語是『一口咬下，熱情台灣！』，周邊商品是鳳梨寶寶鑰匙圈。" onchange="alert('你的設計理念已輸入完成！');"></textarea>
+
+                <p style="font-weight: bold; margin-top: 15px;">你的設計草圖 (請在下方想像繪製或文字描述)：</p>
+                <div class="design-canvas">
+                    你可以在這裡想像你的設計草圖，或者用文字描述你的創意。
+                    <br>
+                    例如：一個穿著農夫裝的鳳梨卡通人物，臉上帶著陽光般的笑容！
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button class="game-button" onclick="alert('哇！K老師迫不及待想看到你的創意作品了！(此為HTML範例，無實際提交功能)');">提交我的創意！</button>
+            </div>
+        </section>
+
+        <div class="submit-all-button-container">
+            <button class="game-button" onclick="alert('恭喜你完成了所有挑戰！你真是個了不起的小農夫！');">🎉 完成所有挑戰 🎉</button>
+        </div>
+
+        <footer>
+            <p>設計者：K | 2026-02-26 | 學習台灣農業，從玩樂開始！</p>
+        </footer>
+    </div>
+</body>
+</html>
