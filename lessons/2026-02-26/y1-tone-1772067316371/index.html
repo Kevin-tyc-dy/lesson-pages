@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin | 五年級心理健康生活</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2353B8BB' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E" type="image/svg+xml">
+    <style>
+        /*
+        整體視覺風格與互動動態建議:
+        配色方案：深藍色（背景）、淺藍綠色、鮮豔的洋紅色或橘色（強調色）、淺灰色（文字）。
+        字體選擇：選用簡潔、易讀的無襯線字體，如 'Segoe UI', 'Noto Sans TC', sans-serif。
+        圖標設計風格：扁平化、幾何圖形、線條感。
+        互動動態效果：
+            - 頁面切換時的平滑捲動（透過 CSS smooth scroll 或 JS）。
+            - 按鈕點擊回饋（hover 效果，active 狀態變色或輕微縮放）。
+            - 卡片、區塊的輕微陰影或邊框發光效果。
+            - 圖片、圖標的輕微浮動或脈衝動畫。
+        */
+
+        :root {
+            --bg-dark: #1A1A2E; /* 深太空藍 */
+            --bg-medium: #0F3460; /* 深藍 */
+            --primary-accent: #E94560; /* 鮮豔洋紅 */
+            --secondary-accent: #53B8BB; /* 淺藍綠 */
+            --text-light: #E0E0E0; /* 淺灰 */
+            --text-white: #FFFFFF; /* 純白 */
+            --border-glow: rgba(83, 184, 187, 0.4);
+            --shadow-subtle: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Noto Sans TC', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top left, var(--bg-medium) 0%, transparent 40%),
+                              radial-gradient(circle at bottom right, var(--bg-medium) 0%, transparent 40%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        header {
+            background-color: var(--bg-medium);
+            color: var(--text-white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px var(--shadow-subtle);
+            border-bottom: 2px solid var(--secondary-accent);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-accent);
+            text-decoration: none;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        nav .logo:hover {
+            transform: translateY(-3px);
+        }
+
+        nav .logo::before {
+            content: '🧠'; /* 腦袋圖標 */
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--secondary-accent);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        nav ul li a:hover::before {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-accent);
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        section:first-of-type { /* Home section padding adjustment */
+            padding-top: 150px;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-accent);
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px var(--border-glow);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid var(--secondary-accent);
+            padding-bottom: 10px;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--secondary-accent);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .container {
+            background-color: var(--bg-medium);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px var(--shadow-subtle), 0 0 15px var(--border-glow) inset;
+            border: 1px solid var(--secondary-accent);
+            width: 100%;
+            max-width: 900px;
+            text-align: left;
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .grid-item {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--secondary-accent);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px var(--shadow-subtle), 0 0 15px var(--secondary-accent);
+        }
+
+        .grid-item .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary-accent);
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-accent);
+            color: var(--text-white);
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: darken(var(--primary-accent), 10%); /* This won't work in pure CSS, but illustrates intent */
+            background-color: #c73752; /* Manual darker shade */
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(233, 69, 96, 0.6);
+        }
+
+        /* Home Section Specifics */
+        #home p {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.3rem;
+        }
+
+        .hero-animation {
+            width: 100px;
+            height: 100px;
+            background-color: var(--secondary-accent);
+            border-radius: 50%;
+            margin: 30px auto;
+            position: relative;
+            animation: floatUpDown 3s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px var(--secondary-accent);
+        }
+
+        .hero-animation::before,
+        .hero-animation::after {
+            content: '';
+            position: absolute;
+            background-color: var(--text-white);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .hero-animation::before {
+            width: 40px;
+            height: 40px;
+            top: 15px;
+            left: 15px;
+            animation: pulseFade 2s ease-in-out infinite alternate;
+        }
+
+        .hero-animation::after {
+            width: 25px;
+            height: 25px;
+            bottom: 15px;
+            right: 15px;
+            animation: pulseFade 2.5s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes floatUpDown {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulseFade {
+            0% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.6; }
+        }
+
+        /* 心理健康是什麼區塊 */
+        #what-is-mh .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        #what-is-mh .illustration-placeholder {
+            min-height: 200px;
+            background: linear-gradient(45deg, var(--secondary-accent), var(--primary-accent));
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-white);
+            text-shadow: 0 0 5px var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--text-white);
+        }
+
+        #what-is-mh .illustration-placeholder::before {
+            content: '✨ 健康心靈，閃亮每一天！ ✨';
+            position: absolute;
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px var(--text-white); }
+            100% { text-shadow: 0 0 15px var(--text-white), 0 0 20px var(--secondary-accent); }
+        }
+
+        /* 情緒管理小技巧區塊 */
+        .tip-card {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--secondary-accent);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 5px 15px var(--shadow-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .tip-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px var(--shadow-subtle), 0 0 15px var(--secondary-accent);
+        }
+        .tip-card h3 {
+            color: var(--primary-accent);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .tip-card h3 .icon {
+            margin-right: 10px;
+            font-size: 2.2rem;
+            color: var(--secondary-accent);
+        }
+        .tip-card .steps {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+        .tip-card .steps li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+            font-size: 1.05rem;
+        }
+        .tip-card .steps li::before {
+            content: '✔';
+            color: var(--secondary-accent);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+        }
+
+        /* 壓力大怎麼辦區塊 */
+        .advice-item {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--primary-accent);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .advice-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px var(--shadow-subtle), 0 0 15px var(--primary-accent);
+        }
+        .advice-item .icon {
+            font-size: 3rem;
+            color: var(--secondary-accent);
+            margin-bottom: 15px;
+        }
+        .advice-item h4 {
+            color: var(--text-white);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        /* 交朋友的藝術區塊 */
+        .scenario-box {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--secondary-accent);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: left;
+            box-shadow: 0 5px 15px var(--shadow-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .scenario-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow-subtle);
+        }
+        .scenario-box h4 {
+            color: var(--primary-accent);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .scenario-box h4 .icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            color: var(--secondary-accent);
+        }
+        .scenario-options button {
+            background-color: var(--bg-medium);
+            color: var(--text-white);
+            border: 2px solid var(--secondary-accent);
+            padding: 12px 20px;
+            margin: 10px 10px 10px 0;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+        }
+        .scenario-options button:hover {
+            background-color: var(--secondary-accent);
+            transform: translateY(-2px);
+            border-color: var(--primary-accent);
+        }
+        .scenario-feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-left: 5px solid var(--primary-accent);
+            background-color: rgba(233, 69, 96, 0.1);
+            border-radius: 5px;
+            font-size: 1.1rem;
+            display: none; /* 預設隱藏 */
+        }
+        .scenario-feedback.correct {
+            border-left-color: var(--secondary-accent);
+            background-color: rgba(83, 184, 187, 0.1);
+        }
+
+        /* 需要幫忙時怎麼做區塊 */
+        .help-channel {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--secondary-accent);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .help-channel:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px var(--shadow-subtle), 0 0 15px var(--secondary-accent);
+        }
+        .help-channel .icon {
+            font-size: 3rem;
+            color: var(--primary-accent);
+            margin-bottom: 15px;
+        }
+        .help-channel h4 {
+            color: var(--text-white);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .help-contact-info {
+            font-weight: bold;
+            color: var(--secondary-accent);
+        }
+
+        /* 練習題區塊 */
+        .quiz-container {
+            background-color: var(--bg-medium);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px var(--shadow-subtle), 0 0 15px var(--border-glow) inset;
+            border: 1px solid var(--secondary-accent);
+            width: 100%;
+            max-width: 900px;
+            text-align: left;
+        }
+        .quiz-question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--bg-dark);
+            border-radius: 10px;
+            border: 1px solid var(--secondary-accent);
+            box-shadow: 0 3px 10px var(--shadow-subtle);
+        }
+        .quiz-question p {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-white);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .quiz-question p::before {
+            content: attr(data-qnum) ". ";
+            color: var(--primary-accent);
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        .quiz-options label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 10px 15px;
+            background-color: var(--bg-medium);
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+            border: 1px solid transparent;
+            position: relative;
+        }
+        .quiz-options label:hover {
+            background-color: var(--bg-dark);
+            border-color: var(--secondary-accent);
+        }
+        .quiz-options input[type="radio"] {
+            margin-right: 10px;
+            accent-color: var(--secondary-accent); /* Change radio button color */
+            transform: scale(1.2); /* Make radio buttons slightly larger */
+            position: relative;
+            top: 2px;
+        }
+        .quiz-feedback {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            display: none; /* 預設隱藏 */
+        }
+        .quiz-feedback.correct {
+            background-color: rgba(83, 184, 187, 0.2);
+            color: var(--secondary-accent);
+            border: 1px solid var(--secondary-accent);
+        }
+        .quiz-feedback.incorrect {
+            background-color: rgba(233, 69, 96, 0.2);
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+        }
+        #quiz-results {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: var(--bg-dark);
+            border-radius: 10px;
+            border: 1px solid var(--primary-accent);
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: none; /* 預設隱藏 */
+            box-shadow: 0 0 15px var(--primary-accent);
+        }
+        #quiz-results span {
+            color: var(--secondary-accent);
+        }
+
+
+        footer {
+            background-color: var(--bg-medium);
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            font-size: 0.9rem;
+            border-top: 2px solid var(--primary-accent);
+        }
+
+        footer a {
+            color: var(--secondary-accent);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-white);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+            nav .logo {
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            nav ul li a {
+                font-size: 0.95rem;
+                padding: 6px 12px;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 80px 15px;
+            }
+            .container, .quiz-container {
+                padding: 25px;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .tip-card, .advice-item, .help-channel {
+                padding: 20px;
+            }
+            .quiz-question p {
+                font-size: 1.15rem;
+            }
+            .quiz-options label {
+                font-size: 1rem;
+                padding: 8px 12px;
+            }
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#home" class="logo">Kevin的心理健康探險</a>
+            <ul>
+                <li><a href="#home">首頁</a></li>
+                <li><a href="#what-is-mh">心理健康是什麼</a></li>
+                <li><a href="#emotion-tips">情緒管理小技巧</a></li>
+                <li><a href="#stress-relief">壓力大怎麼辦</a></li>
+                <li><a href="#friendship">交朋友的藝術</a></li>
+                <li><a href="#seeking-help">需要幫忙時怎麼做</a></li>
+                <li><a href="#quiz">練習題</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 首頁 -->
+        <section id="home">
+            <h1>歡迎來到心理健康探險之旅！</h1>
+            <div class="hero-animation"></div>
+            <p>嗨，我是Kevin，很高興你來到這裡！心理健康就像我們的身體健康一樣重要，它幫助我們開心學習、快樂玩耍、和朋友好好相處。一起來探索如何讓我們的內心更強大、更陽光吧！</p>
+            <a href="#what-is-mh" class="cta-button">開始探索</a>
+        </section>
+
+        <!-- 心理健康是什麼 -->
+        <section id="what-is-mh">
+            <h2>心理健康是什麼？</h2>
+            <div class="container">
+                <p>想像一下，我們的身體需要食物、水和運動來保持健康，對吧？同樣地，我們的心靈也需要照顧和滋養，才能保持「心理健康」！</p>
+                <h3>📌 心理健康的基本定義</h3>
+                <p>心理健康，簡單來說，就是我們的「心」和「腦」感覺良好、運作正常。當你心理健康時，你可以：</p>
+                <ul>
+                    <li>✅ 感受和表達各種情緒，即使是生氣或難過，也能找到健康的方式處理。</li>
+                    <li>✅ 學習新事物、專心上課。</li>
+                    <li>✅ 和家人朋友建立好關係。</li>
+                    <li>✅ 知道怎麼處理生活中的挑戰和壓力。</li>
+                    <li>✅ 覺得自己很有價值，對生活充滿希望。</li>
+                </ul>
+                <p>就像你的電腦需要定期更新和清理垃圾一樣，我們的心靈也需要休息和學習如何處理問題，才能保持最佳狀態！</p>
+                <div class="illustration-placeholder">
+                    <!-- 這裡會放置科技風格的心理健康示意圖，例如齒輪、腦部線條、心形等元素組成的抽象圖案 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 情緒管理小技巧 -->
+        <section id="emotion-tips">
+            <h2>情緒管理小技巧</h2>
+            <p>情緒就像天氣一樣，有時候晴空萬里，有時候烏雲密布。學會管理情緒，就能讓你的心天天都放晴！</p>
+            <div class="grid-container">
+                <div class="tip-card">
+                    <h3><span class="icon">🌬️</span> 深呼吸大法</h3>
+                    <p>當你感覺生氣、緊張或難過時，試試這個簡單的深呼吸練習：</p>
+                    <ol class="steps">
+                        <li><strong>找個安靜的地方：</strong> 坐下或站著，讓自己舒服。</li>
+                        <li><strong>吸氣：</strong> 慢慢地用鼻子深吸氣，感覺肚子像氣球一樣鼓起來，數到4。</li>
+                        <li><strong>閉氣：</strong> 輕輕閉住氣，數到4。</li>
+                        <li><strong>吐氣：</strong> 慢慢地用嘴巴吐氣，感覺肚子消下去，數到6。</li>
+                        <li><strong>重複：</strong> 重複做3-5次，你會感覺放鬆許多！</li>
+                    </ol>
+                </div>
+                <div class="tip-card">
+                    <h3><span class="icon">🎨</span> 創意塗鴉樂</h3>
+                    <p>把情緒畫出來，是很好的表達方式。你不需要是畫家，只要拿起筆就行！</p>
+                    <ol class="steps">
+                        <li><strong>準備工具：</strong> 紙、筆、蠟筆、彩色筆都可以。</li>
+                        <li><strong>自由創作：</strong> 不管你感覺怎樣，都把它畫出來。可以是抽象的線條、形狀，也可以是具體的圖案。</li>
+                        <li><strong>顏色表達：</strong> 讓顏色代表你的心情，生氣用紅色，開心用黃色，難過用藍色。</li>
+                        <li><strong>感受變化：</strong> 畫完後，你可能會發現心情變得比較平靜。</li>
+                    </ol>
+                </div>
+                <div class="tip-card">
+                    <h3><span class="icon">🎶</span> 音樂魔法盒</h3>
+                    <p>音樂有神奇的力量，可以改變我們的心情。找到你的「魔法音樂」吧！</p>
+                    <ol class="steps">
+                        <li><strong>心情點播：</strong> 當你難過時，聽一些輕柔、溫暖的音樂。當你需要力量時，聽一些節奏感強的音樂。</li>
+                        <li><strong>動起來：</strong> 配合音樂輕輕搖擺或跳舞，釋放身體的能量。</li>
+                        <li><strong>享受當下：</strong> 閉上眼睛，專心感受音樂的旋律和節奏，讓自己沉浸其中。</li>
+                        <li><strong>創造歌單：</strong> 建立一個「開心歌單」和一個「放鬆歌單」，在不同情緒時播放。</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- 壓力大怎麼辦 -->
+        <section id="stress-relief">
+            <h2>壓力大怎麼辦？</h2>
+            <p>有時候，我們也會感到壓力山大，比如考試、搬家、或是和朋友吵架。沒關係，這是正常的！我們可以學會如何讓壓力變小。</p>
+            <div class="container">
+                <h3>壓力來源有哪些？</h3>
+                <p>五年級的你可能會遇到這些壓力來源：</p>
+                <ul>
+                    <li>學習壓力：考試、作業太多、課程內容太難。</li>
+                    <li>人際壓力：和同學吵架、被排擠、交不到新朋友。</li>
+                    <li>家庭壓力：和家人意見不合、家裡有變動（例如兄弟姐妹出生、搬家）。</li>
+                    <li>自我要求：想把每件事都做好，對自己太嚴格。</li>
+                </ul>
+
+                <h3>⚡️ 壓力調適小秘訣</h3>
+                <div class="grid-container">
+                    <div class="advice-item">
+                        <div class="icon">🏃</div>
+                        <h4>動起來，流點汗！</h4>
+                        <p>運動是最好的壓力釋放器！去跑跑步、打球、跳繩、游泳，讓身體動起來，心情也會跟著好起來。</p>
+                    </div>
+                    <div class="advice-item">
+                        <div class="icon">🗣️</div>
+                        <h4>說出來，別憋著！</h4>
+                        <p>把心裡的話告訴你信任的人，像是爸爸媽媽、老師、好朋友。說出來會讓你感覺輕鬆很多，他們也能給你建議或安慰。</p>
+                    </div>
+                    <div class="advice-item">
+                        <div class="icon">😴</div>
+                        <h4>好好休息，放鬆一下！</h4>
+                        <p>每天睡飽飽，安排一些時間做自己喜歡的事，例如看書、玩樂高、聽音樂。讓大腦和身體都有機會充電。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 交朋友的藝術 -->
+        <section id="friendship">
+            <h2>交朋友的藝術</h2>
+            <p>朋友是我們生活中的寶藏！學習如何交朋友、維持友誼，會讓你的生活更豐富多彩。</p>
+            <div class="container">
+                <h3>👥 友誼情境練習</h3>
+                <p>選擇一個你覺得最好的答案吧！</p>
+
+                <div class="scenario-box">
+                    <h4><span class="icon">❓</span> 情境一：認識新朋友</h4>
+                    <p>班上來了一位新同學，你很想和他交朋友，但不知道怎麼開口。你會怎麼做？</p>
+                    <div class="scenario-options" data-correct="1">
+                        <button onclick="checkScenario(this, 1)">A. 等他來找我說話。</button>
+                        <button onclick="checkScenario(this, 2)">B. 主動走過去，微笑地說：「哈囉，歡迎你！我叫Kevin，你叫什麼名字？」</button>
+                        <button onclick="checkScenario(this, 3)">C. 叫朋友去幫我問他的名字。</button>
+                        <button onclick="checkScenario(this, 4)">D. 假裝沒看到他，繼續玩自己的。</button>
+                    </div>
+                    <div class="scenario-feedback"></div>
+                </div>
+
+                <div class="scenario-box">
+                    <h4><span class="icon">❓</span> 情境二：朋友間的小衝突</h4>
+                    <p>你和最好的朋友因為一件小事吵架了，兩個人都感覺有點不開心。你會怎麼辦？</p>
+                    <div class="scenario-options" data-correct="2">
+                        <button onclick="checkScenario(this, 1)">A. 再也不理他了，反正我還有別的朋友。</button>
+                        <button onclick="checkScenario(this, 2)">B. 等兩個人都冷靜下來後，主動去找朋友說：「對不起，我剛剛____，你還好嗎？我們好好談談好嗎？」</button>
+                        <button onclick="checkScenario(this, 3)">C. 告訴老師，讓老師來評理。</button>
+                        <button onclick="checkScenario(this, 4)">D. 到處跟其他同學說朋友的壞話。</button>
+                    </div>
+                    <div class="scenario-feedback"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 需要幫忙時怎麼做 -->
+        <section id="seeking-help">
+            <h2>需要幫忙時怎麼做？</h2>
+            <p>遇到困難、感到不舒服或不安全時，尋求協助是勇敢的表現！你不是一個人，總有人願意幫助你。</p>
+            <div class="container">
+                <h3>💡 何時需要尋求協助？</h3>
+                <p>當你出現以下情況，請記得向大人求助：</p>
+                <ul>
+                    <li>連續好幾天都感到非常難過、生氣或害怕，而且這些感覺沒有變好。</li>
+                    <li>晚上睡不好，或食慾變差。</li>
+                    <li>常常覺得很累，提不起精神。</li>
+                    <li>對以前喜歡做的事情也失去了興趣。</li>
+                    <li>有人讓你感覺不舒服、不安全或受到威脅。</li>
+                    <li>有任何讓你感到困惑、擔心或無法自己解決的問題。</li>
+                </ul>
+
+                <h3>🤝 具體可行的求助管道</h3>
+                <div class="grid-container">
+                    <div class="help-channel">
+                        <div class="icon">👨‍🏫</div>
+                        <h4>學校老師 / 輔導老師</h4>
+                        <p>老師們都很關心你，他們是你在學校最直接的求助對象。</p>
+                        <p class="help-contact-info">找班級老師或輔導室老師</p>
+                    </div>
+                    <div class="help-channel">
+                        <div class="icon">👨‍👩‍👧‍👦</div>
+                        <h4>爸爸媽媽 / 家人</h4>
+                        <p>家人永遠是你的避風港，他們是最愛你的人，會盡力幫助你。</p>
+                        <p class="help-contact-info">和家人聊聊</p>
+                    </div>
+                    <div class="help-channel">
+                        <div class="icon">🤝</div>
+                        <h4>值得信任的成年人</h4>
+                        <p>可能是親戚、鄰居、教練，任何讓你覺得安全、可以傾訴的大人。</p>
+                        <p class="help-contact-info">找出可以信任的大人</p>
+                    </div>
+                </div>
+                <p style="margin-top: 30px; text-align: center; color: var(--secondary-accent); font-weight: bold;">
+                    請記住：尋求幫助，是為自己負責，也是愛自己的表現！
+                </p>
+
+                <h3>參考學習資源網：</h3>
+                <p style="text-align: center;">
+                    <a href="https://kids.moh.gov.tw/Default.aspx" target="_blank" class="cta-button" style="background-color: var(--secondary-accent);">衛生福利部兒童福利聯盟</a>
+                    <a href="https://www.tfcf.org.tw/" target="_blank" class="cta-button">董氏基金會 - 憂鬱防治網</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- 練習題 -->
+        <section id="quiz">
+            <h2>心理健康小測驗</h2>
+            <p>來考考你學到了多少！選出你認為最適合的答案。</p>
+            <div class="quiz-container">
+                <form id="mentalHealthQuiz">
+                    <div class="quiz-question" data-qnum="1">
+                        <p>當你感到非常生氣時，下面哪一種做法最能幫助你調適情緒？</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q1" value="a"> A. 大聲吼叫或亂丟東西。</label>
+                            <label><input type="radio" name="q1" value="b"> B. 找個安靜的地方，做幾次深呼吸。</label>
+                            <label><input type="radio" name="q1" value="c"> C. 假裝自己沒有生氣，什麼都不說。</label>
+                            <label><input type="radio" name="q1" value="d"> D. 馬上找朋友吵架。</label>
+                        </div>
+                        <div class="quiz-feedback" data-correct-answer="B"></div>
+                    </div>
+
+                    <div class="quiz-question" data-qnum="2">
+                        <p>以下哪一個是健康的心理狀態可能有的特徵？</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q2" value="a"> A. 總是覺得很煩躁，不想和任何人說話。</label>
+                            <label><input type="radio" name="q2" value="b"> B. 無法專心學習，常常發呆。</label>
+                            <label><input type="radio" name="q2" value="c"> C. 能夠感受和表達各種情緒，並處理生活中的挑戰。</label>
+                            <label><input type="radio" name="q2" value="d"> D. 每天都覺得很累，提不起精神。</label>
+                        </div>
+                        <div class="quiz-feedback" data-correct-answer="C"></div>
+                    </div>
+
+                    <div class="quiz-question" data-qnum="3">
+                        <p>當你因為考試壓力很大時，下面哪一種方法最不建議？</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q3" value="a"> A. 去戶外跑跑步或打球。</label>
+                            <label><input type="radio" name="q3" value="b"> B. 和爸爸媽媽聊聊你的擔心。</label>
+                            <label><input type="radio" name="q3" value="c"> C. 連續熬夜讀書，不睡覺也不休息。</label>
+                            <label><input type="radio" name="q3" value="d"> D. 聽一些輕快的音樂放鬆心情。</label>
+                        </div>
+                        <div class="quiz-feedback" data-correct-answer="C"></div>
+                    </div>
+
+                    <div class="quiz-question" data-qnum="4">
+                        <p>如果你的朋友最近常常看起來很難過，而且不愛講話，你會怎麼做？</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q4" value="a"> A. 不關我的事，反正他過幾天就會好了。</label>
+                            <label><input type="radio" name="q4" value="b"> B. 私底下嘲笑他。</label>
+                            <label><input type="radio" name="q4" value="c"> C. 主動關心他，問他需不需要幫忙，或告訴老師。</label>
+                            <label><input type="radio" name="q4" value="d"> D. 告訴其他同學一起疏遠他。</label>
+                        </div>
+                        <div class="quiz-feedback" data-correct-answer="C"></div>
+                    </div>
+
+                    <div class="quiz-question" data-qnum="5">
+                        <p>當你遇到讓自己感到不舒服或危險的事情時，最正確的做法是什麼？</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q5" value="a"> A. 自己一個人藏在心裡，不告訴任何人。</label>
+                            <label><input type="radio" name="q5" value="b"> B. 找班級老師、輔導老師、爸爸媽媽或其他信任的大人尋求幫助。</label>
+                            <label><input type="radio" name="q5" value="c"> C. 反擊回去，以牙還牙。</label>
+                            <label><input type="radio" name="q5" value="d"> D. 假裝沒發生，希望事情自己消失。</label>
+                        </div>
+                        <div class="quiz-feedback" data-correct-answer="B"></div>
+                    </div>
+
+                    <button type="submit" class="cta-button">提交答案</button>
+                </form>
+                <div id="quiz-results" style="display: none;">
+                    你的得分是：<span id="score">0</span> / 5
+                    <p style="font-size: 1rem; color: var(--text-light); margin-top: 15px;">做得好！記得多複習這些心理健康小知識喔！</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kevin的心理健康探險. All rights reserved.</p>
+        <p>設計者: Kevin</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scenario interaction
+        function checkScenario(button, choice) {
+            const scenarioBox = button.closest('.scenario-box');
+            const optionsDiv = scenarioBox.querySelector('.scenario-options');
+            const feedbackDiv = scenarioBox.querySelector('.scenario-feedback');
+            const correctChoice = parseInt(optionsDiv.dataset.correct);
+
+            // Reset previous feedback
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.classList.remove('correct', 'incorrect');
+
+            if (choice === correctChoice) {
+                feedbackDiv.textContent = '🥳 太棒了！這是最好的做法！主動友善、溝通和解決問題，是維持好人緣的秘訣喔！';
+                feedbackDiv.classList.add('correct');
+            } else {
+                feedbackDiv.textContent = '🤔 嗯，這個選擇可能不是最好的。我們可以有更主動、更積極的方式來處理喔！再想想看吧！';
+                feedbackDiv.classList.add('incorrect');
+            }
+            // Optional: disable buttons after selection for a given scenario
+            optionsDiv.querySelectorAll('button').forEach(btn => btn.disabled = true);
+        }
+
+
+        // Quiz logic
+        document.getElementById('mentalHealthQuiz').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let score = 0;
+            const totalQuestions = 5;
+
+            const questions = document.querySelectorAll('.quiz-question');
+            questions.forEach((q, index) => {
+                const questionNumber = index + 1;
+                const selectedOption = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+                const feedbackDiv = q.querySelector('.quiz-feedback');
+                const correctAnswerLetter = feedbackDiv.dataset.correctAnswer;
+                const choices = q.querySelectorAll('input[type="radio"]');
+
+                feedbackDiv.style.display = 'block'; // Show feedback
+                feedbackDiv.classList.remove('correct', 'incorrect'); // Reset classes
+
+                // Clear previous highlights for options
+                choices.forEach(choice => {
+                    choice.parentNode.style.backgroundColor = '';
+                    choice.parentNode.style.border = '';
+                });
+
+                if (selectedOption) {
+                    // Get the letter of the selected option (e.g., 'a', 'b', 'c', 'd')
+                    const selectedValueLetter = selectedOption.value.toUpperCase();
+
+                    if (selectedValueLetter === correctAnswerLetter) {
+                        score++;
+                        feedbackDiv.textContent = `✅ 答對了！正確答案是 ${correctAnswerLetter}。`;
+                        feedbackDiv.classList.add('correct');
+                        selectedOption.parentNode.style.backgroundColor = 'rgba(83, 184, 187, 0.3)'; // Highlight correct choice
+                        selectedOption.parentNode.style.border = '1px solid var(--secondary-accent)';
+                    } else {
+                        feedbackDiv.textContent = `❌ 答錯了。正確答案是 ${correctAnswerLetter}。`;
+                        feedbackDiv.classList.add('incorrect');
+                        selectedOption.parentNode.style.backgroundColor = 'rgba(233, 69, 96, 0.3)'; // Highlight incorrect chosen
+                        selectedOption.parentNode.style.border = '1px solid var(--primary-accent)';
+
+                        // Also highlight the correct answer
+                        q.querySelectorAll('input[type="radio"]').forEach(radio => {
+                            if (radio.value.toUpperCase() === correctAnswerLetter) {
+                                radio.parentNode.style.backgroundColor = 'rgba(83, 184, 187, 0.3)';
+                                radio.parentNode.style.border = '1px solid var(--secondary-accent)';
+                            }
+                        });
+                    }
+                } else {
+                    feedbackDiv.textContent = `⚠️ 你還沒選擇答案喔！正確答案是 ${correctAnswerLetter}。`;
+                    feedbackDiv.classList.add('incorrect');
+                    // Highlight the correct answer even if nothing was selected
+                    q.querySelectorAll('input[type="radio"]').forEach(radio => {
+                        if (radio.value.toUpperCase() === correctAnswerLetter) {
+                            radio.parentNode.style.backgroundColor = 'rgba(83, 184, 187, 0.3)';
+                            radio.parentNode.style.border = '1px solid var(--secondary-accent)';
+                        }
+                    });
+                }
+            });
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('quiz-results').style.display = 'block';
+            document.getElementById('quiz-results').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+
+</body>
+</html>
