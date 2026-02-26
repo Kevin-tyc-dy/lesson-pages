@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>棒球科學家：簡單機械大挑戰！</title>
+    <!-- Google Fonts for a playful yet readable look -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for easy theme management */
+        :root {
+            --primary-blue: #2196F3; /* Sky blue, often associated with sports */
+            --secondary-green: #8BC34A; /* Field green, for the baseball diamond */
+            --accent-red: #F44336; /* Baseball seam red, for highlights */
+            --accent-yellow: #FFEB3B; /* Sun yellow, for bright accents */
+            --neutral-white: #FFFFFF;
+            --neutral-dark: #333333;
+            --light-grey: #f4f4f4;
+            --dark-grey: #666666;
+            --baseball-brown: #795548; /* Dirt brown */
+        }
+
+        /* General Body Styles */
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-green) 100%); /* Sky to field gradient */
+            color: var(--neutral-dark);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--neutral-white);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            position: relative;
+            z-index: 2; /* Ensure content is above floating elements */
+        }
+
+        /* Headings Styles */
+        h1, h2, h3 {
+            font-family: 'Fredoka One', cursive; /* Playful font for titles */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: var(--accent-red);
+            text-shadow: 3px 3px 0 var(--baseball-brown), -3px -3px 0 var(--accent-yellow); /* Baseball themed text shadow */
+            padding: 20px 0;
+            margin-top: 0;
+            background: var(--light-grey);
+            border-radius: 10px;
+            animation: bounceIn 1s ease-out; /* Fun intro animation */
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: var(--secondary-green);
+            text-shadow: 2px 2px 0 var(--neutral-white);
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--accent-yellow);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        p {
+            margin-bottom: 1em;
+            font-size: 1.1em;
+        }
+
+        /* Call to Action Button */
+        .button {
+            display: inline-block;
+            background-color: var(--accent-red);
+            color: var(--neutral-white);
+            padding: 15px 30px;
+            border-radius: 50px; /* Pill shape */
+            text-decoration: none;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+            transform: translateY(-3px); /* Slight lift effect */
+        }
+
+        /* Section Styling */
+        .section {
+            background-color: var(--light-grey);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+            border-left: 5px solid var(--accent-red); /* Themed left border */
+        }
+
+        .section.baseball-field {
+            background-image: url('https://via.placeholder.com/1200x300/8BC34A/FFFFFF?text=歡迎來到棒球科學家'); /* Placeholder for baseball field background */
+            background-size: cover;
+            background-position: center;
+            color: var(--neutral-white);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Readable text on image */
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            position: relative; /* For potential overlay effects */
+            overflow: hidden; /* Keep content within bounds */
+        }
+        /* Add a subtle overlay to the baseball field background for better text readability */
+        .section.baseball-field::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3); /* Dark overlay */
+            border-radius: 10px;
+        }
+        .section.baseball-field h2, .section.baseball-field p, .section.baseball-field .button {
+            position: relative; /* Bring text/button above the overlay */
+            z-index: 1;
+        }
+
+        .section.baseball-field h2 {
+            color: var(--neutral-white);
+            text-shadow: 3px 3px 0 var(--primary-blue);
+            font-size: 2.8em;
+        }
+        .section.baseball-field p {
+            font-size: 1.2em;
+        }
+
+        /* Simple Machine Grid Layout */
+        .simple-machine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        /* Individual Machine Card */
+        .machine-card {
+            background-color: var(--neutral-white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-bottom: 5px solid var(--primary-blue); /* Themed bottom border */
+        }
+
+        .machine-card:hover {
+            transform: translateY(-5px); /* Lift on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .machine-card h4 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--secondary-green);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .machine-card p {
+            font-size: 1em;
+            color: var(--dark-grey);
+        }
+
+        /* Simple Machine Icon Placeholders */
+        .machine-icon-placeholder {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 3em;
+            color: var(--neutral-white);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .machine-icon-placeholder.lever { background-color: #FF5722; /* Orange */ }
+        .machine-icon-placeholder.wheel { background-color: #00BCD4; /* Cyan */ }
+        .machine-icon-placeholder.pulley { background-color: #673AB7; /* Deep Purple */ }
+        .machine-icon-placeholder.inclined-plane { background-color: #4CAF50; /* Green */ }
+        .machine-icon-placeholder.wedge { background-color: #FFC107; /* Amber */ }
+        .machine-icon-placeholder.screw { background-color: #E91E63; /* Pink */ }
+
+        /* Game Activity Section */
+        .game-activity {
+            background-color: var(--neutral-white);
+            border: 2px dashed var(--accent-yellow); /* Dashed border for game feel */
+            padding: 25px;
+            margin-top: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .game-activity h4 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--accent-red);
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .game-activity .question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--neutral-dark);
+        }
+
+        .game-activity .options button {
+            background-color: var(--primary-blue);
+            color: var(--neutral-white);
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 1.1em;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .game-activity .options button:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+        .game-activity .options button:disabled {
+            background-color: #B0BEC5; /* Grey out disabled buttons */
+            cursor: not-allowed;
+        }
+
+        /* Learning Resources Section */
+        .resources {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .resources ul {
+            list-style: none;
+            padding: 0;
+            display: inline-block; /* For centering the list */
+            text-align: left;
+        }
+
+        .resources li {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .resources li a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+
+        .resources li a:hover {
+            color: var(--accent-red);
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: var(--neutral-dark);
+            color: var(--light-grey);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* Floating Baseball Icons (Decorative) */
+        .baseball-icon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Baseball_by_US_Navy.jpg/640px-Baseball_by_US_Navy.jpg'); /* Placeholder baseball image */
+            background-size: cover;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            animation: floatBall 3s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .baseball-icon.top-left { top: 20px; left: 20px; animation-delay: 0s; }
+        .baseball-icon.bottom-right { bottom: 20px; right: 20px; animation-delay: 1.5s; }
+
+        @keyframes floatBall {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(15deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            .container { margin: 10px; padding: 15px; }
+            .section { padding: 20px; }
+            .simple-machine-grid { grid-template-columns: 1fr; } /* Single column on smaller screens */
+            .button { padding: 12px 25px; font-size: 1.1em; }
+            .section.baseball-field h2 { font-size: 2em; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8em; text-shadow: 2px 2px 0 var(--baseball-brown), -2px -2px 0 var(--accent-yellow); }
+            h2 { font-size: 1.5em; }
+            h3 { font-size: 1.3em; }
+            p { font-size: 1em; }
+            .section { padding: 15px; }
+            .baseball-icon { display: none; } /* Hide floating balls on very small screens */
+            .game-activity .options button { padding: 8px 15px; font-size: 1em; }
+            .section.baseball-field h2 { font-size: 1.6em; }
+            .section.baseball-field p { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative floating baseballs -->
+    <div class="baseball-icon top-left"></div>
+    <div class="baseball-icon bottom-right"></div>
+
+    <div class="container">
+        <header>
+            <h1>棒球科學家：簡單機械大挑戰！</h1>
+            <div class="section baseball-field">
+                <h2>歡迎來到【簡單機械大聯盟】！</h2>
+                <p>準備好變身小小科學家，在棒球場上探索奇妙的簡單機械了嗎？</p>
+                <p>棒球不只是一項運動，它更是充滿科學原理的寶庫！</p>
+                <a href="#game-start" class="button">開始你的科學棒球之旅！</a>
+            </div>
+        </header>
+
+        <main>
+            <section id="introduction" class="section">
+                <h2>⚾ 什麼是簡單機械？</h2>
+                <p>簡單機械是人類發明來幫助我們輕鬆完成工作的基本工具！它們可以改變力的大小、方向，或者增加移動的距離。在棒球場上，從投手投球到打者揮棒，再到球場上的設施，到處都藏著簡單機械的蹤影喔！</p>
+                <p>小提示：國小五年級的你，會學到槓桿、輪軸、滑輪、斜面、螺旋和楔形等六種簡單機械。</p>
+            </section>
+
+            <section id="simple-machines-overview" class="section">
+                <h2>⚙️ 六大簡單機械</h2>
+                <p>在開始遊戲前，先來認識一下這六位「機械選手」吧！</p>
+                <div class="simple-machine-grid">
+                    <div class="machine-card">
+                        <div class="machine-icon-placeholder lever">槓</div> <!-- Placeholder for Lever Icon -->
+                        <h4>槓桿 (Lever)</h4>
+                        <p>透過支點、施力點和抗力點，可以省力或省時。例如：蹺蹺板、剪刀。</p>
+                    </div>
+                    <div class="machine-card">
+                        <div class="machine-icon-placeholder wheel">輪</div> <!-- Placeholder for Wheel & Axle Icon -->
+                        <h4>輪軸 (Wheel & Axle)</h4>
+                        <p>由輪子和軸心組成，通常用來轉動或移動重物。例如：方向盤、門把手。</p>
+                    </div>
+                    <div class="machine-card">
+                        <div class="machine-icon-placeholder pulley">滑</div> <!-- Placeholder for Pulley Icon -->
+                        <h4>滑輪 (Pulley)</h4>
+                        <p>利用繩索和輪子改變施力方向或省力。例如：升旗桿、窗簾。</p>
+                    </div>
+                    <div class="machine-card">
+                        <div class="machine-icon-placeholder inclined-plane">斜</div> <!-- Placeholder for Inclined Plane Icon -->
+                        <h4>斜面 (Inclined Plane)</h4>
+                        <p>傾斜的平面，可以讓物體更容易地升高。例如：坡道、溜滑梯。</p>
+                    </div>
+                    <div class="machine-card">
+                        <div class="machine-icon-placeholder wedge">楔</div> <!-- Placeholder for Wedge Icon -->
+                        <h4>楔形 (Wedge)</h4>
+                        <p>由兩個斜面組成，通常用於劈開或固定物體。例如：斧頭、刀子。</p>
+                    </div>
+                    <div class="machine-card">
+                        <div class="machine-icon-placeholder screw">螺</div> <!-- Placeholder for Screw Icon -->
+                        <h4>螺旋 (Screw)</h4>
+                        <p>是一種繞著圓柱體盤繞的斜面，用於固定或舉升物體。例如：螺絲釘、螺絲起子。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="game-start" class="section">
+                <h2>🚀 遊戲開始：棒球場上的機械挑戰！</h2>
+                <p>現在，讓我們進入棒球場，看看這些簡單機械是如何幫助球員發揮最大力量的！</p>
+
+                <h3>挑戰一：打擊區的秘密武器 - 揮棒</h3>
+                <div class="game-activity">
+                    <h4>哪個簡單機械讓打者能輕鬆揮出全壘打？</h4>
+                    <p class="question">當棒球選手用球棒揮擊球時，球棒就像一個什麼？</p>
+                    <div class="options">
+                        <button onclick="checkAnswer(this, 'lever')">A. 槓桿</button>
+                        <button onclick="checkAnswer(this, 'wheel_axle')">B. 輪軸</button>
+                        <button onclick="checkAnswer(this, 'pulley')">C. 滑輪</button>
+                    </div>
+                    <p id="feedback1" style="margin-top: 15px; font-weight: bold;"></p>
+                    <p>小提示：球棒有施力點（手握的地方）、支點（手臂轉動的地方）和抗力點（擊中球的地方）。</p>
+                </div>
+
+                <h3>挑戰二：投手丘的力學藝術 - 投球</h3>
+                <div class="game-activity">
+                    <h4>投手投出快速球，身體的動作藏著哪些機械原理？</h4>
+                    <p class="question">投手從高高的投手丘上投球，投手丘可以看作是哪種簡單機械？</p>
+                    <div class="options">
+                        <button onclick="checkAnswer(this, 'wedge')">A. 楔形</button>
+                        <button onclick="checkAnswer(this, 'inclined_plane')">B. 斜面</button>
+                        <button onclick="checkAnswer(this, 'screw')">C. 螺旋</button>
+                    </div>
+                    <p id="feedback2" style="margin-top: 15px; font-weight: bold;"></p>
+                    <p>小提示：投手丘讓投手比打者高，這對投球的力量和角度有幫助。</p>
+                </div>
+
+                <h3>挑戰三：球場設施大揭秘 - 記分板</h3>
+                <div class="game-activity">
+                    <h4>記分板升降、場邊灑水車，都用了什麼機械？</h4>
+                    <p class="question">老式棒球場的巨大記分板，如果需要人工升降分數牌，可能會用到哪種機械來省力？</p>
+                    <div class="options">
+                        <button onclick="checkAnswer(this, 'lever')">A. 槓桿</button>
+                        <button onclick="checkAnswer(this, 'pulley')">B. 滑輪</button>
+                        <button onclick="checkAnswer(this, 'wheel_axle')">C. 輪軸</button>
+                    </div>
+                    <p id="feedback3" style="margin-top: 15px; font-weight: bold;"></p>
+                    <p>小提示：想想升旗桿是如何讓旗子上升的。</p>
+                </div>
+
+                <!-- Placeholder for more game activities -->
+                <div class="game-activity" style="border: 2px dashed var(--secondary-green);">
+                    <h4>還有更多有趣的棒球機械等你來發掘！</h4>
+                    <p>試著想想看：</p>
+                    <ul>
+                        <li>接球手的手套，邊緣有加厚，能幫助「固定」球，這像哪種機械？<br>(提示：它的形狀像楔子，可以插入和固定。)</li>
+                        <li>球場入口的旋轉門，是哪種簡單機械？<br>(提示：門把手或車輪都和它有關。)</li>
+                        <li>球場的灑水車輪子，也應用了哪種機械？<br>(提示：這是最常見的用來移動的機械。)</li>
+                    </ul>
+                    <p>恭喜你，已經是半個棒球科學家了！</p>
+                </div>
+
+            </section>
+
+            <section id="resources" class="section resources">
+                <h2>📚 學習資源</h2>
+                <p>想更深入了解簡單機械嗎？點擊下方連結，繼續探索科學的奧秘！</p>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=kY9q_4yG_l0" target="_blank" rel="noopener noreferrer">簡單機械介紹 (給小朋友看) - YouTube</a></li>
+                    <li><a href="https://sites.google.com/site/sciencefunforchildren/simple-machines" target="_blank" rel="noopener noreferrer">國小科學教室-簡單機械 (中文資源)</a></li>
+                    <li><a href="https://www.dkfindout.com/us/science/simple-machines/" target="_blank" rel="noopener noreferrer">DK Find Out! Simple Machines (英文，圖片豐富，適合高年級)</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 棒球科學家聯盟 | 設計 by Kevin</p>
+            <p>最後更新日期：2026-02-26</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple JavaScript for immediate feedback on quizzes
+        function checkAnswer(button, correctAnswer) {
+            const parentActivity = button.closest('.game-activity');
+            const feedbackElementId = parentActivity.querySelector('[id^="feedback"]').id;
+            const feedbackElement = document.getElementById(feedbackElementId);
+
+            // Disable all buttons in this activity after an answer is given
+            const options = parentActivity.querySelectorAll('.options button');
+            options.forEach(btn => btn.disabled = true);
+
+            // Determine if the clicked button's text corresponds to the correct answer
+            let isCorrect = false;
+            let correctMachineName = '';
+
+            switch(correctAnswer) {
+                case 'lever':
+                    isCorrect = button.innerText.includes('槓桿');
+                    correctMachineName = '槓桿';
+                    break;
+                case 'wheel_axle':
+                    isCorrect = button.innerText.includes('輪軸');
+                    correctMachineName = '輪軸';
+                    break;
+                case 'pulley':
+                    isCorrect = button.innerText.includes('滑輪');
+                    correctMachineName = '滑輪';
+                    break;
+                case 'inclined_plane':
+                    isCorrect = button.innerText.includes('斜面');
+                    correctMachineName = '斜面';
+                    break;
+                case 'wedge':
+                    isCorrect = button.innerText.includes('楔形');
+                    correctMachineName = '楔形';
+                    break;
+                case 'screw':
+                    isCorrect = button.innerText.includes('螺旋');
+                    correctMachineName = '螺旋';
+                    break;
+                default:
+                    isCorrect = false;
+                    correctMachineName = '未知';
+            }
+
+            if (isCorrect) {
+                feedbackElement.style.color = 'var(--secondary-green)';
+                feedbackElement.innerText = '答對了！你真是個棒球科學家！';
+            } else {
+                feedbackElement.style.color = 'var(--accent-red)';
+                feedbackElement.innerText = `喔不，再想想看！正確答案是：${correctMachineName}！`;
+            }
+        }
+    </script>
+</body>
+</html>
