@@ -1,0 +1,942 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>同分母分數的加減 - 國小四年級互動數學</title>
+
+    <!-- Google Fonts: Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --primary-color: #6a0572; /* 深紫色 */
+            --secondary-color: #ab47bc; /* 中等紫色 */
+            --accent-color: #ffeb3b; /* 亮黃色 */
+            --background-light: #f3e5f5; /* 淡紫色背景 */
+            --text-dark: #311b92; /* 深藍紫色文字 */
+            --correct-green: #4CAF50; /* 答對綠色 */
+            --wrong-red: #F44336; /* 答錯紅色 */
+            --light-blue: #e0f7fa; /* 概念講解區背景 */
+            --light-pink: #fce4ec; /* 拖曳遊戲區塊背景 */
+            --light-green: #e8f5e9; /* 拖曳答案區塊及測驗區背景 */
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container-fluid {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 15px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.8rem; /* 約 45px */
+            text-align: center;
+            padding: 1.5rem 0;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 2rem; /* 約 32px */
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+            display: flex;
+            align-items: center;
+        }
+        h2 i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        p {
+            font-size: 1.1rem;
+        }
+
+        .section-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 自定義按鈕樣式 */
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-size: 1.2rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary-custom:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-accent-custom {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .btn-accent-custom:hover {
+            background-color: #fdd835; /* Accent color slightly darker */
+            border-color: #fdd835;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 學習目標 */
+        #objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        #objectives ul li {
+            background-color: var(--background-light);
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 5px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        #objectives ul li::before {
+            content: "\f058"; /* Check-circle icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: var(--correct-green);
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        /* 概念講解區 */
+        .fraction-example {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            gap: 20px;
+        }
+        .fraction-part {
+            background-color: var(--light-blue);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            min-width: 120px;
+        }
+        .fraction-img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .math-symbol {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin: 0 10px;
+        }
+        .equal-sign {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0 15px;
+        }
+
+        /* 互動練習 - 拖曳配對遊戲 */
+        #dragDropGame .drag-container,
+        #dragDropGame .drop-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px dashed var(--secondary-color);
+            border-radius: 10px;
+            margin-top: 1rem;
+            background-color: var(--light-pink);
+            transition: background-color 0.3s ease;
+        }
+        #dragDropGame .drop-container {
+            background-color: var(--light-green);
+        }
+
+        .draggable {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: grab;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        .draggable:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+        .draggable.dragging {
+            opacity: 0.6;
+        }
+
+        .droppable {
+            width: 180px; /* 固定寬度 */
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background-color: rgba(255,255,255,0.7);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .droppable.drag-over {
+            background-color: #c8e6c9; /* 拖曳覆蓋時的提示色 */
+        }
+        .droppable.matched {
+            background-color: var(--correct-green);
+            color: white;
+            border-color: var(--correct-green);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            cursor: default;
+        }
+        .droppable.shake-animation {
+            animation: shakeX 0.5s;
+        }
+
+        #dragDropFeedback {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            min-height: 40px;
+        }
+        #dragDropFeedback.correct { color: var(--correct-green); }
+        #dragDropFeedback.wrong { color: var(--wrong-red); }
+
+        /* 互動練習 - 測驗小遊戲 */
+        .quiz-question {
+            background-color: var(--light-green);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .quiz-question label {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: block;
+            font-weight: 700;
+        }
+        .quiz-question input[type="text"] {
+            width: 180px;
+            padding: 10px;
+            font-size: 1.2rem;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            transition: border-color 0.2s ease;
+        }
+        .quiz-question input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(106, 5, 114, 0.25);
+        }
+
+        .quiz-feedback {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            min-height: 30px;
+        }
+        .quiz-feedback.correct {
+            color: var(--correct-green);
+        }
+        .quiz-feedback.wrong {
+            color: var(--wrong-red);
+        }
+        #quizResult {
+            color: var(--primary-color);
+        }
+
+        /* 提交練習結果表單 */
+        #submissionForm .form-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        #submissionForm .form-control {
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid var(--secondary-color);
+        }
+        #submissionForm .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(106, 5, 114, 0.25);
+        }
+
+        /* 頁尾 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 3rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0;
+            font-size: 0.9rem;
+            box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Animate.css 類別自定義時間 */
+        .animate__animated.animate__bounceIn,
+        .animate__animated.animate__shakeX,
+        .animate__animated.animate__rubberBand,
+        .animate__animated.animate__fadeIn {
+            animation-duration: 0.8s;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 992px) {
+            .droppable, .draggable, .fraction-part {
+                font-size: 1.2rem;
+                padding: 12px 20px;
+                min-width: 100px;
+            }
+            .droppable {
+                width: 150px;
+                height: 60px;
+                line-height: 60px;
+            }
+            .quiz-question input[type="text"] {
+                width: 150px;
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+                padding: 1rem 0.8rem;
+            }
+            h2 {
+                font-size: 1.7rem;
+            }
+            .section-card {
+                padding: 1.5rem;
+            }
+            .fraction-example {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .fraction-part, .draggable, .droppable {
+                font-size: 1.1rem;
+                padding: 10px 15px;
+            }
+            .math-symbol, .equal-sign {
+                font-size: 2rem;
+                margin: 5px 0;
+            }
+            .draggable {
+                width: auto;
+            }
+            .droppable {
+                width: 120px;
+                height: 55px;
+                line-height: 55px;
+            }
+            #dragDropGame .drag-container, #dragDropGame .drop-container {
+                min-height: 120px;
+            }
+            .quiz-question input[type="text"] {
+                width: 100%;
+            }
+            .fraction-img {
+                max-width: 250px;
+            }
+        }
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.8rem;
+                padding: 0.8rem 0.5rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+                margin-top: 2rem;
+            }
+            .section-card {
+                padding: 1rem;
+            }
+            p, ul li {
+                font-size: 1rem;
+            }
+            .btn-primary-custom, .btn-accent-custom {
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
+            }
+            .fraction-part {
+                min-width: 90px;
+                font-size: 1.2rem;
+            }
+            .draggable, .droppable {
+                font-size: 1rem;
+                padding: 8px 12px;
+            }
+            .droppable {
+                width: 100px;
+                height: 50px;
+                line-height: 50px;
+            }
+            .fraction-img {
+                max-width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container-fluid">
+        <header class="py-4 animate__animated animate__fadeInDown">
+            <h1>國小四年級數學：同分母分數的加減</h1>
+            <p class="lead mt-3 text-center">
+                歡迎來到分數的世界！在這裡，我們將一起學習如何輕鬆地計算同分母分數的加法和減法。準備好挑戰了嗎？
+            </p>
+        </header>
+
+        <section id="objectives" class="section-card animate__animated animate__fadeInUp">
+            <h2><i class="fas fa-bullseye"></i> 學習目標</h2>
+            <ul>
+                <li>理解同分母分數加減法的概念。</li>
+                <li>學會如何正確計算同分母分數的加法。</li>
+                <li>學會如何正確計算同分母分數的減法。</li>
+                <li>培養解決分數應用問題的能力。</li>
+                <li>練習將分數化為最簡分數。</li>
+            </ul>
+        </section>
+
+        <section id="explanation" class="section-card animate__animated animate__fadeInUp animate__delay-1s">
+            <h2><i class="fas fa-lightbulb"></i> 概念講解區</h2>
+            <p>
+                同分母分數的加減法非常簡單！只要把分子相加或相減，分母保持不變就可以了。想像一下，切披薩就是最好的例子！
+            </p>
+
+            <h3 class="mt-4 text-center">🍕 同分母分數的加法</h3>
+            <div class="fraction-example">
+                <div class="fraction-part">1/4</div>
+                <div class="math-symbol">+</div>
+                <div class="fraction-part">2/4</div>
+                <div class="equal-sign">=</div>
+                <div class="fraction-part">3/4</div>
+            </div>
+            <div class="text-center mb-4">
+                <img src="https://source.unsplash.com/random/400x200/?pizza,fraction,kids" alt="分數加法示意圖" class="img-fluid fraction-img mb-3">
+                <p>
+                    當我們有1片披薩（總共4片），再加上2片披薩（總共4片），我們總共有3片披薩。所以 1/4 + 2/4 = 3/4！<br>
+                    <strong>訣竅：分母不變，分子相加！</strong> (1 + 2 = 3)
+                </p>
+            </div>
+
+            <h3 class="mt-5 text-center">🍫 同分母分數的減法</h3>
+            <div class="fraction-example">
+                <div class="fraction-part">5/6</div>
+                <div class="math-symbol">-</div>
+                <div class="fraction-part">2/6</div>
+                <div class="equal-sign">=</div>
+                <div class="fraction-part">3/6</div>
+            </div>
+            <div class="text-center mb-4">
+                <img src="https://source.unsplash.com/random/400x200/?chocolate,pie,math" alt="分數減法示意圖" class="img-fluid fraction-img mb-3">
+                <p>
+                    想像你有一條巧克力，被分成6小塊。你原來有5塊，吃掉2塊後，還剩下3塊！所以 5/6 - 2/6 = 3/6！<br>
+                    <strong>訣竅：分母不變，分子相減！</strong> (5 - 2 = 3) <br>
+                    別忘了，3/6 可以化簡為 1/2 喔！
+                </p>
+            </div>
+        </section>
+
+        <section id="practice" class="section-card animate__animated animate__fadeInUp animate__delay-2s">
+            <h2><i class="fas fa-gamepad"></i> 互動練習區</h2>
+            <p>現在，輪到你展現身手的時候了！動手練習，讓分數計算變得更熟練！</p>
+
+            <h3 class="mt-4">🧩 拖曳配對遊戲</h3>
+            <p>請將左邊的算式拖曳到右邊正確的答案方塊中。</p>
+            <div class="row mt-4">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <h4 class="text-center">算式區</h4>
+                    <div id="drag-container" class="drag-container">
+                        <!-- Draggable elements will be inserted here by JS -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="text-center">答案區</h4>
+                    <div id="drop-container" class="drop-container">
+                        <!-- Droppable elements will be inserted here by JS -->
+                    </div>
+                </div>
+            </div>
+            <div id="dragDropFeedback" class="mt-3 animated-element"></div>
+            <div class="text-center mt-4">
+                <button id="resetDragDrop" class="btn btn-primary-custom"><i class="fas fa-redo me-2"></i>重新開始</button>
+            </div>
+
+            <h3 class="mt-5">✍️ 測驗小遊戲 (填空題)</h3>
+            <p>請計算出答案，並將最簡分數填入空格中 (例如：1/2)。</p>
+            <form id="quizForm" class="mt-4">
+                <!-- Quiz questions will be inserted here by JS -->
+                <div class="d-grid gap-2 col-6 mx-auto mt-4">
+                    <button type="submit" class="btn btn-accent-custom animate__animated animate__pulse animate__infinite"><i class="fas fa-check-circle me-2"></i>提交答案</button>
+                </div>
+            </form>
+            <div id="quizResult" class="text-center mt-3 fs-4 fw-bold"></div>
+            <div class="text-center mt-3">
+                <button id="resetQuiz" class="btn btn-primary-custom"><i class="fas fa-undo me-2"></i>重設測驗</button>
+            </div>
+        </section>
+
+        <section id="summary" class="section-card animate__animated animate__fadeInUp animate__delay-3s">
+            <h2><i class="fas fa-book-open"></i> 總結與回顧</h2>
+            <p>恭喜你完成今天的課程！讓我們快速回顧一下今天的學習重點：</p>
+            <ul>
+                <li>同分母分數相加時，分母保持不變，分子相加。</li>
+                <li>同分母分數相減時，分母保持不變，分子相減。</li>
+                <li>計算分數時，要注意答案是否能化成最簡分數。</li>
+            </ul>
+            <p>多練習就能更熟練！數學其實很有趣喔！</p>
+            <div class="text-center mt-4">
+                <img src="https://source.unsplash.com/random/300x200/?happy,learning,kids,success" alt="開心學習的兒童" class="img-fluid rounded-circle shadow">
+            </div>
+        </section>
+
+        <section id="submissionForm" class="section-card animate__animated animate__fadeInUp animate__delay-4s">
+            <h2><i class="fas fa-file-upload"></i> 提交練習結果</h2>
+            <p>填寫你的班級和座號，將你的練習成績提交給老師！</p>
+            <form action="submit_score.php" method="POST" class="mt-4">
+                <div class="mb-3">
+                    <label for="studentName" class="form-label">學生姓名：</label>
+                    <input type="text" class="form-control" id="studentName" name="studentName" required placeholder="請輸入姓名">
+                </div>
+                <div class="mb-3">
+                    <label for="studentClass" class="form-label">班級：</label>
+                    <input type="text" class="form-control" id="studentClass" name="studentClass" placeholder="例如：四年甲班">
+                </div>
+                <div class="mb-3">
+                    <label for="studentId" class="form-label">座號：</label>
+                    <input type="number" class="form-control" id="studentId" name="studentId" min="1" placeholder="請輸入座號">
+                </div>
+                <input type="hidden" id="dragDropScore" name="dragDropScore" value="0">
+                <input type="hidden" id="quizScore" name="quizScore" value="0">
+                <input type="hidden" id="totalScore" name="totalScore" value="0">
+                <button type="submit" class="btn btn-primary-custom d-block w-100"><i class="fas fa-paper-plane me-2"></i>提交成績</button>
+            </form>
+        </section>
+
+        <footer class="mt-5">
+            <p>&copy; 2026 同分母分數學習網. All rights reserved.</p>
+            <p>Designed by K</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap 5 JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Helper function to simplify fractions (找到最大公因數並約分)
+            function simplifyFraction(numerator, denominator) {
+                if (denominator === 0) return "錯誤";
+                if (numerator === 0) return "0";
+
+                function gcd(a, b) {
+                    return b === 0 ? a : gcd(b, a % b);
+                }
+                const common = gcd(Math.abs(numerator), Math.abs(denominator));
+                const simplifiedNum = numerator / common;
+                const simplifiedDen = denominator / common;
+
+                // If denominator is 1, return only numerator (e.g., 3/1 -> 3)
+                if (simplifiedDen === 1) return String(simplifiedNum);
+                return `${simplifiedNum}/${simplifiedDen}`;
+            }
+
+            // --- 拖曳配對遊戲邏輯 ---
+            const dragQuestions = [
+                { id: 'q1', equation: '1/5 + 2/5', answer: '3/5' },
+                { id: 'q2', equation: '4/7 - 1/7', answer: '3/7' },
+                { id: 'q3', equation: '3/8 + 4/8', answer: '7/8' },
+                { id: 'q4', equation: '7/9 - 3/9', answer: '4/9' },
+                { id: 'q5', equation: '2/6 + 3/6', answer: '5/6' }
+            ];
+
+            let draggableElements = [];
+            let droppableElements = [];
+            let currentDragDropMatches = {}; // 儲存目前的配對: { questionId: droppableId }
+            let dragDropScore = 0;
+            const totalDragDropQuestions = dragQuestions.length;
+
+            const dragContainer = document.getElementById('drag-container');
+            const dropContainer = document.getElementById('drop-container');
+            const dragDropFeedback = document.getElementById('dragDropFeedback');
+            const resetDragDropBtn = document.getElementById('resetDragDrop');
+
+            function initializeDragDropGame() {
+                dragContainer.innerHTML = '';
+                dropContainer.innerHTML = '';
+                draggableElements = [];
+                droppableElements = [];
+                currentDragDropMatches = {};
+                dragDropScore = 0;
+
+                const shuffledQuestions = [...dragQuestions].sort(() => Math.random() - 0.5);
+                const shuffledAnswers = [...dragQuestions].map(q => q.answer).sort(() => Math.random() - 0.5);
+
+                shuffledQuestions.forEach(q => {
+                    const dragDiv = document.createElement('div');
+                    dragDiv.className = 'draggable animate__animated animate__bounceIn';
+                    dragDiv.setAttribute('draggable', true);
+                    dragDiv.dataset.questionId = q.id;
+                    dragDiv.textContent = q.equation;
+                    dragContainer.appendChild(dragDiv);
+                    draggableElements.push(dragDiv);
+                });
+
+                shuffledAnswers.forEach((ans, index) => {
+                    const dropDiv = document.createElement('div');
+                    dropDiv.className = 'droppable animate__animated animate__fadeIn';
+                    dropDiv.dataset.answer = ans; // The correct answer for this droppable target
+                    dropDiv.dataset.droppableId = `drop-target-${index}`; // Unique ID for target
+                    dropDiv.textContent = '將答案拖曳至此';
+                    dropContainer.appendChild(dropDiv);
+                    droppableElements.push(dropDiv);
+                });
+
+                addDragDropListeners();
+                updateDragDropScoreDisplay();
+                dragDropFeedback.textContent = '';
+            }
+
+            function addDragDropListeners() {
+                draggableElements.forEach(item => {
+                    item.addEventListener('dragstart', handleDragStart);
+                });
+
+                droppableElements.forEach(target => {
+                    target.addEventListener('dragover', handleDragOver);
+                    target.addEventListener('dragleave', handleDragLeave);
+                    target.addEventListener('drop', handleDrop);
+                });
+            }
+
+            let currentlyDraggingElement = null; // Store the element being dragged
+
+            function handleDragStart(e) {
+                currentlyDraggingElement = e.target;
+                e.dataTransfer.setData('text/plain', e.target.dataset.questionId);
+                e.dataTransfer.effectAllowed = 'move';
+                e.target.classList.add('dragging');
+            }
+
+            function handleDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                if (!e.target.classList.contains('matched')) {
+                    e.target.classList.add('drag-over');
+                }
+            }
+
+            function handleDragLeave(e) {
+                e.target.classList.remove('drag-over');
+            }
+
+            function handleDrop(e) {
+                e.preventDefault();
+                e.target.classList.remove('drag-over');
+
+                if (!currentlyDraggingElement) return; // Should not happen but good for safety
+
+                const questionId = currentlyDraggingElement.dataset.questionId;
+                const droppedOnAnswer = e.target.dataset.answer;
+                const droppedOnDroppableId = e.target.dataset.droppableId;
+
+                const question = dragQuestions.find(q => q.id === questionId);
+
+                if (!question) {
+                    // This means a non-game element was dragged, or data corruption
+                    currentlyDraggingElement.classList.remove('dragging');
+                    currentlyDraggingElement = null;
+                    return;
+                }
+
+                // If this droppable target is already matched by another question
+                const existingMatchForTarget = Object.keys(currentDragDropMatches).find(
+                    key => currentDragDropMatches[key] === droppedOnDroppableId
+                );
+
+                // If this question was already matched to another answer
+                const existingMatchForQuestionAnswerId = currentDragDropMatches[questionId];
+
+                if (question.answer === droppedOnAnswer) {
+                    // Correct match
+                    if (e.target.classList.contains('matched') && existingMatchForTarget === questionId) {
+                        // Already correctly matched to this specific target, do nothing
+                        displayDragDropFeedback(true, '已經配對成功囉！');
+                    } else {
+                        // Correct match, but possibly new or replacing old one
+
+                        // 1. Revert previous match if this target was already matched by another question
+                        if (existingMatchForTarget && existingMatchForTarget !== questionId) {
+                            const prevQuestionElement = draggableElements.find(item => item.dataset.questionId === existingMatchForTarget);
+                            if (prevQuestionElement) {
+                                prevQuestionElement.style.display = 'block'; // Show previous question
+                                delete currentDragDropMatches[existingMatchForTarget];
+                                dragDropScore--;
+                            }
+                        }
+
+                        // 2. Revert previous match if this question was already matched to another answer
+                        if (existingMatchForQuestionAnswerId && existingMatchForQuestionAnswerId !== droppedOnDroppableId) {
+                            const prevAnswerElement = droppableElements.find(item => item.dataset.droppableId === existingMatchForQuestionAnswerId);
+                            if (prevAnswerElement) {
+                                prevAnswerElement.classList.remove('matched', 'animate__animated', 'animate__rubberBand');
+                                prevAnswerElement.textContent = '將答案拖曳至此';
+                            }
+                            delete currentDragDropMatches[questionId];
+                            dragDropScore--;
+                        }
+                        
+                        // If this is a new correct match for this question
+                        if (!existingMatchForQuestionAnswerId || existingMatchForQuestionAnswerId !== droppedOnDroppableId) {
+                             dragDropScore++;
+                        }
+                        
+                        e.target.textContent = question.answer;
+                        e.target.classList.add('matched', 'animate__animated', 'animate__rubberBand');
+                        setTimeout(() => e.target.classList.remove('animate__rubberBand'), 1000);
+                        currentlyDraggingElement.style.display = 'none'; // Hide the draggable item
+                        currentDragDropMatches[questionId] = droppedOnDroppableId; // Record new match
+                        displayDragDropFeedback(true, '答對了！真棒！');
+                    }
+                } else {
+                    // Incorrect match
+                    displayDragDropFeedback(false, '答錯了喔，再試試看！');
+                    e.target.classList.add('shake-animation', 'animate__animated', 'animate__shakeX');
+                    setTimeout(() => e.target.classList.remove('shake-animation', 'animate__animated', 'animate__shakeX'), 500);
+                }
+
+                currentlyDraggingElement.classList.remove('dragging');
+                updateDragDropScoreDisplay();
+                currentlyDraggingElement = null; // Clear dragging element
+            }
+
+            function displayDragDropFeedback(isCorrect, message) {
+                dragDropFeedback.textContent = message;
+                dragDropFeedback.classList.remove('correct', 'wrong', 'animate__bounceIn', 'animate__shakeX');
+                if (isCorrect) {
+                    dragDropFeedback.classList.add('correct', 'animate__animated', 'animate__bounceIn');
+                } else {
+                    dragDropFeedback.classList.add('wrong', 'animate__animated', 'animate__shakeX');
+                }
+                setTimeout(() => {
+                    dragDropFeedback.classList.remove('animate__bounceIn', 'animate__shakeX');
+                }, 1000);
+            }
+
+            function updateDragDropScoreDisplay() {
+                const scoreElement = document.getElementById('dragDropScore');
+                if (scoreElement) {
+                    scoreElement.value = dragDropScore;
+                }
+                const currentMatchesCount = Object.keys(currentDragDropMatches).length;
+                dragDropFeedback.textContent = `拖曳配對得分: ${currentMatchesCount} / ${totalDragDropQuestions}`;
+                if (currentMatchesCount === totalDragDropQuestions) {
+                    dragDropFeedback.textContent += ' 🎉 全對了！太厲害了！';
+                }
+                updateTotalScore();
+            }
+
+            resetDragDropBtn.addEventListener('click', initializeDragDropGame);
+
+            // --- 測驗小遊戲邏輯 ---
+            const quizQuestions = [
+                { question: '3/8 + 2/8 = ?', answer: '5/8' },
+                { question: '7/9 - 4/9 = ?', answer: '1/3' }, // 簡化
+                { question: '1/5 + 3/5 = ?', answer: '4/5' },
+                { question: '6/7 - 2/7 = ?', answer: '4/7' },
+                { question: '1/10 + 3/10 = ?', answer: '2/5' }, // 簡化
+                { question: '9/11 - 5/11 = ?', answer: '4/11' },
+                { question: '2/12 + 4/12 = ?', answer: '1/2' }, // 簡化
+                { question: '10/15 - 4/15 = ?', answer: '2/5' }  // 簡化
+            ];
+
+            let quizCurrentQuestions = [];
+            let quizScore = 0;
+            const quizForm = document.getElementById('quizForm');
+            const quizResultDiv = document.getElementById('quizResult');
+            const resetQuizBtn = document.getElementById('resetQuiz');
+            const totalQuizQuestionsPerRound = 5; // 每次測驗的題目數量
+
+            function generateQuizQuestions() {
+                quizForm.innerHTML = '';
+                quizResultDiv.textContent = '';
+                quizScore = 0;
+
+                quizCurrentQuestions = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, totalQuizQuestionsPerRound);
+
+                quizCurrentQuestions.forEach((q, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.className = 'quiz-question animate__animated animate__fadeIn';
+                    questionDiv.innerHTML = `
+                        <label for="quiz-${index}">${index + 1}. ${q.question}</label>
+                        <input type="text" id="quiz-${index}" name="quiz-${index}" class="form-control" placeholder="請填寫最簡分數，例如 1/2">
+                        <div id="feedback-${index}" class="quiz-feedback"></div>
+                    `;
+                    // Insert before the submit button that might already be there, or as the first element
+                    quizForm.insertBefore(questionDiv, quizForm.querySelector('.d-grid.gap-2.col-6.mx-auto.mt-4'));
+                });
+
+                // Ensure the submit button is always present and at the bottom
+                if (!quizForm.querySelector('button[type="submit"]')) {
+                    const submitButtonDiv = document.createElement('div');
+                    submitButtonDiv.className = 'd-grid gap-2 col-6 mx-auto mt-4';
+                    submitButtonDiv.innerHTML = `
+                        <button type="submit" class="btn btn-accent-custom animate__animated animate__pulse animate__infinite"><i class="fas fa-check-circle me-2"></i>提交答案</button>
+                    `;
+                    quizForm.appendChild(submitButtonDiv);
+                }
+                
+                updateQuizScoreDisplay();
+            }
+
+            function checkQuizAnswers(event) {
+                event.preventDefault();
+                let currentCorrectCount = 0;
+
+                quizCurrentQuestions.forEach((q, index) => {
+                    const inputField = document.getElementById(`quiz-${index}`);
+                    const feedbackDiv = document.getElementById(`feedback-${index}`);
+                    const userAnswerRaw = inputField.value.trim();
+
+                    let userSimplified = '';
+                    let correctSimplified = '';
+                    let isUserAnswerValidFraction = false;
+
+                    // Try to parse and simplify user's answer
+                    try {
+                        let numU, denU;
+                        if (userAnswerRaw.includes('/')) {
+                            [numU, denU] = userAnswerRaw.split('/').map(Number);
+                        } else { // Handle whole numbers as fractions (e.g., "3" means "3/1")
+                            numU = Number(userAnswerRaw);
+                            denU = 1;
+                        }
+
+                        if (!isNaN(numU) && !isNaN(denU) && denU !== 0) {
+                             userSimplified = simplifyFraction(numU, denU);
+                             isUserAnswerValidFraction = true;
+                        }
+                    } catch (e) { /* ignore invalid input format */ }
+
+                    // Simplify the correct answer
+                    try {
+                        let numC, denC;
+                        if (q.answer.includes('/')) {
+                            [numC, denC] = q.answer.split('/').map(Number);
+                        } else {
+                            numC = Number(q.answer);
+                            denC = 1;
+                        }
+                        
+                        if (!isNaN(numC) && !isNaN(denC) && denC !== 0) {
+                            correctSimplified = simplifyFraction(numC, denC);
+                        }
+                    } catch (e) { /* should not happen with predefined questions */ }
+
+                    feedbackDiv.classList.remove('correct', 'wrong', 'animate__animated', 'animate__bounceIn', 'animate__shakeX');
+
+                    // Compare simplified answers
+                    if (isUserAnswerValidFraction && userSimplified === correctSimplified) {
+                        feedbackDiv.textContent = '✅ 答對了！';
+                        feedbackDiv.classList.add('correct', 'animate__animated', 'animate__bounceIn');
+                        currentCorrectCount++;
+                    } else {
+                        feedbackDiv.textContent = `❌ 答錯了，正確答案是 ${q.answer}`;
+                        feedbackDiv.classList.add('wrong', 'animate__animated', 'animate__shakeX');
+                    }
+                    setTimeout(() => {
+                        feedbackDiv.classList.remove('animate__bounceIn', 'animate__shakeX');
+                    }, 1000);
+                });
+                quizScore = currentCorrectCount;
+                updateQuizScoreDisplay();
+            }
+
+            function updateQuizScoreDisplay() {
+                const scoreElement = document.getElementById('quizScore');
+                if (scoreElement) {
+                    scoreElement.value = quizScore;
+                }
+                quizResultDiv.textContent = `測驗得分: ${quizScore} / ${totalQuizQuestionsPerRound}`;
+                if (quizScore === totalQuizQuestionsPerRound) {
+                    quizResultDiv.textContent += ' 🎉 太棒了，全部答對！';
+                }
+                updateTotalScore(); // 更新總分
+            }
+
+            quizForm.addEventListener('submit', checkQuizAnswers);
+            resetQuizBtn.addEventListener('click', generateQuizQuestions);
+
+            // --- 總分更新以供 PHP 提交表單 ---
+            function updateTotalScore() {
+                const totalScoreElement = document.getElementById('totalScore');
+                const dragScoreVal = parseInt(document.getElementById('dragDropScore').value || 0);
+                const quizScoreVal = parseInt(document.getElementById('quizScore').value || 0);
+                const combinedScore = dragScoreVal + quizScoreVal;
+                totalScoreElement.value = combinedScore;
+            }
+
+            // 頁面載入時初始化遊戲
+            initializeDragDropGame();
+            generateQuizQuestions();
+        });
+    </script>
+</body>
+</html>
+```
