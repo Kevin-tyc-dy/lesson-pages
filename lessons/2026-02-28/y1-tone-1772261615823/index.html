@@ -1,0 +1,1010 @@
+好的，這是一個為國小四年級學生設計的互動式教學網頁，主題為「我的家鄉產業：認識台灣在地特色」。所有 CSS 和 JavaScript 都已內嵌在 HTML 中，並使用了 Google Fonts、Bootstrap 5 和 Animate.css。
+
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的家鄉產業：認識台灣在地特色</title>
+    <!-- Google Fonts: Noto Sans TC (圓體) for readability, Kalam for playful headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Kalam:wght@700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS CDN (提供響應式佈局) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Animate.css CDN (提供生動動畫效果) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        /* 定義主要的色彩變數，以符合台灣民俗風格和活潑調性 */
+        :root {
+            --primary-yellow: #FFD700; /* 亮金黃，代表豐收、活力 */
+            --secondary-orange: #FFA07A; /* 淺鮭魚橘，溫暖、親切 */
+            --accent-green: #8BC34A; /* 亮綠色，代表農業、自然 */
+            --accent-blue: #2196F3; /* 天空藍，代表海洋、科技 */
+            --text-dark: #333; /* 主要文字顏色 */
+            --text-light: #fff; /* 淺色文字顏色 */
+            --folk-red: #E91E63; /* 台灣民俗紅，熱情、喜慶 */
+            --bg-light-yellow: #FFFBEF; /* 淺黃背景 */
+            --bg-light-orange: #FFF3E0; /* 淺橘背景 */
+        }
+
+        /* 頁面基礎樣式 */
+        body {
+            font-family: 'Noto Sans TC', sans-serif; /* 清晰易讀的圓體字 */
+            color: var(--text-dark);
+            background-color: var(--bg-light-yellow); /* 淺黃色背景 */
+            line-height: 1.6;
+            scroll-behavior: smooth; /* 平滑滾動 */
+        }
+
+        /* 標題樣式 */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Kalam', cursive; /* 手寫風格字體，更活潑 */
+            color: var(--folk-red); /* 民俗紅標題 */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation-duration: 1s; /* Animate.css 動畫時長 */
+        }
+
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); } /* 響應式字體大小 */
+        h2 { font-size: clamp(1.8rem, 4.5vw, 3rem); }
+        h3 { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+
+        /* 區塊通用樣式 */
+        section {
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden; /* 防止內容溢出圓角 */
+            transition: transform 0.3s ease-in-out;
+        }
+        section:hover {
+            transform: translateY(-5px); /* 輕微上浮效果 */
+        }
+        section:nth-of-type(even) {
+            background-color: var(--bg-light-orange); /* 偶數區塊不同背景色 */
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        /* 導引式標頭 (Header) 樣式 */
+        .navbar {
+            background-image: linear-gradient(to right, var(--folk-red), #e95420); /* 紅橘漸變 */
+            padding: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: sticky; /* 釘在頂部 */
+            top: 0;
+            z-index: 1020; /* 確保在其他內容之上 */
+        }
+        .navbar-brand {
+            color: var(--text-light) !important;
+            font-size: clamp(1.5rem, 4vw, 2.5rem); /* 響應式字體大小 */
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;
+            animation-duration: 1.2s;
+        }
+        .navbar-brand img {
+            height: 45px;
+            margin-right: 12px;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3)); /* 圖標陰影 */
+        }
+        .navbar-nav .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 700;
+            margin: 0 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-yellow) !important;
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        .navbar-toggler {
+            border-color: var(--text-light);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* 按鈕樣式 */
+        .btn-primary {
+            background-color: var(--folk-red);
+            border-color: var(--folk-red);
+            font-weight: 700;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
+        }
+        .btn-primary:hover {
+            background-color: #c0392b; /* 更深的紅色 */
+            border-color: #c0392b;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .btn-outline-primary {
+            color: var(--folk-red);
+            border-color: var(--folk-red);
+            font-weight: 700;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--folk-red);
+            color: var(--text-light);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transform: translateY(-3px) scale(1.02);
+        }
+        /* 測驗選項按鈕 */
+        .btn-option {
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: var(--text-light);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .btn-option:hover:not(:disabled) {
+            background-color: #1976D2; /* 更深的藍 */
+            border-color: #1976D2;
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+        .btn-option.correct {
+            background-color: var(--accent-green) !important;
+            border-color: var(--accent-green) !important;
+            color: var(--text-light) !important;
+            animation: pulse 0.5s 3; /* 答對閃爍 */
+        }
+        .btn-option.wrong {
+            background-color: var(--secondary-orange) !important;
+            border-color: var(--secondary-orange) !important;
+            color: var(--text-light) !important;
+            animation: headShake 0.8s; /* 答錯搖晃 */
+        }
+
+        /* 學習重點區塊 */
+        #objectives .list-group-item {
+            border: none;
+            background-color: transparent;
+            font-size: 1.4rem;
+            padding-left: 0;
+            position: relative;
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+        }
+        #objectives .list-group-item::before {
+            content: '⭐'; /* 使用星星圖標 */
+            position: absolute;
+            left: -25px;
+            font-size: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* 地圖區塊 */
+        #map-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 2.5rem;
+        }
+        #taiwan-svg-map {
+            max-width: 550px; /* 調整地圖最大寬度 */
+            height: auto;
+            border: 4px solid var(--primary-yellow); /* 黃色邊框 */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background-color: #E0F7FA; /* 淺藍色底 */
+        }
+        #taiwan-svg-map path, #taiwan-svg-map circle, #taiwan-svg-map rect {
+            fill: var(--accent-blue); /* 預設區域顏色 */
+            stroke: var(--primary-yellow); /* 邊界顏色 */
+            stroke-width: 2;
+            transition: fill 0.3s ease, transform 0.2s ease, stroke-width 0.3s ease;
+            cursor: pointer;
+            outline: none; /* 移除點擊後的虛線外框 */
+        }
+        #taiwan-svg-map path:hover, #taiwan-svg-map circle:hover, #taiwan-svg-map rect:hover {
+            fill: var(--secondary-orange); /* 懸停變色 */
+            transform: scale(1.03); /* 輕微放大 */
+            stroke-width: 3;
+        }
+        #taiwan-svg-map text {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 700;
+            fill: var(--text-dark);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.7); /* 文字陰影提高可讀性 */
+        }
+
+        #map-info-box {
+            background-color: var(--primary-yellow);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            max-width: 450px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            animation-duration: 1s;
+        }
+        #map-info-box h4 {
+            color: var(--folk-red);
+            margin-bottom: 12px;
+            font-size: 1.8rem;
+        }
+        #map-info-box p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        #map-info-box img {
+            max-width: 100%;
+            height: 150px; /* 圖片固定高度 */
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 產業比例圖表 */
+        .chart-container {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            height: 300px; /* 增加圖表高度 */
+            width: 100%;
+            max-width: 700px;
+            border-bottom: 3px solid var(--text-dark);
+            padding-bottom: 10px;
+            position: relative;
+        }
+        .bar {
+            width: 100px; /* 增加柱狀圖寬度 */
+            background-color: var(--accent-green);
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            transition: height 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 平滑過渡 */
+            box-shadow: 0 -6px 15px rgba(0,0,0,0.1);
+        }
+        .bar-label {
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-top: 10px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        .bar-value {
+            position: absolute;
+            top: -30px;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+
+        /* 測驗區塊 */
+        #quiz-card {
+            background-color: var(--primary-yellow);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            min-height: 500px; /* 增加卡片高度 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            animation-duration: 1s;
+        }
+        #quiz-question {
+            font-size: clamp(1.6rem, 4vw, 2.2rem); /* 響應式字體 */
+            font-weight: 700;
+            color: var(--folk-red);
+            margin-bottom: 2.5rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #quiz-feedback {
+            margin-top: 25px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--folk-red);
+            min-height: 50px;
+        }
+        #quiz-result {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--folk-red);
+            margin-top: 2.5rem;
+            animation-duration: 1.5s;
+        }
+        .quiz-buttons-container {
+            margin-top: 1.5rem;
+        }
+        .quiz-buttons-container .btn {
+            margin: 0 15px;
+        }
+
+        /* 彩帶效果 */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary-yellow); /* 預設顏色 */
+            border-radius: 50%;
+            opacity: 0;
+            animation: confetti-fall 3s forwards;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-50vh) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* 表單樣式 */
+        #feedback-form .form-label {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+        }
+        #feedback-form .form-control {
+            border-radius: 10px;
+            border-color: #ddd;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.1rem;
+        }
+        #feedback-form .form-control:focus {
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 0 0.3rem rgba(255, 215, 0, 0.3);
+        }
+        #feedback-form textarea {
+            min-height: 150px;
+        }
+
+        /* 頁尾 */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--text-light);
+            padding: 2.5rem 0;
+            text-align: center;
+            margin-top: 5rem;
+            font-size: 1.1rem;
+        }
+        footer a {
+            color: var(--primary-yellow);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #FFEA00; /* 更亮的黃色 */
+            text-decoration: underline;
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 992px) {
+            .navbar-brand { font-size: 1.8rem; }
+            .navbar-nav .nav-link { font-size: 1.1rem; margin: 0 0.5rem; }
+            section { padding: 3rem 0; }
+            #map-container { flex-direction: column; }
+            #map-info-box { margin-top: 30px; }
+            .bar-chart { gap: 10px; max-width: 500px; height: 250px; }
+            .bar { width: 80px; }
+            .bar-value { font-size: 1.1rem; top: -25px; }
+            .bar-label { font-size: 1rem; }
+            #quiz-card { padding: 30px; min-height: 450px; }
+            #quiz-question { font-size: 1.8rem; min-height: 80px; }
+            .btn-option { font-size: 1.1rem; padding: 0.7rem 1.2rem; }
+            #quiz-feedback { font-size: 1.3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand { font-size: 1.6rem; padding-left: 0.5rem; }
+            .navbar-brand img { height: 35px; margin-right: 8px; }
+            .navbar-collapse { text-align: center; }
+            .navbar-nav .nav-link { margin: 0.5rem auto; display: inline-block; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+            #taiwan-svg-map { max-width: 90%; }
+            #map-info-box { max-width: 90%; min-height: 280px; }
+            .bar-chart { flex-wrap: wrap; height: auto; justify-content: center; padding-bottom: 20px;}
+            .bar { width: 70px; margin-top: 15px; } /* Adjust for wrapping */
+            .bar-value { top: -20px; font-size: 0.9rem; }
+            .bar-label { font-size: 0.9rem; }
+            #quiz-card { padding: 25px; min-height: 400px; }
+            #quiz-question { font-size: 1.6rem; min-height: 70px; }
+            .btn-option { font-size: 1rem; padding: 0.6rem 1rem; }
+            #quiz-feedback { font-size: 1.2rem; }
+            #quiz-result { font-size: 1.8rem; }
+            .quiz-buttons-container .btn { margin: 0 8px; padding: 0.7rem 1.5rem; }
+            #feedback-form .form-control { font-size: 1rem; padding: 0.7rem 1rem; }
+            footer { padding: 2rem 0; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導引式標頭 (Header) -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand animate__animated animate__bounceInLeft" href="#">
+                    <!-- SVG Repo 提供的台灣地圖圖標，確保連結有效 -->
+                    <img src="https://www.svgrepo.com/show/368817/taiwan.svg" alt="台灣地圖圖標" class="d-inline-block align-text-top">
+                    我的家鄉產業：認識台灣在地特色
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#objectives">學習重點</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#map">台灣產業地圖</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#data-viz">產業比例</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#quiz">趣味測驗</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#feedback">學習回饋</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container my-5">
+
+        <!-- 學習重點介紹 (Learning Objectives) -->
+        <section id="objectives" class="animate__animated animate__fadeInUp">
+            <div class="container">
+                <h2 class="text-center animate__animated animate__bounceIn">🎯 學習重點</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item animate__animated animate__fadeInRight animate__delay-0s">認識台灣主要產業類型。</li>
+                            <li class="list-group-item animate__animated animate__fadeInRight animate__delay-1s">了解不同地區的特色產業與代表產物。</li>
+                            <li class="list-group-item animate__animated animate__fadeInRight animate__delay-2s">學習產業活動與我們日常生活的關係。</li>
+                            <li class="list-group-item animate__animated animate__fadeInRight animate__delay-3s">培養對家鄉與台灣在地特色的認同感。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 台灣產業地圖 (Interactive Map) -->
+        <section id="map" class="animate__animated animate__fadeInUp">
+            <div class="container">
+                <h2 class="text-center animate__animated animate__bounceIn">🗺️ 台灣產業地圖</h2>
+                <p class="text-center fs-5">點擊或滑鼠移到地圖上的區域，看看各地的代表產業是什麼！</p>
+                <div id="map-container">
+                    <!-- 簡化版台灣 SVG 地圖，直接嵌入 HTML -->
+                    <svg id="taiwan-svg-map" viewBox="0 0 500 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <title>台灣地區產業分佈</title>
+                        <!-- 北部地區 (包含台北、新北、桃園、基隆、新竹、苗栗) -->
+                        <path id="region-north" data-region="北部地區"
+                              d="M250 100 L280 80 L320 100 L300 150 L280 180 L230 170 L200 130 Z"
+                              fill="var(--accent-blue)" stroke="var(--primary-yellow)" stroke-width="2">
+                            <title>北部地區</title>
+                        </path>
+                        <!-- 中部地區 (包含台中、彰化、南投、雲林) -->
+                        <path id="region-central" data-region="中部地區"
+                              d="M200 180 L230 170 L280 180 L300 220 L280 280 L220 290 L180 250 Z"
+                              fill="var(--accent-blue)" stroke="var(--primary-yellow)" stroke-width="2">
+                            <title>中部地區</title>
+                        </path>
+                        <!-- 南部地區 (包含台南、高雄、屏東、嘉義) -->
+                        <path id="region-south" data-region="南部地區"
+                              d="M180 250 L220 290 L280 280 L300 350 L280 420 L200 400 L160 350 Z"
+                              fill="var(--accent-blue)" stroke="var(--primary-yellow)" stroke-width="2">
+                            <title>南部地區</title>
+                        </path>
+                        <!-- 東部地區 (包含花蓮、台東) -->
+                        <path id="region-east" data-region="東部地區"
+                              d="M320 100 L360 120 L380 200 L370 300 L350 400 L300 350 L300 220 Z"
+                              fill="var(--accent-blue)" stroke="var(--primary-yellow)" stroke-width="2">
+                            <title>東部地區</title>
+                        </path>
+                        <!-- 澎湖群島 (簡化表示) -->
+                        <circle id="region-penghu" data-region="澎湖群島" cx="120" cy="300" r="25"
+                                fill="var(--accent-blue)" stroke="var(--primary-yellow)" stroke-width="2">
+                            <title>澎湖群島</title>
+                        </circle>
+                        <!-- 金門/馬祖 (簡化表示，通常在台灣地圖外) -->
+                        <rect id="region-islands" data-region="金門/馬祖" x="50" y="50" width="40" height="20"
+                              fill="var(--accent-blue)" stroke="var(--primary-yellow)" stroke-width="2">
+                            <title>金門/馬祖</title>
+                        </rect>
+                        <!-- 地區文字標籤 -->
+                        <text x="255" y="140" font-size="20" text-anchor="middle" pointer-events="none">北部</text>
+                        <text x="240" y="230" font-size="20" text-anchor="middle" pointer-events="none">中部</text>
+                        <text x="240" y="340" font-size="20" text-anchor="middle" pointer-events="none">南部</text>
+                        <text x="340" y="250" font-size="20" text-anchor="middle" pointer-events="none">東部</text>
+                        <text x="120" y="305" font-size="14" text-anchor="middle" pointer-events="none">澎湖</text>
+                        <text x="70" y="60" font-size="14" text-anchor="middle" pointer-events="none">離島</text>
+                    </svg>
+
+                    <div id="map-info-box" class="animate__animated animate__fadeInRight animate__delay-1s">
+                        <h4>點擊地圖區域查看詳情</h4>
+                        <p>選擇一個地區，了解它的特色產業！</p>
+                        <!-- Unsplash 占位圖 -->
+                        <img src="https://source.unsplash.com/featured/?taiwan-landscape,nature" alt="台灣風景" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 產業比例資訊 (Industry Data Visualization) -->
+        <section id="data-viz" class="animate__animated animate__fadeInUp">
+            <div class="container">
+                <h2 class="text-center animate__animated animate__bounceIn">📊 台灣三大產業比例</h2>
+                <p class="text-center fs-5">透過柱狀圖，看看台灣目前主要產業的佔比。</p>
+                <div class="chart-container">
+                    <div class="bar-chart" id="industry-bar-chart">
+                        <!-- 長條圖將由 JavaScript 動態生成 -->
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <p class="fs-5">台灣經濟活動主要由 <span class="fw-bold text-primary-emphasis">服務業</span> 帶動，<span class="fw-bold text-success-emphasis">工業</span> 也佔重要地位，而 <span class="fw-bold text-info-emphasis">農業</span> 則是支持民生不可或缺的基石。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 趣味互動測驗 (Interactive Quiz/Mini-Game) -->
+        <section id="quiz" class="animate__animated animate__fadeInUp">
+            <div class="container">
+                <h2 class="text-center animate__animated animate__bounceIn">❓ 趣味互動測驗</h2>
+                <p class="text-center fs-5">來挑戰看看你對台灣產業的認識有多少吧！</p>
+                <div class="row justify-content-center mt-4">
+                    <div class="col-md-8">
+                        <div id="quiz-card" class="animate__animated animate__fadeIn">
+                            <p id="quiz-question" class="animate__animated"></p>
+                            <div id="quiz-options" class="row">
+                                <!-- 選項將由 JavaScript 動態添加 -->
+                            </div>
+                            <p id="quiz-feedback" class="animate__animated"></p>
+                            <div id="quiz-result" class="d-none"></div>
+                            <div class="quiz-buttons-container">
+                                <button id="next-question-btn" class="btn btn-primary d-none">下一題</button>
+                                <button id="restart-quiz-btn" class="btn btn-outline-primary d-none">重新開始</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 資料收集表單 (Data Collection Form) -->
+        <section id="feedback" class="animate__animated animate__fadeInUp">
+            <div class="container">
+                <h2 class="text-center animate__animated animate__bounceIn">📝 學習回饋與心得</h2>
+                <p class="text-center fs-5">請分享你學習後的想法或對家鄉產業的建議吧！</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <!-- 表單 action 指向 PHP 處理檔案，method 為 post -->
+                        <form id="feedback-form" action="process_feedback.php" method="post">
+                            <div class="mb-3">
+                                <label for="studentName" class="form-label">姓名</label>
+                                <input type="text" class="form-control" id="studentName" name="studentName" placeholder="請輸入你的姓名" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="studentClass" class="form-label">班級</label>
+                                <input type="text" class="form-control" id="studentClass" name="studentClass" placeholder="例如：四年甲班" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="studentId" class="form-label">學號</label>
+                                <input type="text" class="form-control" id="studentId" name="studentId" placeholder="例如：12345" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="learningFeedback" class="form-label">學習心得/回饋</label>
+                                <textarea class="form-control" id="learningFeedback" name="learningFeedback" rows="5" placeholder="請在這裡寫下你的學習心得或建議" required></textarea>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">送出回饋</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾 (Footer) -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 我的家鄉產業：認識台灣在地特色</p>
+            <p>Designed by K</p>
+            <p>圖片來源：<a href="https://unsplash.com/" target="_blank">Unsplash</a>, SVG 圖標來源：<a href="https://www.svgrepo.com/" target="_blank">SVG Repo</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JavaScript Bundle (包含 Popper.js，用於彈出視窗等功能) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <script>
+        // --- 導航連結平滑滾動 ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // 阻止預設的跳轉行為
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth' // 平滑滾動效果
+                    });
+                }
+            });
+        });
+
+        // --- 台灣產業地圖互動邏輯 ---
+        const mapRegionsData = {
+            'region-north': {
+                name: '北部地區',
+                description: '台灣的科技心臟，包含高科技產業（如半導體、電子）、金融服務業和蓬勃的觀光產業。著名產物有：高科技產品、精緻糕點等。',
+                image: 'https://source.unsplash.com/featured/?taiwan-technology,cityscape,electronics'
+            },
+            'region-central': {
+                name: '中部地區',
+                description: '以精密機械、工具機製造業聞名，同時也是重要的農業區，盛產花卉、茶葉和各種水果。著名產物有：太陽餅、茶葉、高山蔬果等。',
+                image: 'https://source.unsplash.com/featured/?taiwan-agriculture,machinery,mountains'
+            },
+            'region-south': {
+                name: '南部地區',
+                description: '傳統石化工業重鎮，也是台灣重要的農業和漁業區，特產有芒果、鳳梨和豐富的海產。著名產物有：芒果、虱目魚、黑鮪魚等。',
+                image: 'https://source.unsplash.com/featured/?taiwan-agriculture,fishing,coast'
+            },
+            'region-east': {
+                name: '東部地區',
+                description: '擁有壯麗的自然景觀，觀光業發達，同時也是優質稻米和特色農產品（如釋迦）的產地，原住民文化豐富。著名產物有：池上米、釋迦、麻糬等。',
+                image: 'https://source.unsplash.com/featured/?taiwan-coast,mountains,tourism'
+            },
+            'region-penghu': {
+                name: '澎湖群島',
+                description: '以獨特的玄武岩地貌和豐富的海洋生態聞名，觀光和漁業是主要產業，特產有仙人掌冰和海產乾貨。著名產物有：仙人掌冰、海產、黑糖糕等。',
+                image: 'https://source.unsplash.com/featured/?penghu-islands,ocean,seafood'
+            },
+            'region-islands': {
+                name: '金門/馬祖',
+                description: '歷史戰地文化豐富，高粱酒、貢糖、菜刀是知名特產，觀光業也逐漸發展。著名產物有：高粱酒、貢糖、鋼刀等。',
+                image: 'https://source.unsplash.com/featured/?kinmen,matsu-islands,history'
+            }
+        };
+
+        const taiwanSvgMap = document.getElementById('taiwan-svg-map');
+        const mapInfoBox = document.getElementById('map-info-box');
+        const infoBoxTitle = mapInfoBox.querySelector('h4');
+        const infoBoxDesc = mapInfoBox.querySelector('p');
+        const infoBoxImage = mapInfoBox.querySelector('img');
+
+        // 為地圖上的每個區域添加事件監聽器
+        taiwanSvgMap.querySelectorAll('path, circle, rect').forEach(regionPath => {
+            const updateInfoBox = (regionId) => {
+                const data = mapRegionsData[regionId];
+                if (data) {
+                    infoBoxTitle.textContent = data.name;
+                    infoBoxDesc.textContent = data.description;
+                    infoBoxImage.src = data.image;
+                    infoBoxImage.alt = data.name + '產業圖片';
+                }
+            };
+
+            regionPath.addEventListener('mouseover', function() {
+                updateInfoBox(this.id);
+                this.style.fill = 'var(--secondary-orange)'; // 懸停變色
+            });
+
+            regionPath.addEventListener('mouseout', function() {
+                // 鼠標移開時恢復預設顏色，可以選擇性地清除資訊框內容
+                this.style.fill = 'var(--accent-blue)';
+            });
+
+            regionPath.addEventListener('click', function() {
+                updateInfoBox(this.id); // 點擊時也更新資訊框
+                // 點擊後讓該區域顏色保持一段時間，或設定為另一種顏色
+                const originalFill = this.style.fill;
+                this.style.fill = '#FF7F50'; // Coral
+                setTimeout(() => {
+                    this.style.fill = originalFill;
+                }, 1000); // 1秒後恢復
+            });
+        });
+
+        // --- 產業比例圖表邏輯 ---
+        const industryData = [
+            { name: '服務業', value: 70, color: 'var(--primary-yellow)' },
+            { name: '工業', value: 28, color: 'var(--secondary-orange)' },
+            { name: '農業', value: 2, color: 'var(--accent-green)' }
+        ];
+
+        const barChartContainer = document.getElementById('industry-bar-chart');
+        const maxChartHeight = 250; // 圖表柱子的最大像素高度
+
+        function renderBarChart() {
+            barChartContainer.innerHTML = ''; // 清空舊的柱子
+            const totalValue = industryData.reduce((sum, item) => sum + item.value, 0);
+
+            industryData.forEach((item, index) => {
+                const barHeight = (item.value / totalValue) * maxChartHeight;
+                const barDiv = document.createElement('div');
+                barDiv.classList.add('bar', 'animate__animated', 'animate__fadeInUp');
+                barDiv.style.height = '0px'; // 初始高度為0，用於動畫
+                barDiv.style.backgroundColor = item.color;
+                barDiv.style.animationDelay = `${index * 0.2}s`; // 錯開動畫時間
+
+                const valueSpan = document.createElement('span');
+                valueSpan.classList.add('bar-value');
+                valueSpan.textContent = `${item.value}%`;
+
+                const labelSpan = document.createElement('span');
+                labelSpan.classList.add('bar-label');
+                labelSpan.textContent = item.name;
+
+                barDiv.appendChild(valueSpan);
+                barDiv.appendChild(labelSpan);
+                barChartContainer.appendChild(barDiv);
+
+                // 動態設定高度，觸發 CSS transition 動畫
+                setTimeout(() => {
+                    barDiv.style.height = `${barHeight}px`;
+                }, 50 + index * 100);
+            });
+        }
+        renderBarChart(); // 初始化時渲染圖表
+
+        // --- 趣味互動測驗邏輯 ---
+        const quizQuestions = [
+            {
+                question: "請問，台灣的哪一個地區以盛產「芒果」和「鳳梨」聞名，同時也是重要的漁業基地？",
+                options: ["北部地區", "中部地區", "南部地區", "東部地區"],
+                answer: "南部地區",
+                hint: "芒果和鳳梨都喜歡溫暖的氣候，而且這個地區靠海，漁產豐富喔！"
+            },
+            {
+                question: "台灣被稱為「護國神山」的「半導體產業」，主要集中在哪一個地區？",
+                options: ["東部地區", "北部地區", "南部地區", "離島地區"],
+                answer: "北部地區",
+                hint: "想想台灣有哪些重要的科學園區，它們主要分佈在哪裡呢？"
+            },
+            {
+                question: "花蓮、台東因為擁有壯麗的山脈和海岸線，主要發展的產業是什麼？",
+                options: ["重工業", "高科技業", "觀光業", "精密機械業"],
+                answer: "觀光業",
+                hint: "大家喜歡去那裡看山、看海、體驗大自然！"
+            },
+            {
+                question: "哪個地區以「高粱酒」和「貢糖」作為特色伴手禮，擁有豐富的戰地歷史文化？",
+                options: ["澎湖群島", "金門/馬祖", "中部地區", "南部地區"],
+                answer: "金門/馬祖",
+                hint: "它們是台灣非常特別的離島喔！"
+            },
+            {
+                question: "台灣中部地區，除了精密機械製造，也盛產哪一種廣受歡迎的飲品原料？",
+                options: ["咖啡", "茶葉", "果汁", "啤酒"],
+                answer: "茶葉",
+                hint: "阿里山和日月潭附近，有很多有名的農產品，其中一種可以泡來喝！"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answeredThisQuestion = false; // 防止重複作答
+
+        const quizQuestionElem = document.getElementById('quiz-question');
+        const quizOptionsElem = document.getElementById('quiz-options');
+        const quizFeedbackElem = document.getElementById('quiz-feedback');
+        const quizResultElem = document.getElementById('quiz-result');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+
+        function displayQuestion() {
+            if (currentQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuestionIndex];
+                quizQuestionElem.textContent = q.question;
+                quizOptionsElem.innerHTML = ''; // 清空舊選項
+                quizFeedbackElem.textContent = '';
+                nextQuestionBtn.classList.add('d-none'); // 隱藏下一題按鈕
+                answeredThisQuestion = false;
+
+                // 為問題添加動畫
+                quizQuestionElem.classList.remove('animate__fadeIn', 'animate__bounceIn');
+                void quizQuestionElem.offsetWidth; // 觸發重新渲染
+                quizQuestionElem.classList.add('animate__fadeIn');
+
+                q.options.forEach((option, index) => {
+                    const colDiv = document.createElement('div');
+                    colDiv.classList.add('col-12', 'col-md-6', 'mb-3'); // 響應式佈局
+                    const btn = document.createElement('button');
+                    btn.classList.add('btn', 'btn-option', 'animate__animated', 'animate__fadeInUp');
+                    btn.textContent = option;
+                    btn.style.animationDelay = `${index * 0.1}s`; // 選項錯開動畫
+                    btn.addEventListener('click', () => selectAnswer(option, btn));
+                    colDiv.appendChild(btn);
+                    quizOptionsElem.appendChild(colDiv);
+                });
+            } else {
+                showResults(); // 所有題目答完後顯示結果
+            }
+        }
+
+        function selectAnswer(selectedOption, clickedButton) {
+            if (answeredThisQuestion) return;
+            answeredThisQuestion = true;
+
+            const q = quizQuestions[currentQuestionIndex];
+            const allOptionButtons = quizOptionsElem.querySelectorAll('.btn-option');
+
+            allOptionButtons.forEach(btn => {
+                btn.disabled = true; // 選擇後禁用所有選項
+                if (btn.textContent === q.answer) {
+                    btn.classList.add('correct'); // 正確答案樣式
+                } else if (btn.textContent === selectedOption) {
+                    btn.classList.add('wrong'); // 錯誤答案樣式
+                }
+            });
+
+            if (selectedOption === q.answer) {
+                score++;
+                quizFeedbackElem.textContent = '答對了！你真棒！🎉';
+                quizFeedbackElem.classList.remove('animate__headShake', 'text-danger');
+                quizFeedbackElem.classList.add('animate__pulse', 'text-success');
+                triggerConfetti(30); // 答對時噴灑彩帶
+            } else {
+                quizFeedbackElem.textContent = `答錯了！小提示：${q.hint}`;
+                quizFeedbackElem.classList.remove('animate__pulse', 'text-success');
+                quizFeedbackElem.classList.add('animate__headShake', 'text-danger');
+            }
+            nextQuestionBtn.classList.remove('d-none'); // 顯示下一題按鈕
+        }
+
+        function showResults() {
+            quizOptionsElem.innerHTML = '';
+            quizQuestionElem.textContent = '測驗結束！';
+            quizFeedbackElem.textContent = '';
+            quizResultElem.classList.remove('d-none');
+            quizResultElem.textContent = `你總共答對了 ${score} 題，總共 ${quizQuestions.length} 題。`;
+            restartQuizBtn.classList.remove('d-none'); // 顯示重新開始按鈕
+            nextQuestionBtn.classList.add('d-none'); // 隱藏下一題按鈕
+            quizQuestionElem.classList.remove('animate__fadeIn');
+            quizResultElem.classList.add('animate__animated', 'animate__bounceIn'); // 結果動畫
+
+            if (score === quizQuestions.length) {
+                quizResultElem.textContent += ' 你是台灣產業小博士！🏆';
+                triggerConfetti(100); // 全部答對噴更多彩帶
+            } else if (score >= quizQuestions.length / 2) {
+                quizResultElem.textContent += ' 表現很不錯，再加油一點！';
+            } else {
+                quizResultElem.textContent += ' 繼續努力，下次會更好喔！';
+            }
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizResultElem.classList.add('d-none');
+            restartQuizBtn.classList.add('d-none');
+            displayQuestion();
+        }
+
+        nextQuestionBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            displayQuestion();
+        });
+        restartQuizBtn.addEventListener('click', resetQuiz);
+
+        displayQuestion(); // 初始化時顯示第一道題目
+
+        // --- 彩帶效果函數 ---
+        function triggerConfetti(count = 30) {
+            const colors = ['var(--primary-yellow)', 'var(--secondary-orange)', 'var(--accent-green)', 'var(--accent-blue)', 'var(--folk-red)'];
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confetti.style.animationDuration = `${2 + Math.random() * 2}s`; // 2到4秒的動畫時長
+                document.body.appendChild(confetti);
+
+                // 動畫結束後移除彩帶元素，避免DOM過多
+                confetti.addEventListener('animationend', () => {
+                    confetti.remove();
+                });
+            }
+        }
+
+        // --- Animate.css 區塊滾動時動畫效果 ---
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+            root: null, // 觀察整個視窗
+            rootMargin: '0px',
+            threshold: 0.2 // 當區塊 20% 進入視窗時觸發
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__fadeInUp'); // 添加進入動畫
+                    // 對區塊內部的特定元素也添加動畫
+                    entry.target.querySelectorAll('h2.animate__bounceIn, .list-group-item.animate__fadeInRight').forEach(el => {
+                        el.classList.remove('animate__animated', 'animate__bounceIn', 'animate__fadeInRight'); // 移除舊動畫類，以便重複觸發
+                        void el.offsetWidth; // 強制瀏覽器重繪
+                        if (el.tagName === 'H2') {
+                            el.classList.add('animate__animated', 'animate__bounceIn');
+                        } else {
+                            el.classList.add('animate__animated', 'animate__fadeInRight');
+                        }
+                    });
+                    observer.unobserve(entry.target); // 一旦動畫觸發，就不再觀察該區塊
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            section.classList.remove('animate__fadeInUp'); // 確保開始時是隱藏的
+            sectionObserver.observe(section);
+        });
+
+        // DOM 加載完成後觸發初始動畫，讓頁面更有動感
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.navbar-brand').classList.add('animate__bounceInLeft');
+            // 為第一個 h2 標題也添加初始動畫
+            const firstH2 = document.querySelector('section h2');
+            if(firstH2) {
+                firstH2.classList.add('animate__animated', 'animate__bounceIn');
+            }
+            // 為地圖資訊框添加初始動畫
+            const mapInfoBoxElem = document.querySelector('#map-info-box');
+            if(mapInfoBoxElem) {
+                mapInfoBoxElem.classList.add('animate__animated', 'animate__fadeInRight');
+            }
+        });
+    </script>
+</body>
+</html>
+```
