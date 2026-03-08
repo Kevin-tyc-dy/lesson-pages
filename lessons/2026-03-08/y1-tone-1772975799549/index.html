@@ -1,0 +1,583 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>認識我的鄰居 - 櫻桃小丸子風格教學網頁</title>
+    <!-- Google Fonts: Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS CDN (用於響應式佈局) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Animate.css CDN (用於生動動畫) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        /* 自定義 CSS 樣式，模擬櫻桃小丸子活潑風格 */
+        :root {
+            --maruko-pink: #FFC0CB; /* 淺粉紅 */
+            --maruko-yellow: #FFD700; /* 金色 */
+            --maruko-blue: #ADD8E6; /* 淺藍色 */
+            --maruko-green: #90EE90; /* 淺綠色 */
+            --maruko-red: #FF6347; /* 番茄紅，用於強調/回饋 */
+            --maruko-dark: #333; /* 深色文字 */
+            --maruko-light: #FFF; /* 淺色背景 */
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            /* 漸層背景色，增加活潑感 */
+            background: linear-gradient(135deg, var(--maruko-blue) 0%, var(--maruko-pink) 100%);
+            color: var(--maruko-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* 防止水平滾動 */
+        }
+
+        .container {
+            max-width: 960px; /* 限制內容寬度 */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: var(--maruko-light);
+            border-radius: 25px; /* 圓角容器 */
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* 柔和陰影 */
+            position: relative;
+        }
+
+        header {
+            background-color: var(--maruko-yellow); /* 標頭背景色 */
+            color: var(--maruko-dark);
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 20px 20px 0 0; /* 標頭上方圓角 */
+            /* 調整標頭位置，使其與容器頂部對齊 */
+            margin: -30px -30px 30px -30px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        header h1 {
+            font-size: 3.5rem; /* 大標題字體 */
+            font-weight: 900; /* 極粗字體 */
+            margin: 0;
+            color: var(--maruko-red); /* 標題文字顏色 */
+            text-shadow: 2px 2px 0px var(--maruko-light); /* 文字陰影，增加立體感 */
+            animation-delay: 0.5s; /* 延遲動畫 */
+        }
+
+        header .maruko-icon {
+            font-size: 4rem; /* 圖標大小 */
+            margin-right: 15px;
+            vertical-align: middle;
+            display: inline-block;
+            transform: rotate(-10deg); /* 稍微傾斜的圖標 */
+        }
+
+        h2 {
+            color: var(--maruko-red);
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            font-size: 2.2rem; /* 副標題字體 */
+            text-align: center;
+        }
+
+        h3 {
+            color: var(--maruko-dark);
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--maruko-dark);
+        }
+
+        /* 學習重點介紹區塊樣式 */
+        .section-intro .card {
+            background-color: var(--maruko-light);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease-in-out; /* 懸停動畫 */
+            margin-bottom: 20px;
+        }
+
+        .section-intro .card:hover {
+            transform: translateY(-5px); /* 懸停時上移 */
+        }
+
+        .section-intro .card-img-top {
+            border-radius: 15px 15px 0 0;
+            height: 200px;
+            object-fit: cover; /* 圖片裁剪方式 */
+        }
+
+        .section-intro .card-body {
+            padding: 20px;
+        }
+
+        .section-intro .card-title {
+            color: var(--maruko-red);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* 遊戲區塊樣式 */
+        .quiz-container {
+            background-color: var(--maruko-pink);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .quiz-question-image {
+            max-width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .quiz-question-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--maruko-dark);
+            margin-bottom: 30px;
+        }
+
+        .quiz-options .btn {
+            background-color: var(--maruko-yellow);
+            color: var(--maruko-dark);
+            border: 3px solid var(--maruko-red);
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 50px; /* 圓形按鈕 */
+            transition: all 0.2s ease-in-out;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-options .btn:hover {
+            background-color: var(--maruko-red);
+            color: var(--maruko-light);
+            transform: translateY(-3px); /* 懸停時上移 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .quiz-feedback {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .quiz-feedback.correct {
+            color: var(--maruko-green); /* 答對顏色 */
+        }
+
+        .quiz-feedback.incorrect {
+            color: var(--maruko-red); /* 答錯顏色 */
+        }
+
+        .quiz-score {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--maruko-dark);
+        }
+
+        .next-question-btn, .restart-game-btn {
+            background-color: var(--maruko-red);
+            color: var(--maruko-light);
+            border: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 12px 25px;
+            border-radius: 30px;
+            margin-top: 20px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .next-question-btn:hover, .restart-game-btn:hover {
+            background-color: #e64a2f; /* 懸停時顏色變深 */
+            transform: translateY(-2px);
+        }
+
+        /* 分享區塊樣式 */
+        .sharing-area {
+            background-color: var(--maruko-blue);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .sharing-area label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--maruko-dark);
+            margin-bottom: 10px;
+        }
+
+        .sharing-area .form-control {
+            border-radius: 10px;
+            border: 2px solid var(--maruko-red);
+            padding: 10px;
+            font-size: 1.1rem;
+        }
+
+        .sharing-area .btn-submit {
+            background-color: var(--maruko-green);
+            color: var(--maruko-dark);
+            border: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 12px 25px;
+            border-radius: 30px;
+            margin-top: 20px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .sharing-area .btn-submit:hover {
+            background-color: #7EC0EE; /* 懸停時顏色變深 */
+            transform: translateY(-2px);
+        }
+
+        /* 頁尾樣式 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--maruko-dark);
+            font-size: 1rem;
+            background-color: var(--maruko-yellow);
+            border-radius: 0 0 25px 25px; /* 頁尾下方圓角 */
+            /* 調整頁尾位置，使其與容器底部對齊 */
+            margin: 30px -30px -30px -30px;
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            .maruko-icon {
+                font-size: 3rem;
+                margin-right: 10px;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            h3 {
+                font-size: 1.4rem;
+            }
+            .quiz-question-text {
+                font-size: 1.4rem;
+            }
+            .quiz-options .btn {
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container animate__animated animate__fadeInUp">
+        <header>
+            <h1 class="animate__animated animate__bounceInDown">
+                <span class="maruko-icon" role="img" aria-label="smiling face with heart-eyes">💖</span> 認識我的鄰居
+            </h1>
+        </header>
+
+        <section id="introduction" class="section-intro py-4">
+            <h2 class="animate__animated animate__fadeInLeft">鄰居好朋友，一起來認識！</h2>
+            <p class="text-center lead">我們的社區裡有好多好鄰居，他們讓我們的生活更方便、更有趣！</p>
+
+            <div class="row mt-4">
+                <!-- 店家鄰居介紹卡片 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card animate__animated animate__zoomIn">
+                        <img src="https://source.unsplash.com/featured/?bakery,shop" class="card-img-top" alt="麵包店">
+                        <div class="card-body">
+                            <h3 class="card-title">👨‍🍳 店家鄰居</h3>
+                            <p class="card-text">麵包店、超市、藥局... 他們賣東西，讓我們可以買到生活用品和好吃的食物。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 住家鄰居介紹卡片 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card animate__animated animate__zoomIn animate__delay-1s">
+                        <img src="https://source.unsplash.com/featured/?house,home,residential" class="card-img-top" alt="住家">
+                        <div class="card-body">
+                            <h3 class="card-title">🏠 住家鄰居</h3>
+                            <p class="card-text">住在我們附近的人，他們和我們一樣，把家整理得很溫馨，是我們生活中的好夥伴。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 學校鄰居介紹卡片 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card animate__animated animate__zoomIn animate__delay-2s">
+                        <img src="https://source.unsplash.com/featured/?school,classroom" class="card-img-top" alt="學校">
+                        <div class="card-body">
+                            <h3 class="card-title">🏫 學校鄰居</h3>
+                            <p class="card-text">學校是我們學習的地方，老師教我們知識，和同學一起玩，每天都充滿歡樂！</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 公園/休閒場所鄰居介紹卡片 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card animate__animated animate__zoomIn animate__delay-3s">
+                        <img src="https://source.unsplash.com/featured/?park,playground" class="card-img-top" alt="公園">
+                        <div class="card-body">
+                            <h3 class="card-title">🌳 公園鄰居</h3>
+                            <p class="card-text">公園是大家運動、玩耍的好地方。我們可以在這裡遇到很多好朋友，一起開心玩耍！</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 其他服務場所鄰居介紹卡片 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card animate__animated animate__zoomIn animate__delay-4s">
+                        <img src="https://source.unsplash.com/featured/?hospital,clinic" class="card-img-top" alt="醫院診所">
+                        <div class="card-body">
+                            <h3 class="card-title">🏥 服務鄰居</h3>
+                            <p class="card-text">醫院、郵局、警察局... 他們提供各種服務，幫助我們解決生活中的大小事，保護我們的安全。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 消防隊鄰居介紹卡片 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card animate__animated animate__zoomIn animate__delay-5s">
+                        <img src="https://source.unsplash.com/featured/?firestation,firefighter" class="card-img-top" alt="消防隊">
+                        <div class="card-body">
+                            <h3 class="card-title">🚒 消防隊鄰居</h3>
+                            <p class="card-text">消防隊叔叔阿姨總是準備好幫助我們，遇到火災或需要救援的時候，他們會很快趕到！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="game-quiz" class="py-4">
+            <h2 class="animate__animated animate__fadeInRight">我是小小觀察家！</h2>
+            <p class="text-center lead">仔細看看圖片，猜猜看這是哪種鄰居或場所呢？</p>
+
+            <div class="quiz-container mt-4 animate__animated animate__bounceIn">
+                <img id="quizImage" src="https://source.unsplash.com/featured/?neighborhood,street" class="quiz-question-image" alt="測驗圖片">
+                <p id="quizQuestion" class="quiz-question-text">這是什麼地方呢？</p>
+                <div id="quizOptions" class="quiz-options d-grid gap-2 col-md-8 mx-auto">
+                    <!-- 測驗選項將由 JavaScript 動態生成 -->
+                </div>
+                <div id="quizFeedback" class="quiz-feedback animate__animated"></div>
+                <div id="quizScore" class="quiz-score">分數：0 / 0</div>
+                <button id="nextQuestionBtn" class="next-question-btn d-none">下一題</button>
+                <button id="restartGameBtn" class="restart-game-btn d-none">重新開始</button>
+            </div>
+        </section>
+
+        <section id="sharing-area" class="py-4">
+            <h2 class="animate__animated animate__fadeInLeft">我的鄰居觀察日記</h2>
+            <p class="text-center lead">你和鄰居有什麼有趣的故事嗎？快來分享給大家知道！</p>
+            <div class="sharing-area mt-4 animate__animated animate__bounceIn">
+                <form action="your_php_server.php" method="POST">
+                    <div class="mb-3">
+                        <label for="sharerName" class="form-label d-block text-start">姓名：</label>
+                        <input type="text" class="form-control" id="sharerName" name="sharerName" placeholder="請輸入你的名字" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="shareContent" class="form-label d-block text-start">分享內容：</label>
+                        <textarea class="form-control" id="shareContent" name="shareContent" rows="5" placeholder="分享你和鄰居的故事或觀察心得" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-submit animate__animated animate__pulse animate__infinite">送出分享</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <p>Designed by K</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap 5 JS CDN (bundle 包含 Popper，建議放在 body 結束標籤前) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <script>
+        // JavaScript 程式碼，用於「我是小小觀察家」測驗遊戲
+        const quizData = [
+            {
+                image: "https://source.unsplash.com/featured/?firestation,firefighter",
+                question: "這裡住著英勇的消防員，是誰的家？",
+                options: ["學校", "消防隊", "郵局", "超市"],
+                answer: "消防隊"
+            },
+            {
+                image: "https://source.unsplash.com/featured/?bakery,pastry",
+                question: "這裡賣著香噴噴的麵包和蛋糕，是什麼地方？",
+                options: ["圖書館", "麵包店", "醫院", "公園"],
+                answer: "麵包店"
+            },
+            {
+                image: "https://source.unsplash.com/featured/?hospital,doctor",
+                question: "生病或受傷時，我們會到這裡找醫生護士，這是哪裡？",
+                options: ["警察局", "學校", "醫院", "銀行"],
+                answer: "醫院"
+            },
+            {
+                image: "https://source.unsplash.com/featured/?school,classroom",
+                question: "我們每天早上揹著書包去學習、玩耍的地方，是什麼？",
+                options: ["消防隊", "郵局", "學校", "百貨公司"],
+                answer: "學校"
+            },
+            {
+                image: "https://source.unsplash.com/featured/?postoffice,mail",
+                question: "想要寄信或包裹給朋友，我們會到這裡，這是哪裡？",
+                options: ["診所", "咖啡店", "郵局", "超市"],
+                answer: "郵局"
+            }
+        ];
+
+        let currentQuestionIndex = 0; // 當前題目索引
+        let score = 0; // 分數
+        let totalQuestionsAttempted = 0; // 已嘗試的題目數
+        let quizCompleted = false; // 測驗是否完成
+
+        // 取得 DOM 元素
+        const quizImage = document.getElementById('quizImage');
+        const quizQuestion = document.getElementById('quizQuestion');
+        const quizOptions = document.getElementById('quizOptions');
+        const quizFeedback = document.getElementById('quizFeedback');
+        const quizScore = document.getElementById('quizScore');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const restartGameBtn = document.getElementById('restartGameBtn');
+
+        // 顯示題目函數
+        function displayQuestion() {
+            if (currentQuestionIndex < quizData.length) {
+                const question = quizData[currentQuestionIndex];
+                
+                // 更新圖片並重新觸發 Animate.css 動畫
+                quizImage.src = question.image;
+                quizImage.classList.remove('animate__animated', 'animate__flipInY'); 
+                void quizImage.offsetWidth; // 強制瀏覽器重新繪製，以重新觸發動畫
+                quizImage.classList.add('animate__animated', 'animate__flipInY'); 
+
+                quizQuestion.textContent = question.question;
+                quizOptions.innerHTML = ''; // 清除舊的選項
+                quizFeedback.textContent = ''; // 清除回饋訊息
+                quizFeedback.className = 'quiz-feedback animate__animated'; // 重設回饋樣式
+                nextQuestionBtn.classList.add('d-none'); // 隱藏下一題按鈕
+
+                // 動態生成選項按鈕
+                question.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.classList.add('btn', 'animate__animated', 'animate__fadeInUp');
+                    button.onclick = () => checkAnswer(option, button); // 綁定點擊事件
+                    quizOptions.appendChild(button);
+                });
+                updateScoreDisplay(); // 更新分數顯示
+            } else {
+                endQuiz(); // 所有題目答完，結束測驗
+            }
+        }
+
+        // 檢查答案函數
+        function checkAnswer(selectedOption, clickedButton) {
+            if (quizCompleted) return; // 測驗結束後不再接受作答
+
+            totalQuestionsAttempted++; // 增加已嘗試題目數
+            const correctAnswer = quizData[currentQuestionIndex].answer;
+
+            // 禁用所有選項按鈕，防止重複點擊
+            Array.from(quizOptions.children).forEach(btn => {
+                btn.disabled = true;
+                btn.style.cursor = 'default';
+                // 高亮正確答案
+                if (btn.textContent === correctAnswer) {
+                    btn.style.backgroundColor = 'var(--maruko-green)';
+                    btn.style.borderColor = 'darkgreen';
+                    btn.style.color = 'white';
+                }
+            });
+
+            if (selectedOption === correctAnswer) {
+                score++; // 答對加分
+                quizFeedback.textContent = '答對了！你真棒！🎉';
+                quizFeedback.classList.remove('animate__shakeX', 'incorrect'); // 移除錯誤回饋動畫
+                quizFeedback.classList.add('animate__tada', 'correct'); // 添加答對回饋動畫
+                clickedButton.style.backgroundColor = 'var(--maruko-green)';
+                clickedButton.style.borderColor = 'darkgreen';
+                clickedButton.style.color = 'white';
+            } else {
+                quizFeedback.textContent = `答錯了，答案是 ${correctAnswer}！再想想看喔！🤔`;
+                quizFeedback.classList.remove('animate__tada', 'correct'); // 移除答對回饋動畫
+                quizFeedback.classList.add('animate__shakeX', 'incorrect'); // 添加答錯回饋動畫
+                clickedButton.style.backgroundColor = 'var(--maruko-red)';
+                clickedButton.style.borderColor = 'darkred';
+                clickedButton.style.color = 'white';
+            }
+
+            updateScoreDisplay(); // 更新分數顯示
+            nextQuestionBtn.classList.remove('d-none'); // 顯示下一題按鈕
+        }
+
+        // 更新分數顯示函數
+        function updateScoreDisplay() {
+            quizScore.textContent = `分數：${score} / ${totalQuestionsAttempted}`;
+        }
+
+        // 載入下一題函數
+        function nextQuestion() {
+            currentQuestionIndex++;
+            quizFeedback.classList.remove('animate__tada', 'animate__shakeX'); // 清除上一個回饋動畫
+            if (currentQuestionIndex < quizData.length) {
+                displayQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        // 結束測驗函數
+        function endQuiz() {
+            quizCompleted = true;
+            quizQuestion.textContent = `測驗結束！你的總分是：${score} / ${quizData.length}。`;
+            quizImage.src = "https://source.unsplash.com/featured/?celebration,kids,success"; // 顯示完成圖片
+            quizOptions.innerHTML = ''; // 清除選項
+            quizFeedback.textContent = '恭喜你完成了所有題目！你對鄰居的認識又更深了！';
+            quizFeedback.classList.remove('animate__shakeX', 'incorrect');
+            quizFeedback.classList.add('animate__tada', 'correct');
+            nextQuestionBtn.classList.add('d-none'); // 隱藏下一題按鈕
+            restartGameBtn.classList.remove('d-none'); // 顯示重新開始按鈕
+            updateScoreDisplay();
+        }
+
+        // 重新開始遊戲函數
+        function restartGame() {
+            currentQuestionIndex = 0;
+            score = 0;
+            totalQuestionsAttempted = 0;
+            quizCompleted = false;
+            restartGameBtn.classList.add('d-none'); // 隱藏重新開始按鈕
+            displayQuestion();
+        }
+
+        // 事件監聽器
+        nextQuestionBtn.addEventListener('click', nextQuestion);
+        restartGameBtn.addEventListener('click', restartGame);
+
+        // 網頁載入完成時，開始顯示第一道題目
+        document.addEventListener('DOMContentLoaded', displayQuestion);
+    </script>
+</body>
+</html>
+```
