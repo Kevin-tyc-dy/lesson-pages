@@ -1,0 +1,579 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>臺灣多元文化小探險 - 國小社會科教育遊戲</title>
+    <!-- Google Fonts: Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --primary-color: #6C63FF; /* 紫色 */
+            --secondary-color: #FFC107; /* 黃色 */
+            --accent-color: #20C997; /* 綠色 */
+            --text-color: #343a40; /* 深灰色 */
+            --light-bg-color: #F8F9FA; /* 淺灰白 */
+            --card-bg-color: #FFFFFF; /* 白色 */
+            --header-bg-color: linear-gradient(135deg, #FFD700, #FF6F61); /* 金黃到橘紅漸變 */
+            --footer-bg-color: #495057; /* 深灰 */
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--light-bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem); /* Responsive font size */
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--primary-color);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: var(--accent-color);
+        }
+
+        p {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+        }
+
+        .section-padding {
+            padding: 4rem 0;
+        }
+
+        .header-section {
+            background: var(--header-bg-color);
+            padding: 5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-section img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 5px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .intro-section, .core-concept-section {
+            background-color: var(--card-bg-color);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        .ethnic-group-card {
+            background-color: var(--card-bg-color);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            height: 100%; /* Ensure cards are same height in a row */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ethnic-group-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .ethnic-group-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 3px solid var(--secondary-color);
+        }
+
+        .ethnic-group-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .ethnic-group-card p {
+            font-size: 1rem;
+            color: var(--text-color);
+            flex-grow: 1; /* Allow description to take available space */
+        }
+
+        .quiz-section {
+            background-color: var(--card-bg-color);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .quiz-question {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            min-height: 80px; /* Prevent layout shift when question changes */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .quiz-options .btn {
+            font-size: 1.25rem;
+            padding: 1rem 2rem;
+            margin: 0.5rem;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-options .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .feedback-message {
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            min-height: 50px; /* Prevent layout shift */
+        }
+
+        .btn-quiz-nav {
+            font-size: 1.2rem;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            margin-top: 1.5rem;
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-quiz-nav:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .result-message {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .php-form-section {
+            background-color: var(--card-bg-color);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .php-form-section .form-control {
+            font-size: 1.1rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+        }
+
+        .php-form-section .btn-submit {
+            font-size: 1.2rem;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .php-form-section .btn-submit:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            background-color: var(--footer-bg-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 1rem;
+        }
+
+        .correct-answer {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .wrong-answer {
+            color: #DC3545; /* Bootstrap danger red */
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 2rem 0;
+            }
+            .header-section {
+                padding: 3rem 0;
+            }
+            .quiz-options .btn {
+                max-width: none;
+            }
+            .quiz-section, .php-form-section {
+                padding: 2rem;
+            }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.3rem; }
+            p { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header-section animate__animated animate__fadeInDown">
+        <div class="container">
+            <img src="https://source.unsplash.com/100x100/?Taiwan,map,cultural" alt="臺灣地圖與文化意象" class="img-fluid animate__animated animate__pulse animate__infinite">
+            <h1 class="animate__animated animate__bounceIn">臺灣多元文化小探險</h1>
+        </div>
+    </header>
+
+    <main>
+        <!-- Introduction Section -->
+        <section class="section-padding intro-section animate__animated animate__fadeInUp">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 text-center">
+                        <h2>歡迎來到多元臺灣！</h2>
+                        <p class="lead">臺灣是一個充滿活力和色彩的島嶼，這裡住著來自不同地方、擁有不同文化的人們。就像彩虹一樣，每種顏色都獨特而美麗，組合在一起就變得更加精彩！讓我們一起來探索臺灣豐富的多元文化，學習如何欣賞和尊重彼此的差異吧！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ethnic Group Introduction Section -->
+        <section class="section-padding">
+            <div class="container">
+                <h2 class="text-center mb-5 animate__animated animate__flipInX">認識臺灣的多元族群</h2>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- 新住民 -->
+                    <div class="col">
+                        <div class="ethnic-group-card animate__animated animate__fadeInLeft animate__delay-1s">
+                            <img src="https://source.unsplash.com/400x300/?Southeast-Asian,culture,children,family" alt="新住民家庭" class="img-fluid">
+                            <h3>新住民</h3>
+                            <p>他們來自東南亞、中國大陸等不同國家，因為結婚、工作等原因來到臺灣。他們帶來了家鄉的語言、美食和習俗，讓臺灣的生活更加多元豐富！</p>
+                        </div>
+                    </div>
+                    <!-- 原住民 -->
+                    <div class="col">
+                        <div class="ethnic-group-card animate__animated animate__fadeInUp animate__delay-1s">
+                            <img src="https://source.unsplash.com/400x300/?Taiwan-aboriginal,indigenous,culture,tradition" alt="原住民族群" class="img-fluid">
+                            <h3>原住民</h3>
+                            <p>他們是臺灣最原來的居民，擁有悠久的歷史和獨特的文化。每個族群都有自己的語言、歌舞、服飾和生活方式，是大自然的朋友，也是守護臺灣土地的先驅。</p>
+                        </div>
+                    </div>
+                    <!-- 閩南人 -->
+                    <div class="col">
+                        <div class="ethnic-group-card animate__animated animate__fadeInRight animate__delay-1s">
+                            <img src="https://source.unsplash.com/400x300/?Taiwan,temple,lantern,street" alt="閩南文化" class="img-fluid">
+                            <h3>閩南人</h3>
+                            <p>他們是臺灣人數最多的族群，主要來自中國福建省。他們帶來了閩南語、歌仔戲、布袋戲和各種傳統節慶，像是過年、媽祖遶境等，深刻影響了臺灣的飲食和生活習慣。</p>
+                        </div>
+                    </div>
+                    <!-- 客家人 -->
+                    <div class="col">
+                        <div class="ethnic-group-card animate__animated animate__fadeInLeft animate__delay-2s">
+                            <img src="https://source.unsplash.com/400x300/?Taiwan-Hakka,culture,flower,village" alt="客家文化" class="img-fluid">
+                            <h3>客家人</h3>
+                            <p>他們是從中國北方經過多次遷徙來到臺灣的。客家人勤儉、團結，有獨特的客家話、美食（如客家小炒、麻糬）和藍染、花布等工藝，展現堅韌的生命力。</p>
+                        </div>
+                    </div>
+                    <!-- 外國人 -->
+                    <div class="col">
+                        <div class="ethnic-group-card animate__animated animate__fadeInUp animate__delay-2s">
+                            <img src="https://source.unsplash.com/400x300/?Taiwan-city,international,student,foreigner" alt="外國人在台" class="img-fluid">
+                            <h3>外國人</h3>
+                            <p>除了上述族群，臺灣也有許多來自世界各地的外國朋友，他們可能是來唸書、工作或旅遊。他們帶來了更多元的文化觀點，讓臺灣成為一個真正的國際化社會。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Learning Point Section -->
+        <section class="section-padding core-concept-section animate__animated animate__fadeInUp">
+            <div class="container">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
+                        <h2>尊重差異，讓愛更多！</h2>
+                        <p class="lead">每一個族群、每一個人都是獨特的，有著不同的習慣和思考方式。就像班上的同學一樣，大家長得不一樣、喜歡的東西不一樣，但我們都是好朋友！當我們學會欣賞和尊重這些不同，我們的世界就會變得更寬廣、更美麗，充滿更多的愛和理解！</p>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <img src="https://source.unsplash.com/400x400/?diversity,children,holding-hands,world" alt="尊重差異插圖" class="img-fluid rounded-circle shadow-lg animate__animated animate__heartBeat animate__delay-3s animate__infinite">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Quiz Section -->
+        <section class="section-padding quiz-section animate__animated animate__fadeInUp animate__delay-4s" id="quiz-section">
+            <div class="container">
+                <h2 class="text-center mb-5">多元文化小測驗</h2>
+                <div id="quiz-container">
+                    <p class="quiz-question mb-4 text-center" id="question-text"></p>
+                    <div id="options-container" class="d-grid gap-2 col-md-8 mx-auto quiz-options">
+                        <!-- Options will be dynamically inserted here -->
+                    </div>
+                    <div id="feedback" class="feedback-message text-center"></div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <button id="next-btn" class="btn btn-quiz-nav d-none">下一題</button>
+                        <button id="submit-quiz-btn" class="btn btn-quiz-nav d-none">完成測驗</button>
+                    </div>
+                    <div id="results" class="result-message d-none"></div>
+                    <div id="quiz-restart-btn" class="text-center mt-4 d-none">
+                        <button class="btn btn-primary btn-quiz-nav" onclick="resetQuiz()">重新測驗</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHP Form Section -->
+        <section class="section-padding php-form-section animate__animated animate__fadeInUp animate__delay-5s">
+            <div class="container">
+                <h2 class="text-center mb-4">告訴我們你的學習成果！</h2>
+                <form action="submit_quiz.php" method="POST" class="col-lg-6 mx-auto">
+                    <div class="mb-3">
+                        <label for="studentName" class="form-label">你的姓名：</label>
+                        <input type="text" class="form-control" id="studentName" name="studentName" placeholder="請輸入你的姓名" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="studentClass" class="form-label">你的班級：</label>
+                        <input type="text" class="form-control" id="studentClass" name="studentClass" placeholder="例如：三年甲班" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-submit animate__animated animate__pulse animate__infinite">送出學習記錄</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="animate__animated animate__fadeInUp animate__delay-5s">
+        <div class="container">
+            <p>&copy; 2026 臺灣多元文化小探險。保留所有權利。</p>
+            <p>Designed by K</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS CDN (Optional, but good for interactive components if using them) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <script>
+        const questions = [
+            {
+                question: "臺灣是一個擁有許多不同文化和族群的多元社會，這句話對嗎？",
+                options: ["O (對)", "X (錯)"],
+                correctAnswerIndex: 0
+            },
+            {
+                question: "新住民朋友來到臺灣，通常是因為什麼原因呢？",
+                options: ["來旅行", "來讀書", "結婚或工作", "來探險"],
+                correctAnswerIndex: 2
+            },
+            {
+                question: "原住民是臺灣最原來的居民，他們擁有自己獨特的語言和文化，這句話對嗎？",
+                options: ["O (對)", "X (錯)"],
+                correctAnswerIndex: 0
+            },
+            {
+                question: "閩南人是臺灣人數最多的族群，他們的語言是客家話。",
+                options: ["O (對)", "X (錯)"],
+                correctAnswerIndex: 1 // 閩南人講閩南語
+            },
+            {
+                question: "客家人勤儉、團結，他們的傳統美食有客家小炒和麻糬，這句話對嗎？",
+                options: ["O (對)", "X (錯)"],
+                correctAnswerIndex: 0
+            },
+            {
+                question: "臺灣的多元文化社會，表示大家都必須穿一樣的衣服、說一樣的語言。",
+                options: ["O (對)", "X (錯)"],
+                correctAnswerIndex: 1 // 多元表示不同
+            },
+            {
+                question: "當我們遇到不同文化的朋友時，應該怎麼樣對待他們呢？",
+                options: ["假裝沒看到", "嘲笑他們的不同", "尊重和欣賞他們", "要求他們改變"],
+                correctAnswerIndex: 2
+            },
+            {
+                question: "學習多元文化，對我們有什麼好處？",
+                options: ["讓我們變得更聰明", "讓我們交到更多朋友", "讓我們看見世界的廣大，學習包容", "沒有好處"],
+                correctAnswerIndex: 2
+            },
+            {
+                question: "外國人來臺灣，可能會是來做什麼呢？",
+                options: ["只有來旅遊", "只有來唸書", "唸書、工作、旅遊都有可能", "都不是"],
+                correctAnswerIndex: 2
+            },
+            {
+                question: "尊重差異就是指：每個人都是特別的，我們應該欣賞彼此的不同。",
+                options: ["O (對)", "X (錯)"],
+                correctAnswerIndex: 0
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answeredCurrentQuestion = false; // Flag to prevent multiple answers for one question
+
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const nextButton = document.getElementById('next-btn');
+        const submitQuizButton = document.getElementById('submit-quiz-btn');
+        const resultsDiv = document.getElementById('results');
+        const quizRestartBtn = document.getElementById('quiz-restart-btn');
+
+        function loadQuestion() {
+            answeredCurrentQuestion = false; // Reset flag for new question
+            feedbackDiv.textContent = ''; // Clear previous feedback
+            nextButton.classList.add('d-none'); // Hide next button initially
+            submitQuizButton.classList.add('d-none'); // Hide submit quiz button
+
+            if (currentQuestionIndex < questions.length) {
+                const q = questions[currentQuestionIndex];
+                questionText.textContent = `${currentQuestionIndex + 1}. ${q.question}`;
+                optionsContainer.innerHTML = ''; // Clear previous options
+
+                q.options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.classList.add('btn', 'btn-outline-primary', 'animate__animated', 'animate__fadeInUp');
+                    button.textContent = option;
+                    button.onclick = () => selectAnswer(index);
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                showResults();
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (answeredCurrentQuestion) return; // Prevent multiple answers
+
+            answeredCurrentQuestion = true;
+            const q = questions[currentQuestionIndex];
+            const optionButtons = optionsContainer.querySelectorAll('.btn');
+
+            optionButtons.forEach((button, index) => {
+                button.disabled = true; // Disable all buttons after an answer is selected
+                if (index === q.correctAnswerIndex) {
+                    button.classList.remove('btn-outline-primary');
+                    button.classList.add('btn-success', 'animate__animated', 'animate__pulse'); // Highlight correct
+                } else if (index === selectedIndex) {
+                    button.classList.remove('btn-outline-primary');
+                    button.classList.add('btn-danger', 'animate__animated', 'animate__headShake'); // Highlight wrong selected
+                }
+            });
+
+            if (selectedIndex === q.correctAnswerIndex) {
+                score++;
+                feedbackDiv.className = 'feedback-message text-center correct-answer animate__animated animate__rubberBand';
+                feedbackDiv.textContent = '太棒了！答對了！';
+            } else {
+                feedbackDiv.className = 'feedback-message text-center wrong-answer animate__animated animate__shakeX';
+                feedbackDiv.textContent = `答錯了... 正確答案是：${q.options[q.correctAnswerIndex]}`;
+            }
+
+            // Determine whether to show next question button or submit quiz button
+            if (currentQuestionIndex < questions.length - 1) {
+                nextButton.classList.remove('d-none');
+            } else {
+                submitQuizButton.classList.remove('d-none');
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showResults() {
+            questionText.classList.add('d-none');
+            optionsContainer.classList.add('d-none');
+            feedbackDiv.classList.add('d-none');
+            nextButton.classList.add('d-none');
+            submitQuizButton.classList.add('d-none');
+            
+            resultsDiv.classList.remove('d-none');
+            resultsDiv.classList.add('animate__animated', 'animate__fadeIn');
+
+            let message = '';
+            if (score === questions.length) {
+                message = `恭喜你！你答對了所有 ${score} 題！你是多元文化小達人！🎉`;
+                resultsDiv.classList.add('text-success');
+            } else if (score >= questions.length / 2) {
+                message = `你答對了 ${score} 題！表現很棒！繼續努力喔！👏`;
+                resultsDiv.classList.add('text-warning');
+            } else {
+                message = `你答對了 ${score} 題。沒關係，多加練習會更厲害！💪`;
+                resultsDiv.classList.add('text-danger');
+            }
+            resultsDiv.innerHTML = message + '<p class="mt-3">在臺灣多元的社會中，每個人都值得我們尊重與學習！</p>';
+            quizRestartBtn.classList.remove('d-none');
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            questionText.classList.remove('d-none');
+            optionsContainer.classList.remove('d-none');
+            feedbackDiv.classList.remove('d-none');
+            resultsDiv.classList.add('d-none');
+            quizRestartBtn.classList.add('d-none');
+
+            resultsDiv.classList.remove('text-success', 'text-warning', 'text-danger', 'animate__animated', 'animate__fadeIn');
+
+            loadQuestion();
+        }
+
+        // Event Listeners
+        nextButton.addEventListener('click', nextQuestion);
+        submitQuizButton.addEventListener('click', showResults);
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', loadQuestion);
+    </script>
+</body>
+</html>
+```
